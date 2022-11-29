@@ -6,7 +6,7 @@ Documentation is comming soon!
 # install
 
 ```bash
-npm i @mengkoding/ckptw
+npm i @mengkodingan/ckptw
 ```
 
 # example

@@ -103,8 +103,9 @@ module.exports = class Client {
     this.whats.ev.on("creds.update", this.saveState);
   }
 
-  onMessage() {
+  onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
+      c(m);
       this.m = m;
       let self = { ...this, getContentType };
 
