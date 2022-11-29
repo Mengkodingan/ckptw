@@ -8,33 +8,28 @@ const { checkQR, makeSocket } = require("./models/functions");
 const { toLog } = require("@mengkodingan/tolog");
 
 module.exports = class Client {
-  constructor(opts = {
-    name: String,
-    prefix: String,
-    autoRead: false,
-    authFile: String,
-    printQRInTerminal: true
+  constructor({
+    name = undefined,
+    prefix = undefined,
+    autoRead = false,
+    authFile = "./state.json",
+    printQRInTerminal = true
 }) {
-    if (!opts.name) throw new Error("[ckptw] name required!");
+    if (!name) throw new Error("[ckptw] name required!");
 
-    if (typeof opts.prefix == "string") {
-      opts.prefix = opts.prefix.split();
+    if (typeof prefix == "string") {
+      prefix = prefix.split();
     }
 
-    if (!opts.prefix) throw new Error("[ckptw] prefix required!");
+    if (!prefix) throw new Error("[ckptw] prefix required!");
 
-    this.NAME = opts.name;
-    this.PREFIX = opts.prefix;
-    this.autoRead = opts.autoRead;
+    this.NAME = name;
+    this.PREFIX = prefix;
     this.CMD = new Map();
-    this.userJoin = new Map();
-    this.userLeave = new Map();
-    this.anotherMap = new Map();
+    this.autoRead = autoRead;
+    this.printQRInTerminal = printQRInTerminal;
 
-    this.printQRInTerminal = opts.printQRInTerminal;
-
-    this.AUTH_FILE = opts.authFile;
-    if (!this.AUTH_FILE) this.AUTH_FILE = "./state.json";
+    this.AUTH_FILE = authFile;
     const { state, loadState, saveState } = useSingleFileAuthState(
       this.AUTH_FILE
     );
@@ -105,7 +100,7 @@ module.exports = class Client {
 
   onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
-      c(m);
+      c? c(m) : '';
       this.m = m;
       let self = { ...this, getContentType };
 
