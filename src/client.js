@@ -67,13 +67,11 @@ module.exports = class Client {
           console.log(
             "Device Logged Out, Please Delete Session file and Scan Again."
           );
-          process.exit();
         } else if (reason === DisconnectReason.badSession) {
-          console.log(
-            "\x1b[31mWhatscodeError 📕: \x1b[0mBad session file... Try deleting session file and rescan!\n\x1b[33mWhatscodeWarning 📙: \x1b[0mBUT IF YOU ARE LINKING THE BOTT WITH WAHSTAPP THEN WAIT FOR THIS RECONNECT PROCESS TO COMPLETE!\n\x1b[33mWhatscodeWarning 📙: \x1b[0mIF THIS ERROR STILL HAPPEN, TRY TO DO THE WAY ABOVE IE DELETE THE SESSION FILE AND RESCAN!\n\x1b[36mWhatscodeInfo 📘: \x1b[0mPrepare to Reconnect..."
-          );
-          console.log("\x1b[36mWhatscodeInfo 📘: \x1b[0mReconnecting...\n\n");
-          makeSocket(this)
+          toLog(4, 'Bad session file...');
+          toLog(1, "Reconnecting...");
+          await makeSocket(this);
+          toLog(1, 'Should be connected to Whatsapp now. You can exit this process with CTRL+C and rerun if the Whatsapp is not loading anymore.')
         } else if (reason === DisconnectReason.connectionClosed) {
           console.log("Connection closed....");
         } else if (reason === DisconnectReason.connectionLost) {
@@ -92,7 +90,7 @@ module.exports = class Client {
         }
       }
       if (update.connection == "connecting" || update.receivedPendingNotifications == "false") {
-			toLog(1, 0, "waiting for connection")
+			toLog(1, "waiting for connection")
 		}
 		if (update.connection == "open" || update.receivedPendingNotifications == "true") {
 			this.connect = true;
