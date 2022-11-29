@@ -1,4 +1,5 @@
-module.exports = async (m, client, cmd, prefix, getType, db, t) => {
+module.exports = async (self) => {
+  let { whats: client, CMD: cmd, PREFIX: prefix, getContentType: getType, m } = self;
   const { array_move } = require("../models/functions");
 
   var msg = m.messages[0];
@@ -38,7 +39,7 @@ module.exports = async (m, client, cmd, prefix, getType, db, t) => {
   }
 
   const startsP = prefix.find((p) => dy.startsWith(p));
-  if (!prefix.includes(startsP)) return require('./nonPrefixed')({ valArr, dy, msg, client, cmd, db, t });
+  if (!prefix.includes(startsP)) return require('./nonPrefixed')({ valArr, dy, msg, client, cmd });
 
   args = dy.slice(startsP.length).trim().split(/ +/g);
   command = args.shift().toLowerCase();
@@ -52,17 +53,7 @@ module.exports = async (m, client, cmd, prefix, getType, db, t) => {
   );
 
   if (val) {
-    require("../interpreter.js")(
-      val.code,
-      msg,
-      client,
-      args,
-      cmd,
-      db,
-      "",
-      false,
-      false,
-      val
-    );
+    let ctx = { id: msg.key.remoteJid, args, ...self.whats, msg }
+    val.code(ctx);
   }
 };

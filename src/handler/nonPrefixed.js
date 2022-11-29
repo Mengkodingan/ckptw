@@ -13,15 +13,7 @@ module.exports = async (d) => {
   if (!cmd.length) return;
   for (const theCmd of cmd) {
     const args = d.dy.slice(theCmd.name.length).split(" ");
-    await require("../interpreter.js")(
-      theCmd.code,
-      d.msg,
-      d.client,
-      args,
-      d.cmd,
-      d.db,
-      "",
-      false
-    );
+    let ctx = { id: msg.key.remoteJid, args, ...self.whats, msg };
+    val.code(ctx);
   }
 };

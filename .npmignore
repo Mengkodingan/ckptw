@@ -1,0 +1,5 @@
+/node_modules
+app.test.js
+package-lock.json
+.github
+state.json

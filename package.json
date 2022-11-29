@@ -1,7 +1,7 @@
 {
-  "name": "whatscode.js",
-  "version": "1.6.8",
-  "description": "whatscode.js is a package to create Whatsapp bots easily and quickly, even coding experience is not needed.",
+  "name": "@mengkodingan/ckptw",
+  "version": "0.0.1",
+  "description": "easy way to create Whatsapp Bot.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JastinXyz/whatscode.js.git"
+    "url": "git+https://github.com/Mengkodingan/ckptw.git"
   },
   "bugs": {
-    "url": "https://github.com/JastinXyz/whatscode.js/issues"
+    "url": "https://github.com/Mengkodingan/ckptw/issues"
   },
-  "homepage": "https://whatscode.jstnlt.my.id",
+  "homepage": "https://github.com/Mengkodingan/ckptw#readme",
   "keywords": [
     "whatsapp",
     "whatsapp-bot",
@@ -30,12 +30,11 @@
   "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id)",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "^4.1.0",
+    "@adiwajshing/baileys": "^4.4.0",
     "@hapi/boom": "^10.0.0",
-    "axios": "^0.27.2",
-    "ms-parser": "^1.0.5",
-    "pino": "^7.11.0",
-    "qrcode-terminal": "^0.12.0",
-    "whatscode.db": "^1.5.0"
+    "@mengkodingan/tolog": "^1.0.2",
+    "axios": "^1.2.0",
+    "pino": "^8.7.0",
+    "qrcode-terminal": "^0.12.0"
   }
 }
