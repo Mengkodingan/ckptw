@@ -1,7 +1,8 @@
-const searched = [];
 const axios = require("axios");
 const { jidDecode, default: makeWASocket } = require("@adiwajshing/baileys");
 const { default: pino } = require("pino");
+let fs = require('fs');
+let path = require('path');
 
 exports.makeSocket = (t) => {
   return makeWASocket({
@@ -76,3 +77,17 @@ exports.checkQR = (con, self, callback) => {
     }, 1000);
   }
 };
+
+exports.walk = (dir, callback) => {
+  const files = fs.readdirSync(dir);
+  files.forEach((file) => {
+    var filepath = path.join(dir, file);
+    const stats = fs.statSync(filepath);
+    if (stats.isDirectory()) {
+      module.exports.walk(filepath, callback);
+    } else if (stats.isFile()) {
+      callback(filepath, stats);
+    }
+  });
+
+}

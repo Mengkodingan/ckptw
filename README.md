@@ -34,36 +34,66 @@ bot.init().then(() => {
 });
 ```
 
-# misc
-- Buttons
-    ```js
-    const { ButtonBuilder } = require("@mengkodingan/ckptw");
+# command handler
 
-    // you can use more than 1 builder and pass it into the array in ctx
-    const btn = new ButtonBuilder()
-        .setId('id1')
-        .setDisplayText('button 1')
-        .setType(1);
-    
-    ctx.sendMessage(ctx.id, { text: "buttons", buttons: [btn] });
-    ```
+- main file
+
+  ```js
+  const { CommandHandler } = require("@mengkodingan/ckptw");
+  const path = require("path");
+
+  const cmdHandler = new CommandHandler(bot, `${path.resolve()}/SomePath/`);
+  cmdHandler.load();
+  ```
+
+- in your command file
+  ```js
+  module.exports = {
+    name: "name",
+    // other configuration...
+    code: async (ctx) => {
+      ctx.sendMessage(ctx.id, { text: "yay!" });
+    },
+  };
+  ```
+
+# misc
+
+- Buttons
+
+  ```js
+  const { ButtonBuilder } = require("@mengkodingan/ckptw");
+
+  // you can use more than 1 builder and pass it into the array in ctx
+  const btn = new ButtonBuilder()
+    .setId("id1")
+    .setDisplayText("button 1")
+    .setType(1);
+
+  ctx.sendMessage(ctx.id, { text: "buttons", buttons: [btn] });
+  ```
 
 - Sections
-    ```js
-    const { SectionBuilder } = require("@mengkodingan/ckptw");
 
-    // you can use more than 1 like buttons
-    const a = new SectionBuilder()
-          .setTitle("title")
-          .setRows(
-            { title: "abc", rowId: 1 },
-            { title: "b", rowId: 2, description: "a" }
-          );
+  ```js
+  const { SectionBuilder } = require("@mengkodingan/ckptw");
 
-    ctx.sendMessage(ctx.id, { text: "buttons", buttonText: 'button text', sections: [a] });
-    ```
+  // you can use more than 1 like buttons
+  const a = new SectionBuilder()
+    .setTitle("title")
+    .setRows(
+      { title: "abc", rowId: 1 },
+      { title: "b", rowId: 2, description: "a" }
+    );
 
-- React
-    ```js
-    ctx.react(id, '🎈')
-    ```
+  ctx.sendMessage(ctx.id, {
+    text: "buttons",
+    buttonText: "button text",
+    sections: [a],
+  });
+  ```
+
+- Reaction message
+  ```js
+  ctx.react(id, "🎈");
+  ```
