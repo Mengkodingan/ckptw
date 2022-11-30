@@ -5,7 +5,10 @@ exports.ctx = ({ args, self, msg }) => {
         ...self.whats, 
         msg,
         react: function(id, e, w) {
-            self.whats.sendMessage(id, { react: { text: e, key: w ? w : msg.key }})
+            self.whats.sendMessage(id, { react: { text: e, key: w ? w : msg.key }});
+        },
+        reply: function(id, obj) {
+            self.whats.sendMessage(id, obj, { quoted: msg });
         }
     }
 }
