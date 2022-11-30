@@ -105,11 +105,13 @@ module.exports = class Client {
       let self = { ...this, getContentType };
 
       if (this.autoRead) {
-        this.whats.sendReadReceipt(
-          m.messages[0].key.remoteJid,
-          m.messages[0].key.participant,
-          [m.messages[0].key.id]
-        );
+        this.whats.readMessages([
+          {
+            remoteJid: m.messages[0].key.remoteJid,
+            id: m.messages[0].key.id,
+            participant: m.messages[0].key.participant
+          },
+        ]);
       }
 
       await require("../handler/commands")(self);
