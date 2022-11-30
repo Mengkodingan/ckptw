@@ -13,7 +13,7 @@ module.exports = async (d) => {
   if (!cmd.length) return;
   for (const theCmd of cmd) {
     const args = d.dy.slice(theCmd.name.length).split(" ");
-    let ctx = { id: msg.key.remoteJid, args, ...self.whats, msg };
-    val.code(ctx);
+    let ctx = { id: d.msg.key.remoteJid, args, ...d.client, msg: d.msg };
+    theCmd.code(ctx);
   }
 };
