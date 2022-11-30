@@ -1,3 +1,5 @@
+const { ctx } = require("../models/ctx");
+
 module.exports = async (self) => {
   let { whats: client, CMD: cmd, PREFIX: prefix, getContentType: getType, m } = self;
   const { array_move } = require("../models/functions");
@@ -53,7 +55,6 @@ module.exports = async (self) => {
   );
 
   if (val) {
-    let ctx = { id: msg.key.remoteJid, args, ...self.whats, msg }
-    val.code(ctx);
+    val.code(ctx({ args, self, msg }))
   }
 };

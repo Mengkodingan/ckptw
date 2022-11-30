@@ -1,3 +1,5 @@
+const { ctx } = require("../models/ctx");
+
 module.exports = async (d) => {
   const cmds = Array.from(d.valArr.filter((c) => c.nonPrefixed));
   if (!cmds.length) return;
@@ -13,7 +15,6 @@ module.exports = async (d) => {
   if (!cmd.length) return;
   for (const theCmd of cmd) {
     const args = d.dy.slice(theCmd.name.length).split(" ");
-    let ctx = { id: d.msg.key.remoteJid, args, ...d.client, msg: d.msg };
-    theCmd.code(ctx);
+    theCmd.code(ctx({ args, self, msg }))
   }
 };
