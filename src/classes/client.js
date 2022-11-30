@@ -1,10 +1,11 @@
 const {
   DisconnectReason,
-  useSingleFileAuthState,
   getContentType,
+  BufferJSON,
+  useMultiFileAuthState
 } = require("@adiwajshing/baileys");
 const { Boom } = require("@hapi/boom");
-const { checkQR, makeSocket } = require("./models/functions");
+const { checkQR, makeSocket, checkConnect } = require("../models/functions");
 const { toLog } = require("@mengkodingan/tolog");
 
 module.exports = class Client {
@@ -12,7 +13,7 @@ module.exports = class Client {
     name = undefined,
     prefix = undefined,
     autoRead = false,
-    authFile = "./state.json",
+    authFile = "./state",
     printQRInTerminal = true
 }) {
     if (!name) throw new Error("[ckptw] name required!");
@@ -30,13 +31,12 @@ module.exports = class Client {
     this.printQRInTerminal = printQRInTerminal;
 
     this.AUTH_FILE = authFile;
-    const { state, loadState, saveState } = useSingleFileAuthState(
-      this.AUTH_FILE
-    );
-    this.state = state;
-    this.loadState = loadState;
-    this.saveState = saveState;
+  }
 
+  async init() {
+    const { state, saveCreds } = await useMultiFileAuthState(this.AUTH_FILE);
+    this.state = state;
+    this.saveCreds = saveCreds;
     this.whats = makeSocket(this);
   }
 
@@ -95,7 +95,7 @@ module.exports = class Client {
   }
 
   onCredsUpdate() {
-    this.whats.ev.on("creds.update", this.saveState);
+    this.whats.ev.on("creds.update", this.saveCreds);
   }
 
   onMessage(c) {
@@ -112,7 +112,7 @@ module.exports = class Client {
         );
       }
 
-      await require("./handler/commands")(self);
+      await require("../handler/commands")(self);
     });
   }
 
@@ -126,4 +126,4 @@ module.exports = class Client {
   }
 };
 
-require("./handler/prototype");
+require("../handler/prototype");
