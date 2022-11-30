@@ -6,13 +6,13 @@ module.exports = class ButtonBuilder {
     }
 
     setId(id) {
-        if(!id) throw new Error('[ckptw] button builder need setId')
+        if(!id) throw new Error('[ckptw] button builder need id')
         this.buttonId = id;
         return this
     }
 
     setDisplayText(text) {
-        if(!text) throw new Error("[ckptw] button builder need setDisplayText");
+        if(!text) throw new Error("[ckptw] button builder need display text");
         this.buttonText.displayText = text;
         return this
     }
