@@ -22,6 +22,7 @@ const bot = new Client({
   prefix: "!",
   autoRead: true,
 });
+
 bot.init().then(() => {
   bot.onConnectionUpdate();
   bot.onCredsUpdate();
