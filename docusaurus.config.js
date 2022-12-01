@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: "ckptw",
   tagline: "easy way to create an Whatsapp Bot.",
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://ckptw.mengkodingan.my.id",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
