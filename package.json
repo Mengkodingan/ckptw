@@ -1,6 +1,6 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "easy way to create Whatsapp Bot.",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/Mengkodingan/ckptw/issues"
   },
-  "homepage": "https://github.com/Mengkodingan/ckptw#readme",
+  "homepage": "https://ckptw.mengkodingan.my.id",
   "keywords": [
     "whatsapp",
     "whatsapp-bot",

@@ -2,7 +2,7 @@
 
 easy way to create a Whatsapp Bot. Fork version of [whatscode.js](https://github.com/JastinXyz/whatscode.js) but we make it not a string-based command. We just need an package to create Whatsapp Bot with some lines of code, so we create this package.
 
-Documentation is comming soon!
+- 📕 Explore the documentation at: *https://ckptw.mengkodingan.my.id*
 
 # install
 
