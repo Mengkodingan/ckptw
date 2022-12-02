@@ -13,7 +13,7 @@ module.exports = class Client {
     name = undefined,
     prefix = undefined,
     autoRead = false,
-    authFile = "./state",
+    authFolder = "./state",
     printQRInTerminal = true
 }) {
     if (!name) throw new Error("[ckptw] name required!");
@@ -30,7 +30,7 @@ module.exports = class Client {
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
 
-    this.AUTH_FILE = authFile;
+    this.AUTH_FILE = authFolder;
   }
 
   async init() {
