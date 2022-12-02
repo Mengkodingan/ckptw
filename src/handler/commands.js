@@ -41,7 +41,7 @@ module.exports = async (self) => {
   }
 
   const startsP = prefix.find((p) => dy.startsWith(p));
-  if (!prefix.includes(startsP)) return require('./nonPrefixed')({ valArr, dy, msg, client, cmd });
+  if (!prefix.includes(startsP)) return require('./nonPrefixed')({ valArr, dy, msg, client, cmd, self });
 
   args = dy.slice(startsP.length).trim().split(/ +/g);
   command = args.shift().toLowerCase();
@@ -55,6 +55,6 @@ module.exports = async (self) => {
   );
 
   if (val) {
-    val.code(ctx({ args, self, msg }))
+    val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }));
   }
 };

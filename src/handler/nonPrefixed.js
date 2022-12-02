@@ -14,7 +14,8 @@ module.exports = async (d) => {
 
   if (!cmd.length) return;
   for (const theCmd of cmd) {
-    const args = d.dy.slice(theCmd.name.length).split(" ");
-    theCmd.code(ctx({ args, self, msg }))
+    let args = d.dy.trim().split(/ +/g);
+    let command = args.shift().toLowerCase();
+    theCmd.code(ctx({ args, self: d.self, msg: d.msg, used: { prefix: "", command } }))
   }
 };
