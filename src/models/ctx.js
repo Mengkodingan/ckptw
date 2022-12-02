@@ -29,7 +29,7 @@ exports.ctx = ({ args, self, msg, used }) => {
     },
     sender: function () {
       return msg.key.fromMe
-        ? self.user.jid
+        ? self.whats.user.id
         : msg.participant
         ? msg.participant
         : msg.key.participant
