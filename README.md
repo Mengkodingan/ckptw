@@ -8,7 +8,11 @@ easy way to create a Whatsapp Bot. Fork version of [whatscode.js](https://github
 # install
 
 ```bash
+# install it from npm
 npm i @mengkodingan/ckptw
+
+# or install it from Github for more new features, some bug fixes, and maybe theres some bugs too.
+npm i github:mengkodingan/ckptw
 ```
 
 # example
