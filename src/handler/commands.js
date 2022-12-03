@@ -5,6 +5,7 @@ module.exports = async (self) => {
   const { array_move } = require("../models/functions");
 
   var msg = m.messages[0];
+  var fromMe = msg.key.fromMe;
   if (!m || !msg.message) return;
   if (msg.key && msg.key.remoteJid === "status@broadcast") return;
   const type = getType(msg.message);
@@ -55,6 +56,10 @@ module.exports = async (self) => {
   );
 
   if (val) {
-    val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }));
+    fromMe
+      ? self.selfResponse
+        ? val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }))
+        : ""
+      : val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }))
   }
 };

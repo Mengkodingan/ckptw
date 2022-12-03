@@ -14,7 +14,8 @@ module.exports = class Client {
     prefix = undefined,
     autoRead = false,
     authFolder = "./state",
-    printQRInTerminal = true
+    printQRInTerminal = true,
+    selfResponse = false
 }) {
     if (!name) throw new Error("[ckptw] name required!");
 
@@ -27,10 +28,10 @@ module.exports = class Client {
     this.NAME = name;
     this.PREFIX = prefix;
     this.CMD = new Map();
+    this.AUTH_FILE = authFolder;
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
-
-    this.AUTH_FILE = authFolder;
+    this.selfResponse = selfResponse;
   }
 
   async init() {
@@ -113,6 +114,7 @@ module.exports = class Client {
           },
         ]);
       }
+
 
       await require("../handler/commands")(self);
     });
