@@ -37,9 +37,7 @@ module.exports = async (self) => {
 
   if (val) {
     fromMe
-      ? self.selfResponse
-        ? val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }))
-        : ""
-      : val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }))
+      ? ""
+      : val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }));
   }
 };
