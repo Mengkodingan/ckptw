@@ -1,29 +1,6 @@
-const axios = require("axios");
-const { jidDecode, default: makeWASocket, getContentType } = require("@adiwajshing/baileys");
-const { default: pino } = require("pino");
+const { jidDecode, getContentType } = require("@adiwajshing/baileys");
 let fs = require('fs');
 let path = require('path');
-
-exports.makeSocket = (t) => {
-  return makeWASocket({
-    logger: pino({ level: "fatal" }),
-    printQRInTerminal: t.printQRInTerminal,
-    auth: t.state,
-    browser: [t.NAME, "Chrome", "1.0.0"],
-    version: module.exports.getWaWebVer()
-  })
-};
-
-exports.getWaWebVer = () => {
-  let version;
-  try {
-    let { data } = axios.get("https://web.whatsapp.com/check-update?version=1&platform=web");
-    version = [data.currentVersion.replace(/[.]/g, ", ")]
-  } catch {
-    version = [2, 2245, 9];
-  }
-  return version;
-};
 
 exports.decodeJid = (jid) => {
   if (!jid) return jid;

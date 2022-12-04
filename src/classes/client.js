@@ -2,12 +2,14 @@ const {
   DisconnectReason,
   getContentType,
   BufferJSON,
-  useMultiFileAuthState
+  useMultiFileAuthState,
+  default: makeWASocket
 } = require("@adiwajshing/baileys");
 const { Boom } = require("@hapi/boom");
-const { checkQR, makeSocket, checkConnect } = require("../models/functions");
 const { toLog } = require("@mengkodingan/tolog");
+const { default: axios } = require("axios");
 const EventEmitter = require('events');
+const { default: pino } = require("pino");
 const ee = new EventEmitter();
 
 module.exports = class Client {
@@ -39,21 +41,31 @@ module.exports = class Client {
     const { state, saveCreds } = await useMultiFileAuthState(this.AUTH_FILE);
     this.state = state;
     this.saveCreds = saveCreds;
-    this.whats = makeSocket(this);
+    this.whats = makeWASocket({
+      logger: pino({ level: "fatal" }),
+      printQRInTerminal: this.printQRInTerminal,
+      auth: this.state,
+      browser: [this.NAME, "Chrome", "1.0.0"],
+      version: this.getWaWebVer()
+    });
+  }
+
+  getWaWebVer() {
+    let version;
+    try {
+      let { data } = axios.get(
+        "https://web.whatsapp.com/check-update?version=1&platform=web"
+      );
+      version = [data.currentVersion.replace(/[.]/g, ", ")];
+    } catch {
+      version = [2, 2245, 9];
+    }
+    return version;
   }
 
   onConnectionUpdate(c) {
     this.whats.ev.on("connection.update", async (update) => {
-      let qr;
-      let self = this;
-      checkQR(qr, update, function(con) {
-        if(!self.printQRInTerminal) {
-          if(c) {
-            c(con)
-          }
-        }
-      })
-
+      c? c(update) : ""
       const { connection, lastDisconnect } = update;
       if (connection === "close") {
         const reason = lastDisconnect.error

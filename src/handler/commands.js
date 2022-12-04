@@ -1,4 +1,4 @@
-const { ctx } = require("../models/ctx");
+const Ctx = require("../classes/ctx");
 
 module.exports = async (self) => {
   let { whats: client, CMD: cmd, PREFIX: prefix, m } = self;
@@ -38,6 +38,6 @@ module.exports = async (self) => {
   if (val) {
     fromMe
       ? ""
-      : val.code(ctx({ args, self, msg, used: { prefix: startsP, command } }));
+      : val.code(new Ctx({ self, args, used: { prefix: startsP, command } }));
   }
 };
