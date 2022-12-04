@@ -1,34 +1,14 @@
 const { ctx } = require("../models/ctx");
 
 module.exports = async (self) => {
-  let { whats: client, CMD: cmd, PREFIX: prefix, getContentType: getType, m } = self;
-  const { array_move } = require("../models/functions");
+  let { whats: client, CMD: cmd, PREFIX: prefix, m } = self;
+  const { array_move, getContentFromMsg } = require("../models/functions");
 
   var msg = m.messages[0];
   var fromMe = msg.key.fromMe;
   if (!m || !msg.message) return;
   if (msg.key && msg.key.remoteJid === "status@broadcast") return;
-  const type = getType(msg.message);
-  var dy =
-    type === "conversation" && msg.message.conversation
-      ? msg.message.conversation
-      : type == "imageMessage" && msg.message.imageMessage.caption
-      ? msg.message.imageMessage.caption
-      : type == "documentMessage" && msg.message.documentMessage.caption
-      ? msg.message.documentMessage.caption
-      : type == "videoMessage" && msg.message.videoMessage.caption
-      ? msg.message.videoMessage.caption
-      : type == "extendedTextMessage" && msg.message.extendedTextMessage.text
-      ? msg.message.extendedTextMessage.text
-      : type == "listResponseMessage"
-      ? msg.message.listResponseMessage.singleSelectReply.selectedRowId
-      : type == "buttonsResponseMessage" &&
-        msg.message.buttonsResponseMessage.selectedButtonId
-      ? msg.message.buttonsResponseMessage.selectedButtonId
-      : type == "templateButtonReplyMessage" &&
-        msg.message.templateButtonReplyMessage.selectedId
-      ? msg.message.templateButtonReplyMessage.selectedId
-      : "";
+  var dy = getContentFromMsg(msg);
 
   let args;
   let command;

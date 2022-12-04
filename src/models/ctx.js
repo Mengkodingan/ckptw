@@ -1,4 +1,6 @@
 const baileys = require('@adiwajshing/baileys');
+const { MessageCollector } = require('../..');
+const { getSender } = require('./functions');
 exports.ctx = ({ args, self, msg, used }) => {
   return {
     id: msg.key.remoteJid,
@@ -10,6 +12,9 @@ exports.ctx = ({ args, self, msg, used }) => {
       name: self.NAME,
       prefix: self.PREFIX,
       cmd: self.CMD,
+    },
+    MessageCollector: function (opts) {
+      return new MessageCollector({ self, msg }, opts)
     },
     react: function (id, e, w) {
       self.whats.sendMessage(id, { react: { text: e, key: w ? w : msg.key } });
@@ -27,14 +32,6 @@ exports.ctx = ({ args, self, msg, used }) => {
         );
       } else return jid;
     },
-    sender: function () {
-      return msg.key.fromMe
-        ? self.whats.user.id
-        : msg.participant
-        ? msg.participant
-        : msg.key.participant
-        ? msg.key.participant
-        : msg.key.remoteJid;
-    },
+    sender: getSender(msg, self.whats)
   };
 };

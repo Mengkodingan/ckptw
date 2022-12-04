@@ -7,6 +7,8 @@ const {
 const { Boom } = require("@hapi/boom");
 const { checkQR, makeSocket, checkConnect } = require("../models/functions");
 const { toLog } = require("@mengkodingan/tolog");
+const EventEmitter = require('events');
+const ee = new EventEmitter();
 
 module.exports = class Client {
   constructor({
@@ -32,6 +34,7 @@ module.exports = class Client {
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
     this.selfResponse = selfResponse;
+    this.clientEvent = ee;
   }
 
   async init() {
@@ -101,6 +104,7 @@ module.exports = class Client {
 
   onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
+      this.clientEvent.emit("messages", m);
       c? c(m) : '';
       this.m = m;
       let self = { ...this, getContentType };

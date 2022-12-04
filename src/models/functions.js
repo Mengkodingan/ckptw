@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { jidDecode, default: makeWASocket } = require("@adiwajshing/baileys");
+const { jidDecode, default: makeWASocket, getContentType } = require("@adiwajshing/baileys");
 const { default: pino } = require("pino");
 let fs = require('fs');
 let path = require('path');
@@ -89,5 +89,37 @@ exports.walk = (dir, callback) => {
       callback(filepath, stats);
     }
   });
-
 }
+
+exports.getContentFromMsg = (msg) => {
+  let type = getContentType(msg.message);
+  return type === "conversation" && msg.message.conversation
+      ? msg.message.conversation
+      : type == "imageMessage" && msg.message.imageMessage.caption
+      ? msg.message.imageMessage.caption
+      : type == "documentMessage" && msg.message.documentMessage.caption
+      ? msg.message.documentMessage.caption
+      : type == "videoMessage" && msg.message.videoMessage.caption
+      ? msg.message.videoMessage.caption
+      : type == "extendedTextMessage" && msg.message.extendedTextMessage.text
+      ? msg.message.extendedTextMessage.text
+      : type == "listResponseMessage"
+      ? msg.message.listResponseMessage.singleSelectReply.selectedRowId
+      : type == "buttonsResponseMessage" &&
+        msg.message.buttonsResponseMessage.selectedButtonId
+      ? msg.message.buttonsResponseMessage.selectedButtonId
+      : type == "templateButtonReplyMessage" &&
+        msg.message.templateButtonReplyMessage.selectedId
+      ? msg.message.templateButtonReplyMessage.selectedId
+      : "";
+}
+
+exports.getSender = (msg, client) => {
+      return msg.key.fromMe
+        ? client.user.id
+        : msg.participant
+        ? msg.participant
+        : msg.key.participant
+        ? msg.key.participant
+        : msg.key.remoteJid;
+    }
