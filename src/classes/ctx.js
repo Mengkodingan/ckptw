@@ -60,7 +60,7 @@ module.exports = class Ctx {
     this._client.sendMessage(jid, content, options);
   }
 
-  react(jid, emoji, key) {
+  async react(jid, emoji, key) {
     this._client.sendMessage(jid, {
       react: { text: emoji, key: key ? key : this._msg.key },
     });
