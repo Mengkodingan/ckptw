@@ -56,8 +56,8 @@ module.exports = class Ctx {
     this._client.sendMessage(jid, content, options);
   }
 
-  reply(jid, content, options = { quoted: this._msg }) {
-    this._client.sendMessage(jid, content, options)
+  async reply(jid, content, options = { quoted: this._msg }) {
+    this._client.sendMessage(jid, content, options);
   }
 
   react(jid, emoji, key) {
@@ -66,8 +66,21 @@ module.exports = class Ctx {
     });
   }
 
-  MessageCollector(args) {
-    return new MessageCollector({ self: this._self, msg: this._msg }, args)
+  MessageCollector(args = {}) {
+    return new MessageCollector({ self: this._self, msg: this._msg }, args);
+  }
+
+  awaitMessages(args = {}) {
+    return new Promise((resolve, reject) => {
+      const col = this.MessageCollector(args);
+      col.once("end", (collected, r) => {
+        if (args.endReason?.includes(r)) {
+          reject(collected);
+        } else {
+          resolve(collected);
+        }
+      });
+    });
   }
 
   decodeJid(jid) {
