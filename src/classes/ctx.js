@@ -65,6 +65,10 @@ module.exports = class Ctx {
     return this._cooldownRemaining;
   }
 
+  async onCooldownTimeout(callback) {
+    setTimeout(callback, this.cooldownRemaining)
+  }
+
   async sendMessage(jid, content, options = {}) {
     this._client.sendMessage(jid, content, options);
   }
