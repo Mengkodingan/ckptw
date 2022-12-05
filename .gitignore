@@ -3,8 +3,3 @@ package-lock.json
 state.json
 app.test.js
 .github
-.npmrc
-/cmd
-/state
-test.js
-quiz.json

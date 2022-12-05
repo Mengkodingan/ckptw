@@ -93,8 +93,4 @@ module.exports = class Ctx {
       );
     } else return jid;
   }
-
-  async sendPresenceUpdate(presence, id) {
-    this._client.sendPresenceUpdate(presence, id);
-  }
 };
