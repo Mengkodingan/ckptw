@@ -53,7 +53,7 @@ module.exports = class Ctx {
   }
 
   get baileys() {
-    return require('@adiwajshing/baileys');
+    return require("@adiwajshing/baileys");
   }
 
   async sendMessage(jid, content, options = {}) {
@@ -110,7 +110,7 @@ module.exports = class Ctx {
     this._client.updateProfileName(args);
   }
 
-  async profilePictureUrl(jid, hd = 'image') {
+  async profilePictureUrl(jid, hd = "image") {
     this._client.profilePictureUrl(jid, hd);
   }
 
@@ -119,6 +119,10 @@ module.exports = class Ctx {
   }
 
   async block(jid) {
-    this._client.updateBlockStatus(jid, 'block');
+    this._client.updateBlockStatus(jid, "block");
+  }
+
+  async unBlock(jid) {
+    this._client.updateBlockStatus(jid, "unblock");
   }
 };
