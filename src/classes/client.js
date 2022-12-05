@@ -79,7 +79,13 @@ module.exports = class Client {
         } else if (reason === DisconnectReason.badSession) {
           toLog(4, 'Bad session file...');
           toLog(1, "Reconnecting...");
-          await makeSocket(this);
+          await makeWASocket({
+            logger: pino({ level: "fatal" }),
+            printQRInTerminal: this.printQRInTerminal,
+            auth: this.state,
+            browser: [this.NAME, "Chrome", "1.0.0"],
+            version: this.getWaWebVer(),
+          });
           toLog(1, 'Should be connected to Whatsapp now. You can exit this process with CTRL+C and rerun if the Whatsapp is not loading anymore.')
         } else if (reason === DisconnectReason.connectionClosed) {
           console.log("Connection closed....");
