@@ -1,5 +1,9 @@
-/node_modules
 app.test.js
 package-lock.json
 .github
 state.json
+.npmrc
+/cmd
+/state
+test.js
+/node_modules

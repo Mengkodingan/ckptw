@@ -18,6 +18,7 @@ module.exports = class Ctx {
       prefix: this._self.PREFIX,
       cmd: this._self.CMD,
     };
+    this._cooldownRemaining = options.cooldownRemaining ?? 0;
   }
 
   get id() {
@@ -54,6 +55,14 @@ module.exports = class Ctx {
 
   get baileys() {
     return require("@adiwajshing/baileys");
+  }
+
+  get isCooldown() {
+    return this._cooldownRemaining ? true : false;
+  }
+
+  get cooldownRemaining() {
+    return this._cooldownRemaining;
   }
 
   async sendMessage(jid, content, options = {}) {

@@ -27,6 +27,9 @@ module.exports = async (self) => {
   args = dy.slice(startsP.length).trim().split(/ +/g);
   command = args.shift().toLowerCase();
 
+  let hasCooldown = valArr.find(u => u.name === command && u.cooldown);
+  if(hasCooldown) return require('./cooldown')({ self, args, cmd: hasCooldown, used: { prefix: startsP, command } });
+
   const val = valArr.find(
     (c) =>
       c.name.toLowerCase() === command.toLowerCase() ||

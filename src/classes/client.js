@@ -31,8 +31,9 @@ module.exports = class Client {
 
     this.NAME = name;
     this.PREFIX = prefix;
-    this.CMD = new Collection();
     this.AUTH_FILE = authFolder;
+    this.CMD = new Collection();
+    this.cooldown = new Collection();
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
     this.clientEvent = ee;
