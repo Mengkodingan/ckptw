@@ -60,8 +60,12 @@ module.exports = class Ctx {
     this._client.sendMessage(jid, content, options);
   }
 
-  async reply(jid, content, options = { quoted: this._msg }) {
-    this._client.sendMessage(jid, content, options);
+  async reply(content, options = {}) {
+    this._client.sendMessage(this.id, content, { quoted: this._msg, ...options });
+  }
+
+  async replyWithJid(jid, content, options = {}) {
+    this._client.sendMessage(jid, content, { quoted: this._msg, ...options });
   }
 
   async react(jid, emoji, key) {
