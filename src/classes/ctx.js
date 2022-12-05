@@ -103,6 +103,10 @@ module.exports = class Ctx {
   }
 
   async updateProfileStatus(args) {
-    this._client.updateProfileStatus(args)
+    this._client.updateProfileStatus(args);
+  }
+
+  async updateProfileName(args) {
+    this._client.updateProfileName(args);
   }
 };
