@@ -5,6 +5,7 @@ const {
   useMultiFileAuthState,
   default: makeWASocket
 } = require("@adiwajshing/baileys");
+const { Collection } = require("@discordjs/collection");
 const { Boom } = require("@hapi/boom");
 const { toLog } = require("@mengkodingan/tolog");
 const { default: axios } = require("axios");
@@ -30,7 +31,7 @@ module.exports = class Client {
 
     this.NAME = name;
     this.PREFIX = prefix;
-    this.CMD = new Map();
+    this.CMD = new Collection();
     this.AUTH_FILE = authFolder;
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
