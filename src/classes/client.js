@@ -66,7 +66,7 @@ module.exports = class Client {
   onConnectionUpdate(c) {
     this.whats.ev.on("connection.update", async (update) => {
       c? c(update) : ""
-      const { connection, lastDisconnect } = update;
+      const { connection, lastDisconnect, isNewLogin } = update;
       if (connection === "close") {
         const reason = lastDisconnect.error
           ? new Boom(lastDisconnect)?.output.statusCode
@@ -86,7 +86,10 @@ module.exports = class Client {
             browser: [this.NAME, "Chrome", "1.0.0"],
             version: this.getWaWebVer(),
           });
-          toLog(1, 'Should be connected to Whatsapp now. You can exit this process with CTRL+C and rerun if the Whatsapp is not loading anymore.')
+          isNewLogin ? toLog(
+            1,
+            "Should be connected to Whatsapp now. You can exit this process with CTRL+C and rerun if the Whatsapp is not loading anymore."
+          ) : '';
         } else if (reason === DisconnectReason.connectionClosed) {
           console.log("Connection closed....");
         } else if (reason === DisconnectReason.connectionLost) {
