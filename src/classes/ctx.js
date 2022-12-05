@@ -113,4 +113,8 @@ module.exports = class Ctx {
   async profilePictureUrl(jid, hd = 'image') {
     this._client.profilePictureUrl(jid, hd);
   }
+
+  async updateProfilePicture(jid, opts = {}) {
+    this._client.updateProfilePicture(jid, opts);
+  }
 };
