@@ -127,6 +127,6 @@ module.exports = class Ctx {
   }
 
   async getBusinessProfile(jid) {
-    this._client.getBusinessProfile(jid);
+    return this._client.getBusinessProfile(jid);
   }
 };
