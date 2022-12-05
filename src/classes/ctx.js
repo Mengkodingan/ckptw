@@ -101,4 +101,8 @@ module.exports = class Ctx {
   async sendPresenceUpdate(presence, id) {
     this._client.sendPresenceUpdate(presence, id);
   }
+
+  async updateProfileStatus(args) {
+    this._client.updateProfileStatus(args)
+  }
 };
