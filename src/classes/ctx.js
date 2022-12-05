@@ -117,4 +117,8 @@ module.exports = class Ctx {
   async updateProfilePicture(jid, opts = {}) {
     this._client.updateProfilePicture(jid, opts);
   }
+
+  async block(jid) {
+    this._client.updateBlockStatus(jid, 'block');
+  }
 };
