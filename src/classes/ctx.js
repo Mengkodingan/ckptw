@@ -52,6 +52,10 @@ module.exports = class Ctx {
     return this._sender.pushName;
   }
 
+  get baileys() {
+    return require('@adiwajshing/baileys');
+  }
+
   async sendMessage(jid, content, options = {}) {
     this._client.sendMessage(jid, content, options);
   }
