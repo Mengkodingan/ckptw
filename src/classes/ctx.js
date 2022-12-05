@@ -125,4 +125,8 @@ module.exports = class Ctx {
   async unBlock(jid) {
     this._client.updateBlockStatus(jid, "unblock");
   }
+
+  async getBusinessProfile(jid) {
+    this._client.getBusinessProfile(jid);
+  }
 };
