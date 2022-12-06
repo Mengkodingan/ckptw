@@ -1,6 +1,7 @@
 const { jidDecode } = require("@adiwajshing/baileys");
 const { getSender } = require("../models/functions");
 const MessageCollector = require("./collector/MessageCollector");
+const Group = require("./group");
 
 module.exports = class Ctx {
   constructor(options = {}) {
@@ -145,5 +146,9 @@ module.exports = class Ctx {
 
   async getBusinessProfile(jid) {
     return this._client.getBusinessProfile(jid);
+  }
+
+  get group() {
+    return new Group(this);
   }
 };
