@@ -10,8 +10,8 @@ const { Boom } = require("@hapi/boom");
 const { toLog } = require("@mengkodingan/tolog");
 const { default: axios } = require("axios");
 const EventEmitter = require('events');
-const { default: pino } = require("pino");
 const ee = new EventEmitter();
+const { default: pino } = require("pino");
 
 module.exports = class Client {
   constructor({
@@ -36,20 +36,7 @@ module.exports = class Client {
     this.cooldown = new Collection();
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
-    this.clientEvent = ee;
-  }
-
-  async init() {
-    const { state, saveCreds } = await useMultiFileAuthState(this.AUTH_FILE);
-    this.state = state;
-    this.saveCreds = saveCreds;
-    this.whats = makeWASocket({
-      logger: pino({ level: "fatal" }),
-      printQRInTerminal: this.printQRInTerminal,
-      auth: this.state,
-      browser: [this.NAME, "Chrome", "1.0.0"],
-      version: this.getWaWebVer()
-    });
+    this.ev = ee;
   }
 
   getWaWebVer() {
@@ -81,13 +68,7 @@ module.exports = class Client {
         } else if (reason === DisconnectReason.badSession) {
           toLog(4, 'Bad session file...');
           toLog(1, "Reconnecting...");
-          await makeWASocket({
-            logger: pino({ level: "fatal" }),
-            printQRInTerminal: this.printQRInTerminal,
-            auth: this.state,
-            browser: [this.NAME, "Chrome", "1.0.0"],
-            version: this.getWaWebVer(),
-          });
+          this.launch();
           isNewLogin ? toLog(
             1,
             "Should be connected to Whatsapp now. You can exit this process with CTRL+C and rerun if the Whatsapp is not loading anymore."
@@ -109,12 +90,8 @@ module.exports = class Client {
           console.log(`Unknown DisconnectReason: ${reason}|${connection}`);
         }
       }
-      if (update.connection == "connecting" || update.receivedPendingNotifications == "false") {
-			toLog(1, "waiting for connection")
-		}
 		if (update.connection == "open" || update.receivedPendingNotifications == "true") {
-			this.connect = true;
-			toLog(2, `ready on client`, `${this.whats.user.name} || ${this.whats.user.id}`)
+      this.makeReady()
 		}
     });
   }
@@ -125,7 +102,7 @@ module.exports = class Client {
 
   onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
-      this.clientEvent.emit("messages", m);
+      this.ev.emit("messages", m);
       c? c(m) : '';
       this.m = m;
       let self = { ...this, getContentType };
@@ -152,6 +129,28 @@ module.exports = class Client {
 
       this.CMD.set(w.name, w);
     }
+  }
+
+  makeReady() {
+		this.connect = true;
+    this.ev.emit("ready", this.whats);
+  }
+
+  async launch() {
+    const { state, saveCreds } = await useMultiFileAuthState(this.AUTH_FILE);
+    this.state = state;
+    this.saveCreds = saveCreds;
+    this.whats = await makeWASocket({
+      logger: pino({ level: "fatal" }),
+      printQRInTerminal: this.printQRInTerminal,
+      auth: this.state,
+      browser: [this.NAME, "Chrome", "1.0.0"],
+      version: this.getWaWebVer(),
+    });
+
+    this.onConnectionUpdate();
+    this.onCredsUpdate();
+    this.onMessage();
   }
 };
 

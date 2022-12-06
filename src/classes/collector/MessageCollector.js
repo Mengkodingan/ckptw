@@ -7,7 +7,7 @@ module.exports = class MessageCollector extends Collector {
         this.clientReq = clientReq;
         this.jid = this.clientReq.msg.key.remoteJid;
         this.received = 0;
-        this.clientReq.self.clientEvent.on("messages", this.collect);
+        this.clientReq.self.ev.on("messages", this.collect);
         this.once('end', () => {
             this.removeListener('messages', this.collect)
         });
