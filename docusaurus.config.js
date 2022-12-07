@@ -29,7 +29,7 @@ const config = {
           lastVersion: "current",
           versions: {
             current: {
-              label: "1.0.2",
+              label: "1.0.3",
             },
           },
           sidebarPath: require.resolve("./sidebars.js"),
