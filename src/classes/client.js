@@ -40,14 +40,14 @@ module.exports = class Client {
   }
 
   getWaWebVer() {
-    let version;
+    let version = [2, 2245, 9];
     try {
       let { data } = axios.get(
         "https://web.whatsapp.com/check-update?version=1&platform=web"
       );
       version = [data.currentVersion.replace(/[.]/g, ", ")];
     } catch {
-      version = [2, 2245, 9];
+      version = version;
     }
     return version;
   }
