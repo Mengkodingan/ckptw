@@ -151,6 +151,10 @@ module.exports = class Client {
     this.onConnectionUpdate();
     this.onCredsUpdate();
     this.onMessage();
+
+    this.whats.ev.on('groups.upsert', (m) => {
+      this.ev.emit('groupsJoin', m)
+    });
   }
 };
 
