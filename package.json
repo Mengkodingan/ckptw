@@ -1,6 +1,6 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "0.0.12",
+  "version": "1.0.2",
   "description": "easy way to create Whatsapp Bot.",
   "main": "index.js",
   "scripts": {
