@@ -1,6 +1,6 @@
 {
-  "label": "Guides",
-  "position": 2,
+  "label": "Welcome",
+  "position": 1,
   "link": {
     "type": "generated-index"
   }

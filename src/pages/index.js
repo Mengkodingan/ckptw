@@ -21,7 +21,7 @@ function HomepageHeader() {
           <div class="mt-3 inline-flex rounded-md shadow">
             <Link
               class="hover:text-white hover:no-underline py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-              to="/docs/intro"
+              to="/docs/"
             >
               Getting Started{" "}
               {_s.randomArr(["🎈", "✨", "🎉", "🎏", "📙", "📌"]).result}

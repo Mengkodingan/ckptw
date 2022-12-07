@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Client Options
@@ -15,3 +15,7 @@ There are several additional options you can use in the client constructor. I gu
 | autoRead | `false` | `boolean` | ❌ | Auto read the incomming message?
 | authFolder | `./state` | `string` | ❌ | Path to session folder.
 | printQRInTerminal | `true` | `booelan` | ❌ | Print the QR code to terminal?
+
+:::caution
+Before version **0.0.12** you should use **authFile** instead of **authFolder** (only change the options name)
+:::

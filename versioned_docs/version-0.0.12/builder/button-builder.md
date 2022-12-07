@@ -8,7 +8,7 @@ make a button message with Button Builder.
 
 ## How
 
-```js showLineNumbers
+```js
 const { ButtonBuilder } = require("@mengkodingan/ckptw");
 
 // you can use more than 1 builder

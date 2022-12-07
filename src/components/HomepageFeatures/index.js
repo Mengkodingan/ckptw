@@ -35,18 +35,18 @@ const bot = new Client({
   autoRead: true,
 });
 
-bot.init().then(() => {
-  bot.onConnectionUpdate();
-  bot.onCredsUpdate();
-  bot.onMessage();
-  
-  bot.command({
-    name: "ping",
-    code: async (ctx) => {
-      ctx.sendMessage(ctx.id, { text: "pong!" });
-    },
-  });
-});`,
+bot.ev.once('ready', (m) => {
+  console.log('ready!');
+});
+
+bot.command({
+  name: "ping",
+  code: async (ctx) => {
+    ctx.sendMessage(ctx.id, { text: "pong!" });
+  },
+});
+
+bot.launch();`,
     },
     description: (
       <>

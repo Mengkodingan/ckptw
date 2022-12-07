@@ -8,7 +8,7 @@ make a sections message with Section Builder.
 
 ## How
 
-```js showLineNumbers
+```js
 const { SectionBuilder } = require("@mengkodingan/ckptw");
 
 // you can use more than 1 like buttons
