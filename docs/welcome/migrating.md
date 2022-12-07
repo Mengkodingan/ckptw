@@ -51,3 +51,15 @@ if earlier version used jid parameter, now it doesn't exist... if you want to ke
 - ctx.reply(id, { text: "abc" });
 + ctx.reply({ text: "abc" });
 ```
+
+
+### get sender details
+
+```diff
+- ctx.sender()
++ ctx.sender
+```
+
+return an object with values:
+- `jid`: sender jid
+- `pushName`: sender push name
