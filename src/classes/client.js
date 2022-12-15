@@ -133,6 +133,7 @@ module.exports = class Client {
 
   makeReady() {
 		this.connect = true;
+    this.readyAt = Date.now();
     this.ev.emit("ready", this.whats);
   }
 
