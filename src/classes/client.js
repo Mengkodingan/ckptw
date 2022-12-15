@@ -20,7 +20,8 @@ module.exports = class Client {
     prefix = undefined,
     autoRead = false,
     authFolder = "./state",
-    printQRInTerminal = true
+    printQRInTerminal = true,
+    owner = []
   }) {
     if (!name) throw new Error("[ckptw] name required!");
 
@@ -38,6 +39,7 @@ module.exports = class Client {
     this.autoRead = autoRead;
     this.printQRInTerminal = printQRInTerminal;
     this.ev = ee;
+    this.owner = owner;
   }
 
   getWaWebVer() {

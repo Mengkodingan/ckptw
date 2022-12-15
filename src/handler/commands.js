@@ -30,6 +30,9 @@ module.exports = async (self) => {
   let hasCooldown = valArr.find(u => u.name === command && u.cooldown);
   if(hasCooldown) return require('./cooldown')({ self, args, cmd: hasCooldown, used: { prefix: startsP, command } });
 
+  let hasOwnerOnly = valArr.find(u => u.name === command && u.ownerOnly);
+  if(hasOwnerOnly) return require('./ownerOnly')({ self, args, cmd: hasOwnerOnly, used: { prefix: startsP, command } });
+
   const val = valArr.find(
     (c) =>
       c.name.toLowerCase() === command.toLowerCase() ||
