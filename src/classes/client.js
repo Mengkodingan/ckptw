@@ -12,6 +12,7 @@ const { default: axios } = require("axios");
 const EventEmitter = require('events');
 const ee = new EventEmitter();
 const { default: pino } = require("pino");
+const { checkQR } = require("../models/functions")
 
 module.exports = class Client {
   constructor({
@@ -54,6 +55,9 @@ module.exports = class Client {
 
   onConnectionUpdate(c) {
     this.whats.ev.on("connection.update", async (update) => {
+      let c;
+      let self = this;
+      checkQR(c, self, update, m => this.ev.emit('qr', m));
       c? c(update) : ""
       const { connection, lastDisconnect, isNewLogin } = update;
       if (connection === "close") {

@@ -43,11 +43,11 @@ exports.checkConnect = (con, self, callback) => {
   }, 1000);
 };
 
-exports.checkQR = (con, self, callback) => {
+exports.checkQR = (con, self, update, callback) => {
   if (!self.connect) {
     var checkQr = setInterval(function () {
-      if (self.qr) {
-        con = self.qr;
+      if (update.qr) {
+        con = update.qr;
         clearInterval(checkQr);
         callback(con);
       }
