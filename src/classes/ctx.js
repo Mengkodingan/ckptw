@@ -66,6 +66,10 @@ module.exports = class Ctx {
     return this._cooldownRemaining;
   }
 
+  get isOwner() {
+    return this._self.owners.includes(this._sender.jid.replace("@s.whatsapp.net", ""));
+  }
+
   async onCooldownTimeout(callback) {
     setTimeout(callback, this.cooldownRemaining)
   }

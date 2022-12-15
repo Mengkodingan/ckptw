@@ -4,7 +4,7 @@ const { decodeJid, getSender } = require("../models/functions");
 module.exports = async (d) => {
   let { code, $ } = d.cmd;
   let msg = d.self.m.messages[0];
-  let ownerNumbers = d.self.owner;
+  let ownerNumbers = d.self.owners;
   let sender = decodeJid(getSender(msg, d.self.whats));
 
   if (ownerNumbers?.includes(sender.replace("@s.whatsapp.net", ""))) {
