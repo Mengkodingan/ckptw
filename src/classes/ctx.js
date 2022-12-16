@@ -123,6 +123,10 @@ module.exports = class Ctx {
     return this._self.owners.includes(jid.replace("@s.whatsapp.net", ""));
   }
 
+  isGroup(jid = this.id) {
+    return jid.endsWith('@g.us');
+  }
+
   async sendPresenceUpdate(presence, id) {
     this._client.sendPresenceUpdate(presence, id);
   }
