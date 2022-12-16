@@ -12,7 +12,8 @@ const { default: axios } = require("axios");
 const EventEmitter = require('events');
 const ee = new EventEmitter();
 const { default: pino } = require("pino");
-const { checkQR } = require("../models/functions")
+const { checkQR } = require("../models/functions");
+const ms = require('ms')
 
 module.exports = class Client {
   constructor({
@@ -142,7 +143,14 @@ module.exports = class Client {
     this.readyAt = Date.now();
     this.ev.emit("ready", this.whats);
   }
-
+  
+  get uptime() {
+    return {
+      ms: this.readyAt,
+      human: ms(Date.now() - this.readyAt, { long: true }),
+    };
+  }
+  
   async launch() {
     const { state, saveCreds } = await useMultiFileAuthState(this.AUTH_FILE);
     this.state = state;
