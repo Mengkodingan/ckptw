@@ -3,10 +3,6 @@ module.exports = class Group {
     this.d = d;
   }
 
-  async isGroup(jid = this.d._msg.key.remoteJid) {
-    return jid.endsWith("@g.us")
-  }
-
   async create(title, participants = []) {
     return this.d._client.groupCreate(title, participants);
   }
