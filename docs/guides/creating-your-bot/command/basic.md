@@ -15,7 +15,7 @@ bot.command({
     name: "ping",
     code: async(ctx) => {
         // code goes here
-        ctx.reply(ctx.id, { text: 'pong!' });
+        ctx.reply({ text: 'pong!' });
     }
 });
 ```
