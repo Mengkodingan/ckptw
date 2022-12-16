@@ -132,6 +132,10 @@ module.exports = class Ctx {
     return result;
   }
 
+  async fetchStatus(jid = this._sender.jid) {
+    return this._client.fetchStatus(jid);
+  }
+
   async sendPresenceUpdate(presence, id) {
     this._client.sendPresenceUpdate(presence, id);
   }
