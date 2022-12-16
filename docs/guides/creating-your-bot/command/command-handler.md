@@ -17,7 +17,7 @@ cmdHandler.load();
 module.exports = {
     name: "ping",
     code: async (ctx) => {
-      ctx.reply(ctx.id, { text: "pong!" });
+      ctx.reply({ text: "pong!" });
     },
 };
 ```
