@@ -127,6 +127,11 @@ module.exports = class Ctx {
     return jid.endsWith('@g.us');
   }
 
+  async onWhatsapp(jid = this._sender.jid) {
+    let [result] = await this._client.onWhatsApp(jid);
+    return result;
+  }
+
   async sendPresenceUpdate(presence, id) {
     this._client.sendPresenceUpdate(presence, id);
   }
