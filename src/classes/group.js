@@ -74,4 +74,21 @@ module.exports = class Group {
   async getInviteInfo(code) {
     return this.d._client.groupGetInviteInfo(code);
   }
+
+  async isAdmin(jid = this.d._sender.jid) {
+    if(!this.d.id.endsWith("@g.us")) return null;
+    const groupMetadata = await this.d._client.groupMetadata(this.d.id).catch((e) => {});
+    const participants = groupMetadata.participants;
+
+    let admins = [];
+    for (let i of participants) {
+      i.admin === "superadmin"
+        ? admins.push(i.id)
+        : i.admin === "admin"
+        ? admins.push(i.id)
+        : "";
+    }
+
+    return admins.includes(jid);
+  }
 };
