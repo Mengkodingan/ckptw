@@ -66,12 +66,8 @@ module.exports = class Ctx {
     return this._cooldownRemaining;
   }
 
-  get isOwner() {
-    return this._self.owners.includes(this._sender.jid.replace("@s.whatsapp.net", ""));
-  }
-
   async onCooldownTimeout(callback) {
-    setTimeout(callback, this.cooldownRemaining)
+    setTimeout(callback, this.cooldownRemaining);
   }
 
   async sendMessage(jid, content, options = {}) {
@@ -79,7 +75,10 @@ module.exports = class Ctx {
   }
 
   async reply(content, options = {}) {
-    this._client.sendMessage(this.id, content, { quoted: this._msg, ...options });
+    this._client.sendMessage(this.id, content, {
+      quoted: this._msg,
+      ...options,
+    });
   }
 
   async replyWithJid(jid, content, options = {}) {
@@ -118,6 +117,10 @@ module.exports = class Ctx {
         jid
       );
     } else return jid;
+  }
+
+  isOwner(jid = this._sender.jid) {
+    return this._self.owners.includes(jid.replace("@s.whatsapp.net", ""));
   }
 
   async sendPresenceUpdate(presence, id) {
