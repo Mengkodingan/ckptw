@@ -74,20 +74,36 @@ module.exports = class Ctx {
     this._client.sendMessage(jid, content, options);
   }
 
-  async sendAudio(url, vn) {
-      this._client.sendMessage(this.id, { audio: { url: url }, mimetype: 'audio/mp4', ptt: vn || false }, { quoted: this._msg })
+  async sendAudio(jid, url, vn, quoted) {
+      if(quoted) {
+      this._client.sendMessage(jid, { audio: { url: url }, mimetype: 'audio/mp4', ptt: vn || false }, { quoted: this._msg })
+          } else {
+       this._client.sendMessage(jid, { audio: { url: url }, mimetype: 'audio/mp4', ptt: vn || false })
+        }
 }
 
-  async sendImage(url, caption) {
-      this._client.sendMessage(this.id, { image: { url: url }, caption: caption }, { quoted: this._msg })
+  async sendImage(jid, url, quoted, caption) {
+      if(quoted) {
+      this._client.sendMessage(jid, { image: { url: url }, caption: caption }, { quoted: this._msg })
+          } else {
+      this._client.sendMessage(jid, { image: { url: url }, caption: caption })
+        }
 }
 
-  async sendVideo(url, caption) {
-      this._client.sendMessage(this.id, { video: { url: url }, caption: caption }, { quoted: this._msg })
+  async sendVideo(jid, url, quoted, caption) {
+      if(quoted) {
+      this._client.sendMessage(jid, { video: { url: url }, caption: caption }, { quoted: this._msg })
+          } else {
+      this._client.sendMessage(jid, { video: { url: url }, caption: caption })
+        }
 }
 
-  async sendGif(url, caption) {
-      this._client.sendMessage(this.id, { video: { url: url }, caption: caption, gifPlayback: true }, { quoted: this._msg })
+  async sendGif(jid, url, quoted, caption) {
+      if(quoted) {
+      this._client.sendMessage(jid, { video: { url: url }, caption: caption, gifPlayback: true }, { quoted: this._msg })
+          } else {
+      this._client.sendMessage(jid, { video: { url: url }, caption: caption, gifPlayback: true })
+        }
 }
 
   async reply(content, options = {}) {
