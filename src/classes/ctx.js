@@ -74,6 +74,22 @@ module.exports = class Ctx {
     this._client.sendMessage(jid, content, options);
   }
 
+  async sendAudio(url, vn) {
+      this._client.sendMessage(this.id, { audio: { url: url }, mimetype: 'audio/mp4', ptt: vn || false }, { quoted: this._msg })
+}
+
+  async sendImage(url, caption) {
+      this._client.sendMessage(this.id, { image: { url: url }, caption: caption }, { quoted: this._msg })
+}
+
+  async sendVideo(url, caption) {
+      this._client.sendMessage(this.id, { video: { url: url }, caption: caption }, { quoted: this._msg })
+}
+
+  async sendGif(url, caption) {
+      this._client.sendMessage(this.id, { video: { url: url }, caption: caption, gifPlayback: true }, { quoted: this._msg })
+}
+
   async reply(content, options = {}) {
     this._client.sendMessage(this.id, content, {
       quoted: this._msg,
