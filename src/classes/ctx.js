@@ -126,31 +126,31 @@ module.exports = class Ctx {
       react: { text: emoji, key: key ? key : this._msg.key },
     });
   }
- async getImage(name) {
-const path = await `./${name || Math.floor(Math.random() * 10000)}.png`
-const stream = await downloadContentFromMessage(this._msg.message.imageMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image' )
+  
+  async getImage(name) {
+      const path = await `./${name || Math.floor(Math.random() * 10000)}.png`
+      const stream = await downloadContentFromMessage(this._msg.message.imageMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image')
 
-let buffer = Buffer.from([]);
-    for await (const chunk of stream) {
-      buffer = Buffer.concat([buffer, chunk]);
-    }
-await fs.writeFileSync(path, buffer);
-    return path;
-            }
-      
+      let buffer = Buffer.from([]);
+      for await (const chunk of stream) {
+          buffer = Buffer.concat([buffer, chunk]);
+      }
+      await fs.writeFileSync(path, buffer);
+      return path;
+  }
+
   async getVideo(name) {
-const path = await `./${name || Math.floor(Math.random() * 10000)}.mp4`
-const stream = await downloadContentFromMessage(this._msg.message.videoMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video' )
+      const path = await `./${name || Math.floor(Math.random() * 10000)}.mp4`
+      const stream = await downloadContentFromMessage(this._msg.message.videoMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video')
 
-let buffer = Buffer.from([]);
-    for await (const chunk of stream) {
-      buffer = Buffer.concat([buffer, chunk]);
-    }
-await fs.writeFileSync(path, buffer);
-    return path;
-            }
+      let buffer = Buffer.from([]);
+      for await (const chunk of stream) {
+          buffer = Buffer.concat([buffer, chunk]);
+      }
+      await fs.writeFileSync(path, buffer);
+      return path;
+  }
  
-
   MessageCollector(args = {}) {
     return new MessageCollector({ self: this._self, msg: this._msg }, args);
   }
