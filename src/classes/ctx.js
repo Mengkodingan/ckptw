@@ -81,7 +81,7 @@ module.exports = class Ctx {
   async quotedAttachment() {
     const type = this.baileys.getContentType(this._msg.message);
     const contents = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
-    if(type != 'extendedTextMessage') return false;
+    if(type == 'conversation') return false;
     if(contents.includes('imageMessage')) return 'image';
     if(contents.includes('videoMessage')) return 'video';
     if(contents.includes('stickerMessage')) return 'sticker';
