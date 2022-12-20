@@ -70,24 +70,33 @@ module.exports = class Ctx {
   async onCooldownTimeout(callback) {
     setTimeout(callback, this.cooldownRemaining);
   }
-  
-  async attachment() {
+
+  async isImage() {
     const type = this.baileys.getContentType(this._msg.message);
-    if(type == 'imageMessage') return 'image';
-    if(type == 'videoMessage') return 'video';
-    if(type == 'conversation') return false;
+   return (type == 'imageMessage');
   }
-      
-  async quotedAttachment() {
+  
+  async isVideo() {
     const type = this.baileys.getContentType(this._msg.message);
-    const contents = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
-    if(type == 'conversation') return false;
-    if(contents.includes('imageMessage')) return 'image';
-    if(contents.includes('videoMessage')) return 'video';
-    if(contents.includes('stickerMessage')) return 'sticker';
-    if(contents.includes('documentMessage')) return 'document';
-    if(contents.includes('audioMessage')) return 'audio';
-    
+   return (type == 'videoMessage');
+  }
+  
+  async isQuotedImage() {
+      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
+    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
+   return content.includes('imageMessage');
+  }
+  
+  async isQuotedVideo() {
+      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
+    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
+   return content.includes('videoMessage');
+  }
+  
+  async isQuotedSticker() {
+      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
+    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
+   return content.includes('stickerMessage');
   }
 
   async sendMessage(jid, content, options = {}) {
