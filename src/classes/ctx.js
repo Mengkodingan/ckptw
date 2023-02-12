@@ -1,5 +1,8 @@
-const { jidDecode, downloadContentFromMessage } = require("@adiwajshing/baileys");
-const fs = require('fs');
+const {
+  jidDecode,
+  downloadContentFromMessage,
+} = require("@adiwajshing/baileys");
+const fs = require("fs");
 const { getSender } = require("../models/functions");
 const MessageCollector = require("./collector/MessageCollector");
 const Group = require("./group");
@@ -73,30 +76,39 @@ module.exports = class Ctx {
 
   async isImage() {
     const type = this.baileys.getContentType(this._msg.message);
-   return (type == 'imageMessage');
+    return type == "imageMessage";
   }
-  
+
   async isVideo() {
     const type = this.baileys.getContentType(this._msg.message);
-   return (type == 'videoMessage');
+    return type == "videoMessage";
   }
-  
+
   async isQuotedImage() {
-      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
-    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
-   return content.includes('imageMessage');
+    if (this.baileys.getContentType(this._msg.message) == "conversation")
+      return false;
+    const content = JSON.stringify(
+      this._msg.message.extendedTextMessage.contextInfo.quotedMessage
+    );
+    return content.includes("imageMessage");
   }
-  
+
   async isQuotedVideo() {
-      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
-    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
-   return content.includes('videoMessage');
+    if (this.baileys.getContentType(this._msg.message) == "conversation")
+      return false;
+    const content = JSON.stringify(
+      this._msg.message.extendedTextMessage.contextInfo.quotedMessage
+    );
+    return content.includes("videoMessage");
   }
-  
+
   async isQuotedSticker() {
-      if(this.baileys.getContentType(this._msg.message) == 'conversation') return false;
-    const content = JSON.stringify(this._msg.message.extendedTextMessage.contextInfo.quotedMessage);
-   return content.includes('stickerMessage');
+    if (this.baileys.getContentType(this._msg.message) == "conversation")
+      return false;
+    const content = JSON.stringify(
+      this._msg.message.extendedTextMessage.contextInfo.quotedMessage
+    );
+    return content.includes("stickerMessage");
   }
 
   async sendMessage(jid, content, options = {}) {
@@ -104,20 +116,36 @@ module.exports = class Ctx {
   }
 
   async sendAudio(jid, url, vn, options = {}) {
-      this._client.sendMessage(jid, { audio: { url: url }, mimetype: 'audio/mp4', ptt: vn || false }, options )
-}
+    this._client.sendMessage(
+      jid,
+      { audio: { url: url }, mimetype: "audio/mp4", ptt: vn || false },
+      options
+    );
+  }
 
   async sendImage(jid, url, caption, options = {}) {
-      this._client.sendMessage(jid, { image: { url: url }, caption: caption }, options )
-}
+    this._client.sendMessage(
+      jid,
+      { image: { url: url }, caption: caption },
+      options
+    );
+  }
 
   async sendVideo(jid, url, caption, options = {}) {
-      this._client.sendMessage(jid, { video: { url: url }, caption: caption }, options )
-}
+    this._client.sendMessage(
+      jid,
+      { video: { url: url }, caption: caption },
+      options
+    );
+  }
 
   async sendGif(jid, url, caption, options = {}) {
-      this._client.sendMessage(jid, { video: { url: url }, caption: caption, gifPlayback: true }, options )
-}
+    this._client.sendMessage(
+      jid,
+      { video: { url: url }, caption: caption, gifPlayback: true },
+      options
+    );
+  }
 
   async reply(content, options = {}) {
     this._client.sendMessage(this.id, content, {
@@ -135,31 +163,41 @@ module.exports = class Ctx {
       react: { text: emoji, key: key ? key : this._msg.key },
     });
   }
-  
-  async getImage(name) {
-      const path = await `./${name || Math.floor(Math.random() * 10000)}.png`
-      const stream = await downloadContentFromMessage(this._msg.message.imageMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image')
 
-      let buffer = Buffer.from([]);
-      for await (const chunk of stream) {
-          buffer = Buffer.concat([buffer, chunk]);
-      }
-      await fs.writeFileSync(path, buffer);
-      return path;
+  async getImage(name) {
+    const path = await `./${name || Math.floor(Math.random() * 10000)}.png`;
+    const stream = await downloadContentFromMessage(
+      this._msg.message.imageMessage ||
+        this._msg.message.extendedTextMessage?.contextInfo.quotedMessage
+          .imageMessage,
+      "image"
+    );
+
+    let buffer = Buffer.from([]);
+    for await (const chunk of stream) {
+      buffer = Buffer.concat([buffer, chunk]);
+    }
+    await fs.writeFileSync(path, buffer);
+    return path;
   }
 
   async getVideo(name) {
-      const path = await `./${name || Math.floor(Math.random() * 10000)}.mp4`
-      const stream = await downloadContentFromMessage(this._msg.message.videoMessage || this._msg.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video')
+    const path = await `./${name || Math.floor(Math.random() * 10000)}.mp4`;
+    const stream = await downloadContentFromMessage(
+      this._msg.message.videoMessage ||
+        this._msg.message.extendedTextMessage?.contextInfo.quotedMessage
+          .videoMessage,
+      "video"
+    );
 
-      let buffer = Buffer.from([]);
-      for await (const chunk of stream) {
-          buffer = Buffer.concat([buffer, chunk]);
-      }
-      await fs.writeFileSync(path, buffer);
-      return path;
+    let buffer = Buffer.from([]);
+    for await (const chunk of stream) {
+      buffer = Buffer.concat([buffer, chunk]);
+    }
+    await fs.writeFileSync(path, buffer);
+    return path;
   }
- 
+
   MessageCollector(args = {}) {
     return new MessageCollector({ self: this._self, msg: this._msg }, args);
   }
@@ -193,7 +231,7 @@ module.exports = class Ctx {
   }
 
   isGroup(jid = this.id) {
-    return jid.endsWith('@g.us');
+    return jid.endsWith("@g.us");
   }
 
   async onWhatsapp(jid = this._sender.jid) {
