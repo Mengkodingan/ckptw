@@ -1,5 +1,5 @@
-const Ctx = require("../classes/ctx")
-const { decodeJid, getSender } = require("../models/functions")
+const Ctx = require("../classes/Ctx")
+const { decodeJid, getSender } = require("../Models/functions")
 
 module.exports = async(d) => {
     let { name: cmd, cooldown: n, code } = d.cmd;

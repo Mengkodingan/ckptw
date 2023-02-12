@@ -1,5 +1,5 @@
 const { toLog } = require('@mengkodingan/tolog');
-const { walk } = require('../models/functions');
+const { walk } = require('../Models/functions');
 
 module.exports = class CommandHandler {
     constructor(bot, path) {

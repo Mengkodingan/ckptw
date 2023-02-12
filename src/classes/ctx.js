@@ -3,9 +3,9 @@ const {
   downloadContentFromMessage,
 } = require("@adiwajshing/baileys");
 const fs = require("fs");
-const { getSender } = require("../models/functions");
-const MessageCollector = require("./collector/MessageCollector");
-const Group = require("./group");
+const { getSender } = require("../Models/functions");
+const MessageCollector = require("./Collector/MessageCollector");
+const Group = require("./Group");
 
 module.exports = class Ctx {
   constructor(options = {}) {

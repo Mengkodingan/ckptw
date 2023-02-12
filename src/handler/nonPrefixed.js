@@ -1,4 +1,4 @@
-const Ctx = require("../classes/ctx");
+const Ctx = require("../classes/Ctx");
 
 module.exports = async (d) => {
   const cmds = Array.from(d.valArr.filter((c) => c.nonPrefixed));

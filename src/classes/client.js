@@ -12,7 +12,7 @@ const { default: axios } = require("axios");
 const EventEmitter = require('events');
 const ee = new EventEmitter();
 const { default: pino } = require("pino");
-const { checkQR } = require("../models/functions");
+const { checkQR } = require("../Models/functions");
 const ms = require('ms')
 
 module.exports = class Client {
@@ -125,7 +125,7 @@ module.exports = class Client {
       }
 
 
-      await require("../handler/commands")(self);
+      await require("../Handler/Commands")(self);
     });
   }
 
@@ -173,4 +173,4 @@ module.exports = class Client {
   }
 };
 
-require("../handler/prototype");
+require("../Handler/Prototype");

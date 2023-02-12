@@ -1,8 +1,8 @@
-const Ctx = require("../classes/ctx");
+const Ctx = require("../classes/Ctx");
 
 module.exports = async (self) => {
   let { whats: client, CMD: cmd, PREFIX: prefix, m } = self;
-  const { array_move, getContentFromMsg } = require("../models/functions");
+  const { array_move, getContentFromMsg } = require("../Models/functions");
 
   var msg = m.messages[0];
   var fromMe = msg.key.fromMe;
@@ -22,16 +22,16 @@ module.exports = async (self) => {
   }
 
   const startsP = prefix.find((p) => dy.startsWith(p));
-  if (!prefix.includes(startsP)) return require('./nonPrefixed')({ valArr, dy, msg, client, cmd, self });
+  if (!prefix.includes(startsP)) return require('./NonPrefixed')({ valArr, dy, msg, client, cmd, self });
 
   args = dy.slice(startsP.length).trim().split(/ +/g);
   command = args.shift().toLowerCase();
 
   let hasCooldown = valArr.find(u => u.name === command && u.cooldown);
-  if(hasCooldown) return require('./cooldown')({ self, args, cmd: hasCooldown, used: { prefix: startsP, command } });
+  if(hasCooldown) return require('./Cooldown')({ self, args, cmd: hasCooldown, used: { prefix: startsP, command } });
 
   let hasOwnerOnly = valArr.find(u => u.name === command && u.ownerOnly);
-  if(hasOwnerOnly) return require('./ownerOnly')({ self, args, cmd: hasOwnerOnly, used: { prefix: startsP, command } });
+  if(hasOwnerOnly) return require('./OwnerOnly')({ self, args, cmd: hasOwnerOnly, used: { prefix: startsP, command } });
 
   const val = valArr.find(
     (c) =>

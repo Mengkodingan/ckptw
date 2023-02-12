@@ -1,5 +1,5 @@
-const { getContentFromMsg, getSender } = require("../../models/functions");
-const Collector = require("./collector");
+const { getContentFromMsg, getSender } = require("../../Models/functions");
+const Collector = require("./Collector");
 
 module.exports = class MessageCollector extends Collector {
     constructor(clientReq, options = {}) {
