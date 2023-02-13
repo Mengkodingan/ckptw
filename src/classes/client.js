@@ -60,7 +60,7 @@ module.exports = class Client {
     this.whats.ev.on("connection.update", async (update) => {
       let c;
       let self = this;
-      checkQR(c, self, update, m => this.ev.emit('qr', m));
+      checkQR(c, self, update, m => this.ev.emit('QR', m));
       c? c(update) : ""
       const { connection, lastDisconnect, isNewLogin } = update;
       if (connection === "close") {
@@ -109,7 +109,7 @@ module.exports = class Client {
 
   onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
-      this.ev.emit("messages", m);
+      this.ev.emit("MessagesUpsert", m);
       c? c(m) : '';
       this.m = m;
       let self = { ...this, getContentType };
@@ -141,7 +141,7 @@ module.exports = class Client {
   makeReady() {
 		this.connect = true;
     this.readyAt = Date.now();
-    this.ev.emit("ready", this.whats);
+    this.ev.emit("ClientReady", this.whats);
   }
   
   get uptime() {
@@ -168,7 +168,7 @@ module.exports = class Client {
     this.onMessage();
 
     this.whats.ev.on('groups.upsert', (m) => {
-      this.ev.emit('groupsJoin', m)
+      this.ev.emit('GroupsJoin', m)
     });
   }
 };
