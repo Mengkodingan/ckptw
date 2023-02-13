@@ -13,7 +13,8 @@ const EventEmitter = require('events');
 const ee = new EventEmitter();
 const { default: pino } = require("pino");
 const { checkQR } = require("../Models/functions");
-const ms = require('ms')
+const ms = require('ms');
+const Events = require("../Constant/Events");
 
 module.exports = class Client {
   constructor({
@@ -60,7 +61,7 @@ module.exports = class Client {
     this.whats.ev.on("connection.update", async (update) => {
       let c;
       let self = this;
-      checkQR(c, self, update, m => this.ev.emit('QR', m));
+      checkQR(c, self, update, m => this.ev.emit(Events.QR, m));
       c? c(update) : ""
       const { connection, lastDisconnect, isNewLogin } = update;
       if (connection === "close") {
@@ -109,7 +110,7 @@ module.exports = class Client {
 
   onMessage(c) {
     this.whats.ev.on("messages.upsert", async (m) => {
-      this.ev.emit("MessagesUpsert", m);
+      this.ev.emit(Events.MessagesUpsert, m);
       c? c(m) : '';
       this.m = m;
       let self = { ...this, getContentType };
@@ -141,7 +142,7 @@ module.exports = class Client {
   makeReady() {
 		this.connect = true;
     this.readyAt = Date.now();
-    this.ev.emit("ClientReady", this.whats);
+    this.ev.emit(Events.ClientReady, this.whats);
   }
   
   get uptime() {
@@ -168,7 +169,12 @@ module.exports = class Client {
     this.onMessage();
 
     this.whats.ev.on('groups.upsert', (m) => {
-      this.ev.emit('GroupsJoin', m)
+      this.ev.emit(Events.GroupsJoin, m)
+    });
+
+    this.whats.ev.on("group-participants.update", async (m) => {
+      if (m.action === "add") return this.ev.emit(Events.UserJoin, m);
+      if (m.action === "remove") return this.ev.emit(Events.UserLeave, m);
     });
   }
 };
