@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var dist_1 = require("../dist");
 var util_1 = __importDefault(require("util"));
+var path_1 = __importDefault(require("path"));
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
@@ -80,4 +81,6 @@ bot.command({
         });
     }); }
 });
+var cmd = new dist_1.CommandHandler(bot, path_1["default"].resolve() + '/example/commands');
+cmd.load();
 bot.launch();

@@ -1,4 +1,6 @@
 import { getContentType, proto } from "@adiwajshing/baileys";
+import fs from "fs";
+import path from "path";
 
 export const arrayMove = (
   arr: undefined[],
@@ -47,3 +49,16 @@ export const getSender = (msg: any, client: { user: { id: any } }) => {
     ? msg.key.participant
     : msg.key.remoteJid;
 };
+
+export const walk = (dir: string, callback: (filepath: string, stats?: fs.StatsBase<number>) => {}) => {
+  const files = fs.readdirSync(dir);
+  files.forEach((file) => {
+    var filepath = path.join(dir, file);
+    const stats = fs.statSync(filepath);
+    if (stats.isDirectory()) {
+      module.exports.walk(filepath, callback);
+    } else if (stats.isFile()) {
+      callback(filepath, stats);
+    }
+  });
+}

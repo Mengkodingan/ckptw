@@ -37,5 +37,4 @@ bot.command({
 });
 
 bot.launch();
-
 ```
