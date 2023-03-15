@@ -35,8 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var dist_1 = require("../dist");
+var util_1 = __importDefault(require("util"));
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
@@ -51,6 +55,28 @@ bot.command({
         return __generator(this, function (_a) {
             ctx.sendMessage(ctx.id, { text: "pong!" });
             return [2 /*return*/];
+        });
+    }); }
+});
+bot.command({
+    name: "e",
+    code: function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
+        var evaled, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, eval(ctx.args.join(" "))];
+                case 1:
+                    evaled = _a.sent();
+                    return [2 /*return*/, ctx.reply({
+                            text: util_1["default"].inspect(evaled, { depth: 0 })
+                        })];
+                case 2:
+                    err_1 = _a.sent();
+                    return [2 /*return*/, ctx.reply({ text: "".concat(err_1, "!") })];
+                case 3: return [2 /*return*/];
+            }
         });
     }); }
 });
