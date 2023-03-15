@@ -37,13 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var dist_1 = require("../dist");
-var Events_1 = require("../dist/Constant/Events");
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
     readIncommingMsg: true
 });
-bot.ev.once(Events_1.Events.ClientReady, function (m) {
+bot.ev.once(dist_1.Events.ClientReady, function (m) {
     console.log("ready at ".concat(m.user.id));
 });
 bot.command({

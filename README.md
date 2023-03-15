@@ -17,15 +17,15 @@ npm i github:mengkodingan/ckptw
 
 ## Setup
 
-```js showLineNumbers
-const { Client } = require("@mengkodingan/ckptw");
+```ts
+import { Client, Events } from "@mengkodingan/ckptw";
 const bot = new Client({
   name: "something",
   prefix: "!",
-  autoRead: true,
+  readIncommingMsg: true
 });
 
-bot.ev.once('ready', (m) => {
+bot.ev.once(Events.ClientReady, (m) => {
   console.log(`ready at ${m.user.id}`);
 });
 
@@ -37,4 +37,5 @@ bot.command({
 });
 
 bot.launch();
+
 ```
