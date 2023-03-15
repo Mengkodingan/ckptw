@@ -1,0 +1,40 @@
+{
+  "name": "@mengkodingan/ckptw",
+  "version": "1.0.3",
+  "description": "easy way to create Whatsapp Bot.",
+  "main": "index.js",
+  "scripts": {
+    "example": "tsc example/app.ts --esModuleInterop && node example/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mengkodingan/ckptw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mengkodingan/ckptw/issues"
+  },
+  "homepage": "https://ckptw.mengkodingan.my.id",
+  "keywords": [
+    "whatsapp",
+    "whatsapp-bot",
+    "bot",
+    "baileys",
+    "baileys-md",
+    "whatsapp-web",
+    "whatsapp-api",
+    "md"
+  ],
+  "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.4.0",
+    "@discordjs/collection": "^1.4.0",
+    "@hapi/boom": "^10.0.1",
+    "pino": "^8.11.0",
+    "qrcode-terminal": "^0.12.0",
+    "undici": "^5.21.0"
+  }
+}
