@@ -1,9 +1,10 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "1.0.3",
+  "version": "2.0.0-alpha",
   "description": "easy way to create Whatsapp Bot.",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "example": "tsc example/app.ts --esModuleInterop && node example/app.js"
   },
   "repository": {
