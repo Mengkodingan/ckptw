@@ -37,6 +37,7 @@ bot.launch();
 
 ## Command Handler
 ```ts
+import { CommandHandler } from "@mengkodingan/ckptw";
 import path from "path";
 
 // ...
