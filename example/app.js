@@ -53,13 +53,12 @@ bot.command({
     name: "ping",
     aliases: ["pong"],
     code: function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
-        var btn;
+        var a;
         return __generator(this, function (_a) {
-            btn = new dist_1.ButtonBuilder()
-                .setId("id1") // button id
-                .setDisplayText("button 1") // button text
-                .setType(1);
-            ctx.sendMessage(ctx.id, { text: "pong!", buttons: [btn] });
+            a = new dist_1.SectionsBuilder()
+                .setTitle("title")
+                .setRows({ title: "abc", rowId: 1 }, { title: "abc", rowId: 2, description: "aa" });
+            ctx.sendMessage(ctx.id, { text: "pong!", buttonText: "button text", sections: [a] });
             return [2 /*return*/];
         });
     }); }
