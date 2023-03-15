@@ -11,8 +11,8 @@ import { request } from "undici";
 import EventEmitter from "events";
 import { Events } from "../Constant/Events";
 import { Collection } from "@discordjs/collection";
-import { Ctx } from "./Ctx";
-
+import { CommandOptions } from "../Common/Types";
+ 
 export class Client {
     name: string;
     prefix: Array<string>|string;
@@ -94,10 +94,7 @@ export class Client {
         });
     }
 
-    command(opts = {
-        name: '',
-        code: async(ctx: Ctx) => {}
-    }) {
+    command(opts: CommandOptions) {
         this.cmd?.set(opts.name, opts);
     }
 

@@ -1,4 +1,4 @@
-import { walk } from "../Models/Functions";
+import { walk } from "../Common/Functions";
 
 export class CommandHandler {
     _bot: any;

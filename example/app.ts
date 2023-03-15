@@ -13,6 +13,7 @@ bot.ev.once(Events.ClientReady, (m) => {
 
 bot.command({
   name: "ping",
+  aliases: ["pong"],
   code: async (ctx) => {
     ctx.sendMessage(ctx.id, { text: "pong!" });
   },

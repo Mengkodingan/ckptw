@@ -1,11 +1,6 @@
-import { arrayMove, getContentFromMsg } from "../Models/Functions";
+import { arrayMove, getContentFromMsg } from "../Common/Functions";
 import { Ctx } from "../Classes/Ctx";
-
-interface ValInterface {
-    name: string;
-    code: (ctx: Ctx) => Promise<void>;
-    aliases?: string|Array<String>;
-}
+import { CommandOptions } from "../Common/Types";
 
 export = async (self: { whats: any; cmd: any; prefix: any; m: any; }) => {
     let { cmd, prefix, m } = self;
@@ -42,7 +37,7 @@ export = async (self: { whats: any; cmd: any; prefix: any; m: any; }) => {
         (c.aliases && typeof c.aliases === "object"
             ? c.aliases.includes(command.toLowerCase())
             : c.aliases === command.toLowerCase())
-    ) as ValInterface;
+    ) as CommandOptions;
 
     if (val) val.code(new Ctx({ used: { prefix: startsP, command }, args, self, client: self.whats }));
 };

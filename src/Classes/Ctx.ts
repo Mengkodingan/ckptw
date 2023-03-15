@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { getSender } from "../Models/Functions";
+import { getSender } from "../Common/Functions";
 
 export class Ctx {
     _used: { prefix: Array<string>|string, command: string };
