@@ -1,4 +1,4 @@
-import { Client, Events, CommandHandler } from "../dist";
+import { Client, Events, ButtonBuilder } from "../dist";
 import util from "util";
 
 const bot = new Client({

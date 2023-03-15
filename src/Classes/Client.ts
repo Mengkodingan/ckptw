@@ -31,7 +31,7 @@ export class Client {
         readIncommingMsg = false,
         authDir = './state',
         printQRInTerminal = true
-    }) {
+    }) {        
         this.name = name;
         this.prefix = prefix;
         this.readIncommingMsg = readIncommingMsg;
