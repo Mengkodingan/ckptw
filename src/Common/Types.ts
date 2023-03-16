@@ -1,5 +1,13 @@
 import { Ctx } from "../Classes/Ctx";
 
+export interface ClientOptions {
+    name: string;
+    prefix: Array<string>|string;
+    readIncommingMsg?: boolean;
+    authDir?: string;
+    printQRInTerminal?: boolean;
+}
+
 export interface CommandOptions {
     name: string;
     aliases?: Array<string>;

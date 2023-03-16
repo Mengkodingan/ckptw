@@ -21,7 +21,6 @@ module.exports = class Collector extends EventEmitter {
   }
 
   async collect(t) {
-    console.log("aaaaa")
     let args = this._collect(t);
     if(args) {
       if (this.maxProcessed && this.maxProcessed === this.received) {

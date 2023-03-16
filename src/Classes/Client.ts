@@ -11,7 +11,7 @@ import { request } from "undici";
 import EventEmitter from "events";
 import { Events } from "../Constant/Events";
 import { Collection } from "@discordjs/collection";
-import { CommandOptions } from "../Common/Types";
+import { ClientOptions, CommandOptions } from "../Common/Types";
  
 export class Client {
     name: string;
@@ -26,18 +26,12 @@ export class Client {
     cmd?: Collection<unknown, unknown>;
     readyAt?: number;
 
-    constructor({
-        name = '',
-        prefix = '',
-        readIncommingMsg = false,
-        authDir = './state',
-        printQRInTerminal = true
-    }) {        
-        this.name = name;
-        this.prefix = prefix;
-        this.readIncommingMsg = readIncommingMsg;
-        this.authDir = authDir;
-        this.printQRInTerminal = printQRInTerminal;
+    constructor(opts: ClientOptions) {   
+        this.name = opts.name;
+        this.prefix = opts.prefix;
+        this.readIncommingMsg = opts.readIncommingMsg ?? false;
+        this.authDir = opts.authDir ?? './state';
+        this.printQRInTerminal = opts.printQRInTerminal ?? true;
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
