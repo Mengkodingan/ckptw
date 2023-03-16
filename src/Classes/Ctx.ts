@@ -1,5 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { getSender } from "../Common/Functions";
+import { CollectorArgs } from "../Common/Types";
+import MessageCollector from "./Collector/MessageCollector";
 
 export class Ctx {
     _used: { prefix: Array<string>|string, command: string };
@@ -67,6 +69,23 @@ export class Ctx {
     async react(jid: string, emoji: string, key?: object) {
         this._client.sendMessage(jid, {
           react: { text: emoji, key: key ? key : this._msg.key },
+        });
+    }
+
+    MessageCollector(args: CollectorArgs = {}) {
+        return new MessageCollector({ self: this._self, msg: this._msg }, args);
+    }
+
+    awaitMessages(args: CollectorArgs = {}) {
+        return new Promise((resolve, reject) => {
+            const col = this.MessageCollector(args);
+            col.once("end", (collected, r) => {
+                if (args.endReason?.includes(r)) {
+                    reject(collected);
+                } else {
+                    resolve(collected);
+                }
+            });
         });
     }
 }

@@ -16,3 +16,11 @@ export interface SectionsRows {
     rowId: number,
     description?: string
 }
+
+export interface CollectorArgs {
+    time?: number;
+    max?: number;
+    endReason?: string[];
+    maxProcessed?: number;
+    filter?: () => boolean;
+}

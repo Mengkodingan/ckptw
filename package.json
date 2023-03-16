@@ -4,6 +4,7 @@
   "description": "easy way to create Whatsapp Bot.",
   "main": "dist/index.js",
   "scripts": {
+    "watch": "tsc --watch",
     "build": "tsc",
     "example": "tsc example/app.ts --esModuleInterop && node example/app.js"
   },
