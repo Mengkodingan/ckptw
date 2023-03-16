@@ -24,6 +24,7 @@ export class Client {
     whats?: any;
     ev: EventEmitter;
     cmd?: Collection<unknown, unknown>;
+    readyAt?: number;
 
     constructor({
         name = '',
@@ -68,6 +69,7 @@ export class Client {
                 console.log('connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect)
                 if(shouldReconnect) this.launch();
             } else if(connection === 'open') {
+                this.readyAt = Date.now();
                 this.ev?.emit(Events.ClientReady, this.whats);
             }
         });
