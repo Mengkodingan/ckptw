@@ -45,10 +45,15 @@ var util_1 = __importDefault(require("util"));
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
-    readIncommingMsg: true
+    readIncommingMsg: true,
+    authDir: "./ss",
+    printQRInTerminal: false
 });
 bot.ev.once(Constant_1.Events.ClientReady, function (m) {
     console.log("ready at ".concat(m.user.id));
+});
+bot.ev.on(Constant_1.Events.QR, function (qr) {
+    console.log(qr);
 });
 bot.command({
     name: "ping",

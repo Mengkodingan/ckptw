@@ -58,8 +58,11 @@ export class Client {
     }
 
     onConnectionUpdate() {
-        this.whats.ev.on('connection.update', (update: { connection: any; lastDisconnect: any; }) => {
-            const { connection, lastDisconnect } = update
+        this.whats.ev.on('connection.update', (update: { connection: any; lastDisconnect: any; qr?: string  }) => {
+            const { connection, lastDisconnect } = update;
+            
+            if(update.qr) this.ev.emit(Events.QR, update.qr);
+
             if(connection === 'close') {
                 const shouldReconnect = (lastDisconnect.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut
                 console.log('connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect)
