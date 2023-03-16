@@ -12,6 +12,18 @@ bot.ev.once(Events.ClientReady, (m) => {
   console.log(`ready at ${m.user.id}`);
 });
 
+bot.ev.on(Events.GroupsJoin, (m) => {
+  console.log("GJOIN", m);
+});
+
+bot.ev.on(Events.UserJoin, (m) => {
+  console.log("UJ", m);
+});
+
+bot.ev.on(Events.UserLeave, (m) => {
+  console.log("UL", m);
+});
+
 bot.command({
   name: "ping",
   aliases: ["pong"],

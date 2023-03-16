@@ -45,15 +45,19 @@ var util_1 = __importDefault(require("util"));
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
-    readIncommingMsg: true,
-    authDir: "./ss",
-    printQRInTerminal: false
+    readIncommingMsg: true
 });
 bot.ev.once(Constant_1.Events.ClientReady, function (m) {
     console.log("ready at ".concat(m.user.id));
 });
-bot.ev.on(Constant_1.Events.QR, function (qr) {
-    console.log(qr);
+bot.ev.on(Constant_1.Events.GroupsJoin, function (m) {
+    console.log("GJOIN", m);
+});
+bot.ev.on(Constant_1.Events.UserJoin, function (m) {
+    console.log("UJ", m);
+});
+bot.ev.on(Constant_1.Events.UserLeave, function (m) {
+    console.log("UL", m);
 });
 bot.command({
     name: "ping",

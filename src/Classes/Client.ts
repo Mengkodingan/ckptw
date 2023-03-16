@@ -97,6 +97,19 @@ export class Client {
         });
     }
 
+    onGroupParticipantsUpdate() {
+        this.whats.ev.on("group-participants.update", async (m: { action: string; }) => {
+            if (m.action === "add") return this.ev.emit(Events.UserJoin, m);
+            if (m.action === "remove") return this.ev.emit(Events.UserLeave, m);
+        });
+    }
+
+    onGroupsJoin() {
+        this.whats.ev.on('groups.upsert', (m: any) => {
+            this.ev.emit(Events.GroupsJoin, m)
+        });
+    }
+
     command(opts: CommandOptions) {
         this.cmd?.set(opts.name, opts);
     }
@@ -118,5 +131,7 @@ export class Client {
         this.onConnectionUpdate();
         this.onCredsUpdate();
         this.onMessage();
+        this.onGroupParticipantsUpdate();
+        this.onGroupsJoin();
     }
 }
