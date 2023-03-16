@@ -14,7 +14,8 @@ npm install @mengkodingan/ckptw
 ## Setup
 
 ```ts
-import { Client, Events } from "@mengkodingan/ckptw";
+import { Client } from "@mengkodingan/ckptw";
+import { Events } from "@mengkodingan/ckptw/Constant";
 const bot = new Client({
   name: "something",
   prefix: "!",

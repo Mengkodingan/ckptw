@@ -40,25 +40,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var dist_1 = require("../dist");
+var Constant_1 = require("../dist/Constant");
 var util_1 = __importDefault(require("util"));
 var bot = new dist_1.Client({
     name: "something",
     prefix: "!",
     readIncommingMsg: true
 });
-bot.ev.once(dist_1.Events.ClientReady, function (m) {
+bot.ev.once(Constant_1.Events.ClientReady, function (m) {
     console.log("ready at ".concat(m.user.id));
 });
 bot.command({
     name: "ping",
     aliases: ["pong"],
     code: function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
-        var a;
         return __generator(this, function (_a) {
-            a = new dist_1.SectionsBuilder()
-                .setTitle("title")
-                .setRows({ title: "abc", rowId: 1 }, { title: "abc", rowId: 2, description: "aa" });
-            ctx.sendMessage(ctx.id, { text: "pong!", buttonText: "button text", sections: [a] });
+            ctx.sendMessage(ctx.id, { text: "pong!" });
             return [2 /*return*/];
         });
     }); }

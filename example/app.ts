@@ -1,4 +1,5 @@
-import { Client, Events } from "../dist";
+import { Client } from "../dist";
+import { Events } from "../dist/Constant";
 import util from "util";
 
 const bot = new Client({
