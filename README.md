@@ -68,7 +68,7 @@ export interface CommandOptions {
 
 With command handler you dont need all your command is located in one file.
 
-- ### in your main file
+- #### in your main file
   ```ts
   import { CommandHandler } from "@mengkodingan/ckptw";
   import path from "path";
@@ -80,7 +80,7 @@ With command handler you dont need all your command is located in one file.
   // ... bot.launch()
   ```
 
-- ### in your command file
+- #### in your command file
   ```ts
   module.exports = {
       name: "ping",
@@ -92,7 +92,9 @@ With command handler you dont need all your command is located in one file.
 
 ## Builder
 
-- ### Button
+- #### Button
+  make a button message with Button Builder.
+
   ```ts
   import { ButtonBuilder } from "@mengkodingan/ckptw";
 
@@ -106,7 +108,9 @@ With command handler you dont need all your command is located in one file.
   ctx.sendMessage(ctx.id, { text: "buttons", buttons: [btn] });
   ```
 
-- ### Sections
+- #### Sections
+  Sections message is like a list.
+
   ```ts
   import { SectionBuilder } from "@mengkodingan/ckptw";
 
@@ -143,7 +147,7 @@ export interface CollectorArgs {
 }
 ```
 
-- ### Message Collector
+- #### Message Collector
   ```ts
   let col = ctx.MessageCollector({ time: 10000 }); // in milliseconds
   ctx.reply({ text: "say something... Timeout: 10s" });
@@ -169,7 +173,7 @@ import { Events } from "@mengkdoingan/ckptw/Constant";
 ```
 
 
-- ### Available Events:
+- #### Available Events:
   - **ClientReady** - Emitted when the bot client is ready.
   - **MessagesUpsert** - Received an messages.
   - **QR** - The bot QR is ready to scan. Return the QR Codes.
