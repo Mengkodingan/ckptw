@@ -2,13 +2,20 @@
 
 easy way to create a Whatsapp Bot.
 
+- **✨ Effortless**
+- **🛒 Collector**
+- **🧱 Builder**
+- **⏳ Cooldown**
+- **🔑 Command handler**
+- **🎉 Many more!**
+
 ## Installation
 
 ```bash
 npm install @mengkodingan/ckptw
 ```
 
-## Setup
+## Example
 
 ```ts
 import { Client } from "@mengkodingan/ckptw";
@@ -73,11 +80,11 @@ With command handler you dont need all your command is located in one file.
   import { CommandHandler } from "@mengkodingan/ckptw";
   import path from "path";
 
-  // ...
+  /* ... */
   const cmd = new CommandHandler(bot, path.resolve() + '/CommandsPath');
   cmd.load();
 
-  // ... bot.launch()
+  /* ...bot.launch() */
   ```
 
 - #### in your command file
@@ -89,6 +96,45 @@ With command handler you dont need all your command is located in one file.
       },
   };
   ```
+
+## Command Cooldown
+
+Cooldown can give a delay on the command. This can be done to prevent users from spamming your bot commands.
+
+```diff
++ import { Cooldown } from "@mengkodingan/ckptw";
+
+bot.command({
+  name: "ping",
+  code: async (ctx) => {
++    const cd = new Cooldown(ctx, 8000);
++    if(cd.onCooldown) return ctx.reply({ text: `slow down... wait ${cd.timeleft}ms` });
+
+    ctx.sendMessage(ctx.id, { text: "pong!" });
+  },
+});
+```
+
+if you want to trigger some function when the cooldown end, you can use the "end" events in the cooldown:
+
+> ⚠
+> Will always be triggered when the cooldown is over (even though he only runs the command once)
+
+```ts
+cd.on("end", () => {
+  ctx.reply({ text: "cd timeout" });
+})
+```
+
+Cooldown getter:
+
+```ts
+/* check if sender is on cooldown */
+cd.onCooldown; // boolean
+
+/* check the cooldown time left (in ms) */
+cd.timeleft; // number
+```
 
 ## Builder
 
@@ -194,4 +240,13 @@ ctx.react(ctx.id, "👀");
 
 /* get the bot ready at timestamp */
 bot.readyAt;
+
+/* get the current jid */
+ctx.id // string;
+
+/* get the array of arguments used */
+ctx.args // Array<string>;
+
+/* get sender details */
+ctx.sender // { jid: string, pushName: string }
 ```

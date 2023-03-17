@@ -1,17 +1,17 @@
 import { Collection } from "@discordjs/collection";
 import { getSender } from "../Common/Functions";
-import { CollectorArgs } from "../Common/Types";
+import { CollectorArgs, CtxInterface } from "../Common/Types";
 import MessageCollector from "./Collector/MessageCollector";
 
-export class Ctx {
-    _used: { prefix: Array<string>|string, command: string };
-    _args: Array<String>;
+export class Ctx implements CtxInterface {
+    _used: { prefix: string | string[]; command: string; };
+    _args: string[];
     _self: any;
     _client: any;
     _msg: any;
     _sender: { jid: string; pushName: string; };
-    _config: { name: string; prefix: string|Array<String>; cmd: Collection<unknown, unknown>; };
-
+    _config: { name: string; prefix: string | String[]; cmd: Collection<unknown, unknown>; };
+    
     constructor(options = {
         used: {},
         args: [''],
@@ -39,7 +39,7 @@ export class Ctx {
         return this._msg.key.remoteJid;
     }
 
-    get args(): Array<String> {
+    get args(): Array<string> {
         return this._args;
     }
 

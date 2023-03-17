@@ -1,4 +1,4 @@
-import { Client } from "../dist";
+import { Client, Cooldown } from "../dist";
 import { Events } from "../dist/Constant";
 import util from "util";
 
@@ -16,6 +16,13 @@ bot.command({
   name: "ping",
   aliases: ["pong"],
   code: async (ctx) => {
+    const cd = new Cooldown(ctx, 8000);
+    if(cd.onCooldown) return ctx.reply({ text: `slow down... wait ${cd.timeleft}ms` });
+    
+    cd.on("end", () => {
+      ctx.reply({ text: "cd timeout" });
+    });
+
     ctx.sendMessage(ctx.id, { text: "pong!" });
   },
 });

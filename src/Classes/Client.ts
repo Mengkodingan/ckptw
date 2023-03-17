@@ -24,6 +24,7 @@ export class Client {
     whats?: any;
     ev: EventEmitter;
     cmd?: Collection<unknown, unknown>;
+    cooldown?: Collection<unknown, unknown>;
     readyAt?: number;
 
     constructor(opts: ClientOptions) {   
@@ -35,6 +36,7 @@ export class Client {
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
+        this.cooldown = new Collection();
 
         if(typeof this.prefix === "string") this.prefix = this.prefix.split('');
     }

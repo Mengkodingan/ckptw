@@ -1,3 +1,4 @@
+import { Collection } from "@discordjs/collection";
 import { Ctx } from "../Classes/Ctx";
 
 export interface ClientOptions {
@@ -31,4 +32,14 @@ export interface CollectorArgs {
     endReason?: string[];
     maxProcessed?: number;
     filter?: () => boolean;
+}
+
+export interface CtxInterface {
+    _used: { prefix: Array<string>|string, command: string };
+    _args: Array<String>;
+    _self: any;
+    _client: any;
+    _msg: any;
+    _sender: { jid: string; pushName: string; };
+    _config: { name: string; prefix: string|Array<String>; cmd: Collection<unknown, unknown>; };
 }

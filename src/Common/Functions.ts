@@ -1,4 +1,4 @@
-import { getContentType, proto } from "@adiwajshing/baileys";
+import { getContentType, jidDecode, proto } from "@adiwajshing/baileys";
 import fs from "fs";
 import path from "path";
 
@@ -62,3 +62,13 @@ export const walk = (dir: string, callback: (filepath: string, stats?: fs.StatsB
     }
   });
 }
+
+export const decodeJid = (jid: string) => {
+  if (!jid) return jid;
+  if (/:\d+@/gi.test(jid)) {
+    let decode = jidDecode(jid);
+    return (
+      (decode?.user && decode.server && decode.user + "@" + decode.server) || jid
+    );
+  } else return jid;
+};
