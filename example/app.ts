@@ -16,14 +16,15 @@ bot.command({
   name: "ping",
   aliases: ["pong"],
   code: async (ctx) => {
-    const cd = new Cooldown(ctx, 8000);
-    if(cd.onCooldown) return ctx.reply({ text: `slow down... wait ${cd.timeleft}ms` });
-    
-    cd.on("end", () => {
-      ctx.reply({ text: "cd timeout" });
-    });
-
     ctx.sendMessage(ctx.id, { text: "pong!" });
+  },
+});
+
+bot.command({
+  name: "say",
+  aliases: ["echo"],
+  code: async (ctx) => {
+    ctx.reply({ text: ctx.args.join(" ") })
   },
 });
 
