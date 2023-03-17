@@ -19,7 +19,7 @@ npm install @mengkodingan/ckptw
 
 ```ts
 import { Client } from "@mengkodingan/ckptw";
-import { Events } from "@mengkodingan/ckptw/Constant";
+import { Events } from "@mengkodingan/ckptw/dist/Constant";
 
 const bot = new Client({
   name: "something",
@@ -215,7 +215,7 @@ export interface CollectorArgs {
 
 Firstly you must import the Events Constant like this:
 ```ts
-import { Events } from "@mengkdoingan/ckptw/Constant";
+import { Events } from "@mengkdoingan/ckptw/dist/Constant";
 ```
 
 
