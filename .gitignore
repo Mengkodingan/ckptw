@@ -2,3 +2,4 @@
 /node_modules
 /state
 /example/app.js
+.npmrc
