@@ -1,9 +1,12 @@
+/docs
 /example
 /node_modules
 /src
 /state
 /temp
-package-lock.json
-tsconfig.json
 .gitignore
 changes.md
+package-lock.json
+pnpm-lock.json
+tsconfig.json
+typedoc.json
