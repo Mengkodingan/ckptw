@@ -1,4 +1,4 @@
-import { getContentType, jidDecode, proto } from "@adiwajshing/baileys";
+import { getContentType, jidDecode, proto } from "@whiskeysockets/baileys";
 import fs from "fs";
 import path from "path";
 
@@ -17,7 +17,7 @@ export const arrayMove = (
   return arr;
 };
 
-export const getContentFromMsg = (msg: { message: proto.IMessage | undefined }) => {
+export const getContentFromMsg = (msg: { message: proto.IMessage }) => {
   let type = getContentType(msg.message);
   return type === "conversation" && msg.message?.conversation
     ? msg.message.conversation

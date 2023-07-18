@@ -7,6 +7,8 @@ export interface ClientOptions {
     readIncommingMsg?: boolean;
     authDir?: string;
     printQRInTerminal?: boolean;
+    qrTimeout?: number;
+    markOnlineOnConnect?: boolean;
 }
 
 export interface CommandOptions {

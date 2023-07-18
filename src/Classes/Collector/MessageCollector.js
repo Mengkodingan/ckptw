@@ -17,14 +17,13 @@ module.exports = class MessageCollector extends Collector {
     }
 
     _collect(msg) {
-        let m = msg.messages[0];
-        let content = getContentFromMsg(m);
-        if(!m.key.fromMe && this.jid === m.key.remoteJid && content.length) {
+        let content = getContentFromMsg(msg);
+        if(!msg.key.fromMe && this.jid === msg.key.remoteJid && content.length) {
             this.received++;
             return {
-              ...m,
-              jid: m.key.remoteJid,
-              sender: getSender(m, this.clientReq.self.whats),
+              ...msg,
+              jid: msg.key.remoteJid,
+              sender: getSender(msg, this.clientReq.self.core),
               content,
             };
         } else {

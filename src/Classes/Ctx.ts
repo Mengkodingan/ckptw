@@ -2,6 +2,7 @@ import { Collection } from "@discordjs/collection";
 import { getSender } from "../Common/Functions";
 import { CollectorArgs, CtxInterface } from "../Common/Types";
 import MessageCollector from "./Collector/MessageCollector";
+import { downloadMediaMessage } from "@whiskeysockets/baileys";
 
 export class Ctx implements CtxInterface {
     _used: { prefix: string | string[]; command: string; };
@@ -22,7 +23,7 @@ export class Ctx implements CtxInterface {
         this._args = options.args;
         this._self = options.self;
         this._client = options.client;
-        this._msg = this._self.m.messages[0];
+        this._msg = this._self.m;
         this._sender = {
             jid: getSender(this._msg, this._client),
             pushName: this._msg.pushName,
@@ -52,22 +53,23 @@ export class Ctx implements CtxInterface {
     }
 
     async sendMessage(jid: string, content: object, options = {}): Promise<void> {
-        this._client.sendMessage(jid, content, options);
+        return this._client.sendMessage(jid, content, options);
     }
 
-    async reply(content: object, options = {}): Promise<void> {
-        this._client.sendMessage(this.id, content, {
+    async reply(content: object | string, options = {}): Promise<void> {
+        if(typeof content === 'string') content = { text: content }
+        return this._client.sendMessage(this.id, content, {
           quoted: this._msg,
           ...options,
         });
     }
     
     async replyWithJid(jid: string, content: object, options = {}): Promise<void> {
-        this._client.sendMessage(jid, content, { quoted: this._msg, ...options });
+        return this._client.sendMessage(jid, content, { quoted: this._msg, ...options });
     }
     
     async react(jid: string, emoji: string, key?: object) {
-        this._client.sendMessage(jid, {
+        return this._client.sendMessage(jid, {
           react: { text: emoji, key: key ? key : this._msg.key },
         });
     }
@@ -87,5 +89,29 @@ export class Ctx implements CtxInterface {
                 }
             });
         });
+    }
+
+    getMessageType() {
+        return this._msg.messageType
+    }
+
+    async getMediaMessage(msg: any, type: 'buffer' | 'stream') {
+        let buffer = await downloadMediaMessage(msg, type, {}, { logger: this._client.logger, reuploadRequest: this._client.updateMediaMessage });
+        return buffer;
+    }
+
+    read() {
+        let m = this._msg;
+        this._client.readMessages([
+            {
+              remoteJid: m.key.remoteJid,
+              id: m.key.id,
+              participant: m.key.participant
+            },
+        ]);
+    }
+
+    simulateTyping() {
+        this._client.sendPresenceUpdate('composing', this.id)
     }
 }

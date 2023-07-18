@@ -1,12 +1,16 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "2.0.1",
-  "description": "easy way to create Whatsapp Bot.",
-  "main": "dist/index.js",
+  "version": "3.0.0",
+  "description": "An easy way to make a WhatsApp Bot.",
+  "main": "lib/index.js",
   "scripts": {
     "watch": "tsc --watch",
-    "build": "tsc",
-    "example": "tsc example/app.ts --esModuleInterop && node example/app.js"
+    "clean": "rimraf lib",
+    "build": "pnpm clean && tsc",
+    "example": "pnpm build && pnpm example:build && pnpm example:run",
+    "example:build": "tsc example/app.ts --esModuleInterop --skipLibCheck",
+    "example:run": "node example/app.js",
+    "build:docs": "rimraf docs && typedoc --options typedoc.json"
   },
   "repository": {
     "type": "git",
@@ -26,15 +30,18 @@
     "whatsapp-api",
     "md"
   ],
-  "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id)",
+  "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id) and friends.",
   "license": "MIT",
   "devDependencies": {
+    "rimraf": "^5.0.1",
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-missing-exports": "^2.0.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@adiwajshing/baileys": "^4.4.0",
     "@discordjs/collection": "^1.4.0",
     "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.3.1",
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",
     "undici": "^5.21.0"
