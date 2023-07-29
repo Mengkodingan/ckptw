@@ -156,7 +156,7 @@ export class Client {
      * @param query The trigger.
      * @param callback Callback function
      */
-    hears(query: string, callback: (ctx: Ctx) => Promise<any>) {
+    hears(query: string | Array<string> | RegExp, callback: (ctx: Ctx) => Promise<any>) {
         this.hearsMap.set(this.hearsMap.size, { name: query, code: callback });
     }
 

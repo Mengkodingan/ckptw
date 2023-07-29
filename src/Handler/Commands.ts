@@ -8,7 +8,7 @@ export = async (self: { core: any; cmd: Collection<string, any>; prefix: any; m:
 
     if (!m || !m.message || m.key.fromMe || (m.key && m.key.remoteJid === "status@broadcast")) return;
 
-    const hasHears = Array.from(self.hearsMap.values()).filter((x) => (x.name === m.content) || (x.name === m.messageType ));
+    const hasHears = Array.from(self.hearsMap.values()).filter((x) => (x.name === m.content) || (x.name === m.messageType ) || (new RegExp(x.name).test(m.content)) || (Array.isArray(x.name) ? x.name.includes(m.content) : false));
     if(hasHears.length) return hasHears.map((x) => x.code(new Ctx({ used: { hears: m.content }, args: [], self, client: self.core })));
 
     let allCommandsValue = Array.from(cmd.values());

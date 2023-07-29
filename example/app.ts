@@ -19,6 +19,8 @@ bot.command('hi', async(ctx) => ctx.reply('hello! you can use string as a first 
 bot.hears('test', async(ctx) => ctx.reply('test 1 2 3 beep boop...'));
 
 bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker'));
+bot.hears(['help', 'menu'], async(ctx) => ctx.reply('hears can be use with array too!'));
+bot.hears(/(using\s?)?regex/, async(ctx) => ctx.reply('or using regex!'));
 
 bot.command('abc', async(ctx) => {
     ctx.simulateTyping();
