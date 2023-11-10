@@ -411,4 +411,7 @@ ctx.read()
 
 /* simulate typing */
 ctx.simulateTyping()
+
+/* accessing @whiskeysockets/baileys objects */
+ctx._client
 ```

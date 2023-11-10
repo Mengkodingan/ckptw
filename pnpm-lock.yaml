@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -12,8 +12,8 @@ dependencies:
     specifier: ^10.0.1
     version: 10.0.1
   '@whiskeysockets/baileys':
-    specifier: ^6.3.1
-    version: 6.3.1(qrcode-terminal@0.12.0)
+    specifier: ^6.5.0
+    version: 6.5.0(qrcode-terminal@0.12.0)
   pino:
     specifier: ^8.11.0
     version: 8.11.0
@@ -47,6 +47,10 @@ packages:
   /@discordjs/collection@1.4.0:
     resolution: {integrity: sha512-hiOJyk2CPFf1+FL3a4VKCuu1f448LlROVuu8nLz1+jCOAPokUcdFAV+l4pd3B3h6uJlJQSASoZzrdyNdjdtfzQ==}
     engines: {node: '>=16.9.0'}
+    dev: false
+
+  /@eshaz/web-worker@1.2.1:
+    resolution: {integrity: sha512-v5AKAVtM0toVD2rDCGjzhySWlXG/sG5HVialdzrxFKTAnFZNCjQelX0n2tPK0tE86jf4s3hpWlpRtOh8OObktg==}
     dev: false
 
   /@hapi/boom@10.0.1:
@@ -131,6 +135,18 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
+  /@thi.ng/bitstream@2.2.32:
+    resolution: {integrity: sha512-snzFrxmzMiqZxgiZ5tqoPA2QPfOJH2eE6PIr5+nPcm50jjRiyaYoP5gN2hwB7zad8L+gyW6lxNLPwj4SX/bFyg==}
+    engines: {node: '>=12.7'}
+    dependencies:
+      '@thi.ng/errors': 2.4.2
+    dev: false
+
+  /@thi.ng/errors@2.4.2:
+    resolution: {integrity: sha512-LmctoNnZIlHVlK6JduLXZlrO/xXRimECSLs+qzb/QHW5E/M7wZdrrlhUJbfXc7cY4tcPJlf2kJm0hk8ELMPMEw==}
+    engines: {node: '>=12.7'}
+    dev: false
+
   /@tokenizer/token@0.3.0:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: false
@@ -147,8 +163,34 @@ packages:
     resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
     dev: false
 
-  /@whiskeysockets/baileys@6.3.1(qrcode-terminal@0.12.0):
-    resolution: {integrity: sha512-HYNnWP/8v5PvSCWmAusVM5zOrRLS3iwmxaFZn6BzgSs+wEHlVvdUJZkjwTQwxN7dOzMDCj0PrEh9Pi+HXSIQvQ==}
+  /@wasm-audio-decoders/common@9.0.1:
+    resolution: {integrity: sha512-s4KxPsxhD6e+EtjmHPzTmKJSJTEXHGYlBzUGGLN/plV01x3RecybW73nIMtdLLXL8k/zQ8HYFcA6d9lqCJcDjQ==}
+    dependencies:
+      '@eshaz/web-worker': 1.2.1
+    dev: false
+
+  /@wasm-audio-decoders/common@9.0.2:
+    resolution: {integrity: sha512-yZ2ZjqwUYsoGa5WYPWNjV2cD8fqrT4LiYvj45oPQF4v05TnPkbt9eVURW75ONRmntzFt9RFqc+Z0zmTyZritcQ==}
+    dependencies:
+      '@eshaz/web-worker': 1.2.1
+    dev: false
+
+  /@wasm-audio-decoders/flac@0.1.14:
+    resolution: {integrity: sha512-+ZVIXEDS4gZZn2pd7rnbiUAbHYz+ZeT0IFn2OZU5VODTg17/fjZcQGyGT4QNWY5DUQRLl+GCsIoas0UbXPV3HA==}
+    dependencies:
+      '@wasm-audio-decoders/common': 9.0.1
+      codec-parser: 2.4.3
+    dev: false
+
+  /@wasm-audio-decoders/ogg-vorbis@0.1.12:
+    resolution: {integrity: sha512-ORn7SrvVQykGaJOeU0iW3ZVzNovoHLhWUlxIDTL6rcDOgalRn9Lrn5AzlFOsLyZ9Xj1qpQH7PguL6Y7czI2E9A==}
+    dependencies:
+      '@wasm-audio-decoders/common': 9.0.2
+      codec-parser: 2.4.3
+    dev: false
+
+  /@whiskeysockets/baileys@6.5.0(qrcode-terminal@0.12.0):
+    resolution: {integrity: sha512-ary0RNivsrl56wnn0ta37LwVGpCDabthERCV5lHHsbhJJFfp04g6+reiQAKvxo61oYxwxKjqq33kvID+AOr++A==}
     peerDependencies:
       jimp: ^0.16.1
       link-preview-js: ^3.0.0
@@ -166,6 +208,7 @@ packages:
     dependencies:
       '@adiwajshing/keyed-db': 0.2.4
       '@hapi/boom': 9.1.4
+      audio-decode: 2.1.5
       axios: 1.4.0
       cache-manager: 5.2.3
       futoin-hkdf: 1.5.2
@@ -227,6 +270,28 @@ packages:
     engines: {node: '>=8.0.0'}
     dev: false
 
+  /audio-buffer@5.0.0:
+    resolution: {integrity: sha512-gsDyj1wwUp8u7NBB+eW6yhLb9ICf+0eBmDX8NGaAS00w8/fLqFdxUlL5Ge/U8kB64DlQhdonxYC59dXy1J7H/w==}
+    dev: false
+
+  /audio-decode@2.1.5:
+    resolution: {integrity: sha512-+dnOsHalaEwYRDOyr+A89cp9Ms7WBaFaPcFuLI1/CJO7lVPUJQyTJWEnZktfh9Aw6zCbdD48jHMg8m33pIt3NQ==}
+    dependencies:
+      '@wasm-audio-decoders/flac': 0.1.14
+      '@wasm-audio-decoders/ogg-vorbis': 0.1.12
+      audio-buffer: 5.0.0
+      audio-type: 2.2.1
+      mpg123-decoder: 0.4.10
+      node-wav: 0.0.2
+      ogg-opus-decoder: 1.6.8
+      qoa-format: 1.0.1
+    dev: false
+
+  /audio-type@2.2.1:
+    resolution: {integrity: sha512-En9AY6EG1qYqEy5L/quryzbA4akBpJrnBZNxeKTqGHC2xT9Qc4aZ8b7CcbOMFTTc/MGdoNyp+SN4zInZNKxMYA==}
+    engines: {node: '>=14'}
+    dev: false
+
   /axios@1.4.0:
     resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
     dependencies:
@@ -275,6 +340,10 @@ packages:
   /clone@2.1.2:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
+    dev: false
+
+  /codec-parser@2.4.3:
+    resolution: {integrity: sha512-3dAvFtdpxn4YLstqsB2ZiJXXNg7n1j7R5ONeDuk+2kBkb39PwrCRytOFHlSWA8q5jCjW3PumeMv9q37bFHsijg==}
     dev: false
 
   /color-convert@2.0.1:
@@ -510,6 +579,12 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dev: true
 
+  /mpg123-decoder@0.4.10:
+    resolution: {integrity: sha512-mChssmrXOS1EKiTLmTTGciB7bNqLeXhaGsjMJ+wKNCv0DowkjQNm5d6OdxVGV9lMzgtpTvSf/+k2MqNX43zjnw==}
+    dependencies:
+      '@wasm-audio-decoders/common': 9.0.2
+    dev: false
+
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: false
@@ -536,6 +611,19 @@ packages:
       clone: 2.1.2
     dev: false
 
+  /node-wav@0.0.2:
+    resolution: {integrity: sha512-M6Rm/bbG6De/gKGxOpeOobx/dnGuP0dz40adqx38boqHhlWssBJZgLCPBNtb9NkrmnKYiV04xELq+R6PFOnoLA==}
+    engines: {node: '>=4.4.0'}
+    dev: false
+
+  /ogg-opus-decoder@1.6.8:
+    resolution: {integrity: sha512-5I/aYq+i5p9S4mQVd1wc+j8GzB0KfFlrUB975aK6bicalMH8tKw4aFyoNa0AirU54lmEsXwmT7lzYpWqt3VV5g==}
+    dependencies:
+      '@wasm-audio-decoders/common': 9.0.2
+      codec-parser: 2.4.3
+      opus-decoder: 0.7.3
+    dev: false
+
   /on-exit-leak-free@0.2.0:
     resolution: {integrity: sha512-dqaz3u44QbRXQooZLTUKU41ZrzYrcvLISVgbrzbyCMxpmSLJvZ3ZamIJIZ29P6OhZIkNIQKosdeM6t1LYbA9hg==}
     dev: false
@@ -548,6 +636,12 @@ packages:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
     dependencies:
       wrappy: 1.0.2
+    dev: false
+
+  /opus-decoder@0.7.3:
+    resolution: {integrity: sha512-UdBEiGnmMOqT4VvH0+32//cIkGLIHvP0MpM5TPOLDHaLAAHc+tDzhAto84f5tWoHYH4nPR/oRb+jhxwcuQfbzA==}
+    dependencies:
+      '@wasm-audio-decoders/common': 9.0.2
     dev: false
 
   /path-key@3.1.1:
@@ -679,6 +773,12 @@ packages:
 
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
+
+  /qoa-format@1.0.1:
+    resolution: {integrity: sha512-dMB0Z6XQjdpz/Cw4Rf6RiBpQvUSPCfYlQMWvmuWlWkAT7nDQD29cVZ1SwDUB6DYJSitHENwbt90lqfI+7bvMcw==}
+    dependencies:
+      '@thi.ng/bitstream': 2.2.32
     dev: false
 
   /qrcode-terminal@0.12.0:
