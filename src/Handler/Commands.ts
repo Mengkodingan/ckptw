@@ -21,7 +21,13 @@ export = async (self: { core: any; cmd: Collection<string, any>; prefix: any; m:
         prefix = arrayMove(prefix, emptyIndex - 1, prefix.length - 1);
     }
 
-    const selectedPrefix = prefix.find((p: any) => m.content?.startsWith(p));
+    let selectedPrefix: string;
+    if(prefix instanceof RegExp && prefix.test(m.content)) {
+        selectedPrefix = m.content?.match(prefix)[0];
+    } else {
+        selectedPrefix = prefix.find((p: any) => m.content?.startsWith(p));
+    }
+
     if (!selectedPrefix) return;
 
     args = m.content?.slice(selectedPrefix.length).trim().split(/ +/g) as Array<string>;
@@ -34,6 +40,6 @@ export = async (self: { core: any; cmd: Collection<string, any>; prefix: any; m:
                 ? c.aliases.includes(command.toLowerCase())
                 : c.aliases === command.toLowerCase())
     ) as Array<CommandOptions>;
-    
+
     if (commandDetail.length) commandDetail.map((x) => x.code(new Ctx({ used: { prefix: selectedPrefix, command }, args, self, client: self.core })));
 };

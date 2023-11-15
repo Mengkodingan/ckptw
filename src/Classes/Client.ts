@@ -17,7 +17,7 @@ import { getContentFromMsg } from "../Common/Functions";
  
 export class Client {
     name: string;
-    prefix: Array<string>|string;
+    prefix: Array<string> | string | RegExp;
     readIncommingMsg?: boolean;
     authDir?: string;
     printQRInTerminal?: boolean;
