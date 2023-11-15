@@ -78,7 +78,7 @@ bot.launch();
 > 
 > const bot = new Client({
 >     name: "something",
->     prefix: "!",
+>     prefix: "!", // you can also use array or regex too
 >     readIncommingMsg: true
 > });
 > 
@@ -103,7 +103,7 @@ export interface ClientOptions {
     /* as browser name */ 
     name: string;
     /* the bot prefix */
-    prefix: Array<string>|string;
+    prefix: Array<string> | string | RegExp;
     /* should bot mark as read the incomming messages? */
     readIncommingMsg?: boolean;
     /* path to the auth/creds directory */
