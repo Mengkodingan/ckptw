@@ -22,8 +22,8 @@ export = async (self: { core: any; cmd: Collection<string, any>; prefix: any; m:
     }
 
     let selectedPrefix: string;
-    if(prefix instanceof RegExp && prefix.test(m.content)) {
-        selectedPrefix = m.content?.match(prefix)[0];
+    if(prefix instanceof RegExp) {
+        selectedPrefix = prefix.test(m.content) ? m.content?.match(prefix)[0] : null;
     } else {
         selectedPrefix = prefix.find((p: any) => m.content?.startsWith(p));
     }
