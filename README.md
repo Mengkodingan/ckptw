@@ -31,6 +31,9 @@ An easy way to make a WhatsApp Bot.
 - [Events](#events)
   * [Available Events](#available-events)
 - [Sending Message](#sending-message)
+- [Formatter](#formatter)
+- [Editing Message](#editig-message)
+- [Deleting Message](#deleting-message)
 - [Misc](#misc)
 
 ## Installation
@@ -52,6 +55,7 @@ import { Events, MessageType } from "@mengkodingan/ckptw/lib/Constant";
 const bot = new Client({
     name: "something",
     prefix: "!",
+    printQRInTerminal: true,
     readIncommingMsg: true
 });
 
@@ -78,7 +82,8 @@ bot.launch();
 > 
 > const bot = new Client({
 >     name: "something",
->     prefix: "!", // you can also use array or regex too
+>     prefix: "!", // you can also use array or regex too,
+>     printQRInTerminal: true,
 >     readIncommingMsg: true
 > });
 > 
@@ -172,17 +177,26 @@ With command handler you dont need all your command is located in one file.
       },
   };
   ```
+  ```ts
+  module.exports = {
+      name: "hears with command handler",
+      type: "hears", // add this
+      code: async (ctx) => {
+        ctx.reply("hello world!");
+      },
+  };
+  ```
 
 ## Command Cooldown
 
 Cooldown can give a delay on the command. This can be done to prevent users from spamming your bot commands.
 
-```diff
-+ import { Cooldown } from "@mengkodingan/ckptw";
+```js
+import { Cooldown } from "@mengkodingan/ckptw"; // import Cooldown class
 
 bot.command('ping', async(ctx) => {
-+    const cd = new Cooldown(ctx, 8000);
-+    if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`);
+    const cd = new Cooldown(ctx, 8000); // add this
+    if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
 
     ctx.reply('pong!')
 })
@@ -210,6 +224,8 @@ cd.timeleft; // number
 ```
 
 ## Builder
+
+> ⚠ The button and section are now deprecated!
 
 - ### Button
   make a button message with Button Builder. 
@@ -373,6 +389,38 @@ import fs from "node:fs";
 ctx.reply({ video: fs.readFileSync("./video.mp4"), caption: "video caption", gifPlayback: false });
 ```
 
+## Formatter
+WhatsApp allows you to format text inside your messages. Like bolding your message, etc. This function formats strings into several markdown styles supported by WhatsApp.
+
+> ⚠ Inline code and quote are only supported in IOS and Whatsapp Web. If your user is on another platform it might look different.
+
+You can see the Whatsapp FAQ about formatting messages [here](https://faq.whatsapp.com/539178204879377/?cms_platform=web).
+
+```ts
+import { bold, inlineCode, italic, monospace, quote, strikethrough } from "@mengkodingan/ckptw";
+
+const str = "Hello World";
+
+const boldString = bold(str);
+const italicString = italic(str);
+const strikethroughString = strikethrough(str);
+const quoteString = quote(str);
+const inlineCodeString = inlineCode(str);
+const monospaceString = monospace(str);
+```
+
+## Editing Message
+```ts
+let res = await ctx.reply("old text");
+ctx.editMessage(res.key, "new text");
+```
+
+## Deleting Message
+```ts
+let res = await ctx.reply("testing");
+ctx.deleteMessage(res.key);
+```
+
 ## Misc
 
 ```ts
@@ -395,10 +443,10 @@ ctx.react(ctx.id, "👀");
 bot.readyAt;
 
 /* get the current jid */
-ctx.id // string;
+ctx.id // string
 
 /* get the array of arguments used */
-ctx.args // Array<string>;
+ctx.args // Array<string>
 
 /* get sender details */
 ctx.sender // { jid: string, pushName: string }
@@ -409,8 +457,9 @@ ctx.getMessageType()
 /* read the message */
 ctx.read()
 
-/* simulate typing */
+/* simulate typing or recording state */
 ctx.simulateTyping()
+ctx.simulateRecording()
 
 /* accessing @whiskeysockets/baileys objects */
 bot.core
