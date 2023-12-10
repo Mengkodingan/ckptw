@@ -114,4 +114,8 @@ export class Ctx implements CtxInterface {
     simulateTyping() {
         this._client.sendPresenceUpdate('composing', this.id)
     }
+
+    async deleteMessage(key: any) {
+        return this._client.sendMessage(this.id, { delete: key });
+    }
 }
