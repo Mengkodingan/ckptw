@@ -118,4 +118,8 @@ export class Ctx implements CtxInterface {
     async deleteMessage(key: any) {
         return this._client.sendMessage(this.id, { delete: key });
     }
+
+    simulateRecording() {
+        this._client.sendPresenceUpdate('recording', this.id);
+    }
 }
