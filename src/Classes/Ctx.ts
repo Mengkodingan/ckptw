@@ -122,4 +122,16 @@ export class Ctx implements CtxInterface {
     simulateRecording() {
         this._client.sendPresenceUpdate('recording', this.id);
     }
+
+    async editMessage(key: any, newText: string) {
+        await this._client.relayMessage(this.id, {
+            protocolMessage: {
+              key,
+              type: 14,
+              editedMessage: {
+                conversation: newText
+              }
+            }
+        }, {})
+    }
 }
