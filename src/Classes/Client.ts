@@ -50,7 +50,7 @@ export class Client {
     }
 
     async WAVersion(): Promise<[number, number, number]> {
-        let version = [2, 2311, 5];
+        let version = [2, 2353, 56];
         try {
             let { body } = await request("https://web.whatsapp.com/check-update?version=1&platform=web");
             const data = await body.json();
