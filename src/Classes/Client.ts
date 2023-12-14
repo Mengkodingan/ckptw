@@ -1,6 +1,7 @@
 import makeWASocket, {
   DisconnectReason,
   getContentType,
+  jidDecode,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import { AuthenticationState } from "@whiskeysockets/baileys/lib/Types";
@@ -192,6 +193,16 @@ export class Client {
             },
           ],
         });
+    }
+
+    /**
+     * Fetch bio/about from given Jid or if the param empty will fetch the bot bio/about.
+     * @param [jid] the jid.
+     */
+    async fetchBio(jid?: string) {
+        let decodedJid = jidDecode(jid ? jid : this.core.user.id);
+        let re = await this.core.fetchStatus(decodedJid);
+        return re;
     }
 
     async launch() {
