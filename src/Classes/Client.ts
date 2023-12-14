@@ -172,6 +172,28 @@ export class Client {
         this.hearsMap.set(this.hearsMap.size, { name: query, code: callback });
     }
 
+    /**
+     * Set the bot bio/about.
+     * @param content The bio content.
+     */
+    bio(content: string) {
+        this.core.query({
+          tag: "iq",
+          attrs: {
+            to: "@s.whatsapp.net",
+            type: "set",
+            xmlns: "status",
+          },
+          content: [
+            {
+              tag: "status",
+              attrs: {},
+              content,
+            },
+          ],
+        });
+    }
+
     async launch() {
         const { state, saveCreds } = await useMultiFileAuthState(this.authDir as string);
         this.state = state;
