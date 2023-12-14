@@ -134,4 +134,9 @@ export class Ctx implements CtxInterface {
             }
         }, {})
     }
+
+    async sendPoll(jid: string, args: { name: string, values: Array<string>, singleSelect: boolean, selectableCount?: boolean }) {
+        args.selectableCount = args.singleSelect ? true : false;
+        return this._client.sendMessage(jid, { poll: args })
+    }
 }

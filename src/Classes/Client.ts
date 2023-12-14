@@ -14,6 +14,7 @@ import { Collection } from "@discordjs/collection";
 import { ClientOptions, CommandOptions } from "../Common/Types";
 import { Ctx } from "./Ctx";
 import { getContentFromMsg } from "../Common/Functions";
+import { MessageType } from "../Constant/MessageType";
  
 export class Client {
     name: string;
@@ -95,18 +96,29 @@ export class Client {
 
     onMessage() {
         this.core.ev.on("messages.upsert", async (m: any) => {
+            let msgType = getContentType(m.messages[0].message);
             let text = getContentFromMsg(m.messages[0]);
 
             m.content = null;
             if(text?.length) m.content = text;
 
-            m.messageType = getContentType(m.messages[0].message);
+            m.messageType = msgType;
             m = { ...m, ...m.messages[0] }
 
             delete m.messages;
-            
             let self = { ...this, getContentType, m };
 
+            if(msgType === MessageType.pollCreationMessage) {
+                m.content = m.message.pollCreationMessage.name;
+                m.pollValues = m.message.pollCreationMessage.options.map((x: any) => x.optionName);
+                m.pollSingleSelect = Boolean(m.message.pollCreationMessage.selectableOptionsCount);
+                this.ev?.emit(Events.Poll, m, new Ctx({ used: { poll: m.content }, args: [], self, client: this.core }));
+            }
+
+            if(msgType === MessageType.pollUpdateMessage) {
+                this.ev?.emit(Events.PollVote, m, new Ctx({ used: { pollVote: m.content }, args: [], self, client: this.core }));
+            }
+            
             this.ev?.emit(Events.MessagesUpsert, m, new Ctx({ used: { upsert: m.content }, args: [], self, client: this.core }));
             if (this.readIncommingMsg) this.read(m);
             await require('../Handler/Commands')(self);
