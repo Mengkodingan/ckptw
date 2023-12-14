@@ -139,4 +139,8 @@ export class Ctx implements CtxInterface {
         args.selectableCount = args.singleSelect ? true : false;
         return this._client.sendMessage(jid, { poll: args })
     }
+
+    getMentioned() {
+        return this._msg.message.extendedTextMessage ? this._msg.message.extendedTextMessage.contextInfo.mentionedJid : [];
+    }
 }
