@@ -16,40 +16,42 @@ bot.ev.once(Events.ClientReady, (m) => {
 bot.ev.on(Events.Poll, (m) => {
   console.log(`POLL`, m);
 });
+
 bot.ev.on(Events.PollVote, (m) => {
   console.log(`POLL VOTE`, m);
 });
+
 bot.ev.on(Events.Reactions, (m) => {
   console.log(`REACT`, m);
 });
 
-// bot.command('ping', async(ctx) => ctx.reply({ text: 'pong!' }));
-// bot.command('hi', async(ctx) => ctx.reply('hello! you can use string as a first parameter in reply function too!'));
+bot.command('ping', async(ctx) => ctx.reply({ text: 'pong!' }));
+bot.command('hi', async(ctx) => ctx.reply('hello! you can use string as a first parameter in reply function too!'));
 
-// bot.hears('test', async(ctx) => ctx.reply('test 1 2 3 beep boop...'));
+bot.hears('test', async(ctx) => ctx.reply('test 1 2 3 beep boop...'));
 
-// bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker'));
-// bot.hears(['help', 'menu'], async(ctx) => ctx.reply('hears can be use with array too!'));
-// bot.hears(/(using\s?)?regex/, async(ctx) => ctx.reply('or using regex!'));
+bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker'));
+bot.hears(['help', 'menu'], async(ctx) => ctx.reply('hears can be use with array too!'));
+bot.hears(/(using\s?)?regex/, async(ctx) => ctx.reply('or using regex!'));
 
-// bot.command('abc', async(ctx) => {
-//     ctx.simulateTyping();
-//     ctx.reply("aaa")
-// })
+bot.command('abc', async(ctx) => {
+    ctx.simulateTyping();
+    ctx.reply("aaa")
+})
 
-// bot.command({
-//     name: "e",
-//     code: async (ctx) => {
-//       try {
-//         var evaled = await eval(ctx.args.join(" "));
-//         return ctx.reply({
-//           text: util.inspect(evaled, { depth: 0 }),
-//         });
-//       } catch (err) {
-//         return ctx.reply({ text: `${err}!` });
-//       }
-//     },
-//   });
+bot.command({
+    name: "e",
+    code: async (ctx) => {
+      try {
+        var evaled = await eval(ctx.args.join(" "));
+        return ctx.reply({
+          text: util.inspect(evaled, { depth: 0 }),
+        });
+      } catch (err) {
+        return ctx.reply({ text: `${err}!` });
+      }
+    },
+  });
 
 bot.launch();
 
