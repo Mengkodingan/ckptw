@@ -119,6 +119,10 @@ export class Client {
             if(msgType === MessageType.pollUpdateMessage) {
                 this.ev?.emit(Events.PollVote, m, new Ctx({ used: { pollVote: m.content }, args: [], self, client: this.core }));
             }
+
+            if(msgType === MessageType.reactionMessage) {
+                this.ev.emit(Events.Reactions, m, new Ctx({ used: { reactions: m.content }, args: [], self, client: this.core }));
+            }
             
             this.ev?.emit(Events.MessagesUpsert, m, new Ctx({ used: { upsert: m.content }, args: [], self, client: this.core }));
             if (this.readIncommingMsg) this.read(m);

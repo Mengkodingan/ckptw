@@ -6,5 +6,6 @@ export const Events = {
     "UserJoin": "UserJoin",
     "UserLeave": "UserLeave",
     "Poll": "Poll",
-    "PollVote": "PollVote"
+    "PollVote": "PollVote",
+    "Reactions": "Reactions"
 }
