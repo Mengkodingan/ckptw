@@ -179,6 +179,9 @@ With command handler you dont need all your command is located in one file.
       },
   };
   ```
+
+  You can add a `type` property to define the handler type... For now there are only `command` and `hears` types.
+  
   ```ts
   module.exports = {
       name: "hears with command handler",
