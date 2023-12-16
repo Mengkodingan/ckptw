@@ -34,6 +34,8 @@ An easy way to make a WhatsApp Bot.
 - [Formatter](#formatter)
 - [Editing Message](#editig-message)
 - [Deleting Message](#deleting-message)
+- [Poll Message](#poll-message)
+- [Get Mentions](#get-mentions)
 - [Misc](#misc)
 
 ## Installation
