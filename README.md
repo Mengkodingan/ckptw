@@ -363,6 +363,10 @@ import { Events } from "@mengkodingan/ckptw/lib/Constant";
   - **GroupsJoin** - Emitted when bot joining groups.
   - **UserJoin** - Emitted when someone joins a group where bots are also in that group.
   - **UserLeave** - Same with **UserJoin** but this is when the user leaves the group.
+  - **Poll** - Emitted when someone create a poll message.
+  - **PollVote** - Emitted when someone votes for one/more options in a poll.
+  - **Reactions** - Emitted when someone reacts to a message.
+
 
 ## Sending Message
 
@@ -421,6 +425,20 @@ let res = await ctx.reply("testing");
 ctx.deleteMessage(res.key);
 ```
 
+## Poll Message
+> `singleSelect` means you can only select one of the multiple options in the poll. Default to be false
+
+```ts
+ctx.sendPoll(ctx.id, { name: "ini polling", values: ["abc", "def"], singleSelect: true })
+```
+
+## Get Mentions
+You can use the function from `ctx` to get the jid array mentioned in the message. For example, a message containing `hello @jstn @person` where `@jstn` & `@person` is a mention, then you can get an array containing the jid of the two mentioned users.
+
+```ts
+ctx.getMentioned() // return array 
+```
+
 ## Misc
 
 ```ts
@@ -460,6 +478,12 @@ ctx.read()
 /* simulate typing or recording state */
 ctx.simulateTyping()
 ctx.simulateRecording()
+
+/* change the client about/bio */
+bot.bio("Hi there!");
+
+/* fetch someone about/bio */
+await bot.fetchBio("1234@s.whatsapp.net");
 
 /* accessing @whiskeysockets/baileys objects */
 bot.core
