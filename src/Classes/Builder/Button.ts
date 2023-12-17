@@ -1,3 +1,6 @@
+/**
+ * @deprecated Will not work on most devices.
+ */
 export class ButtonBuilder {
     buttonId: string|null;
     buttonText: { displayText: string|null };

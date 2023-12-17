@@ -1,3 +1,6 @@
+/**
+ * @deprecated Will not work on most devices.
+ */
 export class TemplateButtonsBuilder {
     array: Array<any>;
     index: number

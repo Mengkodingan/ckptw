@@ -13,6 +13,18 @@ bot.ev.once(Events.ClientReady, (m) => {
     console.log(`ready at ${m.user.id}`);
 });
 
+bot.ev.on(Events.Poll, (m) => {
+  console.log(`POLL`, m);
+});
+
+bot.ev.on(Events.PollVote, (m) => {
+  console.log(`POLL VOTE`, m);
+});
+
+bot.ev.on(Events.Reactions, (m) => {
+  console.log(`REACT`, m);
+});
+
 bot.command('ping', async(ctx) => ctx.reply({ text: 'pong!' }));
 bot.command('hi', async(ctx) => ctx.reply('hello! you can use string as a first parameter in reply function too!'));
 

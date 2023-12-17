@@ -1,6 +1,6 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "3.0.7",
+  "version": "4.0.0",
   "description": "An easy way to make a WhatsApp Bot.",
   "main": "lib/index.js",
   "scripts": {
@@ -33,6 +33,7 @@
   "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id) and friends.",
   "license": "MIT",
   "devDependencies": {
+    "link-preview-js": "^3.0.5",
     "rimraf": "^5.0.1",
     "typedoc": "^0.24.8",
     "typedoc-plugin-missing-exports": "^2.0.0",
@@ -45,5 +46,13 @@
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",
     "undici": "^5.21.0"
+  },
+  "peerDependencies": {
+    "link-preview-js": "^3.0.5"
+  },
+  "peerDependenciesMeta": {
+    "link-preview-js": {
+      "optional": true
+    }
   }
 }

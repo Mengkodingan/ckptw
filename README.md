@@ -31,6 +31,11 @@ An easy way to make a WhatsApp Bot.
 - [Events](#events)
   * [Available Events](#available-events)
 - [Sending Message](#sending-message)
+- [Formatter](#formatter)
+- [Editing Message](#editig-message)
+- [Deleting Message](#deleting-message)
+- [Poll Message](#poll-message)
+- [Get Mentions](#get-mentions)
 - [Misc](#misc)
 
 ## Installation
@@ -52,6 +57,7 @@ import { Events, MessageType } from "@mengkodingan/ckptw/lib/Constant";
 const bot = new Client({
     name: "something",
     prefix: "!",
+    printQRInTerminal: true,
     readIncommingMsg: true
 });
 
@@ -78,7 +84,8 @@ bot.launch();
 > 
 > const bot = new Client({
 >     name: "something",
->     prefix: "!", // you can also use array or regex too
+>     prefix: "!", // you can also use array or regex too,
+>     printQRInTerminal: true,
 >     readIncommingMsg: true
 > });
 > 
@@ -173,16 +180,28 @@ With command handler you dont need all your command is located in one file.
   };
   ```
 
+  You can add a `type` property to define the handler type... For now there are only `command` and `hears` types.
+  
+  ```ts
+  module.exports = {
+      name: "hears with command handler",
+      type: "hears", // add this
+      code: async (ctx) => {
+        ctx.reply("hello world!");
+      },
+  };
+  ```
+
 ## Command Cooldown
 
 Cooldown can give a delay on the command. This can be done to prevent users from spamming your bot commands.
 
-```diff
-+ import { Cooldown } from "@mengkodingan/ckptw";
+```js
+import { Cooldown } from "@mengkodingan/ckptw"; // import Cooldown class
 
 bot.command('ping', async(ctx) => {
-+    const cd = new Cooldown(ctx, 8000);
-+    if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`);
+    const cd = new Cooldown(ctx, 8000); // add this
+    if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
 
     ctx.reply('pong!')
 })
@@ -210,6 +229,8 @@ cd.timeleft; // number
 ```
 
 ## Builder
+
+> ⚠ The button and section are now deprecated!
 
 - ### Button
   make a button message with Button Builder. 
@@ -347,6 +368,10 @@ import { Events } from "@mengkodingan/ckptw/lib/Constant";
   - **GroupsJoin** - Emitted when bot joining groups.
   - **UserJoin** - Emitted when someone joins a group where bots are also in that group.
   - **UserLeave** - Same with **UserJoin** but this is when the user leaves the group.
+  - **Poll** - Emitted when someone create a poll message.
+  - **PollVote** - Emitted when someone votes for one/more options in a poll.
+  - **Reactions** - Emitted when someone reacts to a message.
+
 
 ## Sending Message
 
@@ -373,6 +398,52 @@ import fs from "node:fs";
 ctx.reply({ video: fs.readFileSync("./video.mp4"), caption: "video caption", gifPlayback: false });
 ```
 
+## Formatter
+WhatsApp allows you to format text inside your messages. Like bolding your message, etc. This function formats strings into several markdown styles supported by WhatsApp.
+
+> ⚠ Inline code and quote are only supported in IOS and Whatsapp Web. If your user is on another platform it might look different.
+
+You can see the Whatsapp FAQ about formatting messages [here](https://faq.whatsapp.com/539178204879377/?cms_platform=web).
+
+```ts
+import { bold, inlineCode, italic, monospace, quote, strikethrough } from "@mengkodingan/ckptw";
+
+const str = "Hello World";
+
+const boldString = bold(str);
+const italicString = italic(str);
+const strikethroughString = strikethrough(str);
+const quoteString = quote(str);
+const inlineCodeString = inlineCode(str);
+const monospaceString = monospace(str);
+```
+
+## Editing Message
+```ts
+let res = await ctx.reply("old text");
+ctx.editMessage(res.key, "new text");
+```
+
+## Deleting Message
+```ts
+let res = await ctx.reply("testing");
+ctx.deleteMessage(res.key);
+```
+
+## Poll Message
+> `singleSelect` means you can only select one of the multiple options in the poll. Default to be false
+
+```ts
+ctx.sendPoll(ctx.id, { name: "ini polling", values: ["abc", "def"], singleSelect: true })
+```
+
+## Get Mentions
+You can use the function from `ctx` to get the jid array mentioned in the message. For example, a message containing `hello @jstn @person` where `@jstn` & `@person` is a mention, then you can get an array containing the jid of the two mentioned users.
+
+```ts
+ctx.getMentioned() // return array 
+```
+
 ## Misc
 
 ```ts
@@ -395,10 +466,10 @@ ctx.react(ctx.id, "👀");
 bot.readyAt;
 
 /* get the current jid */
-ctx.id // string;
+ctx.id // string
 
 /* get the array of arguments used */
-ctx.args // Array<string>;
+ctx.args // Array<string>
 
 /* get sender details */
 ctx.sender // { jid: string, pushName: string }
@@ -409,8 +480,15 @@ ctx.getMessageType()
 /* read the message */
 ctx.read()
 
-/* simulate typing */
+/* simulate typing or recording state */
 ctx.simulateTyping()
+ctx.simulateRecording()
+
+/* change the client about/bio */
+bot.bio("Hi there!");
+
+/* fetch someone about/bio */
+await bot.fetchBio("1234@s.whatsapp.net");
 
 /* accessing @whiskeysockets/baileys objects */
 bot.core

@@ -114,4 +114,33 @@ export class Ctx implements CtxInterface {
     simulateTyping() {
         this._client.sendPresenceUpdate('composing', this.id)
     }
+
+    async deleteMessage(key: any) {
+        return this._client.sendMessage(this.id, { delete: key });
+    }
+
+    simulateRecording() {
+        this._client.sendPresenceUpdate('recording', this.id);
+    }
+
+    async editMessage(key: any, newText: string) {
+        await this._client.relayMessage(this.id, {
+            protocolMessage: {
+              key,
+              type: 14,
+              editedMessage: {
+                conversation: newText
+              }
+            }
+        }, {})
+    }
+
+    async sendPoll(jid: string, args: { name: string, values: Array<string>, singleSelect: boolean, selectableCount?: boolean }) {
+        args.selectableCount = args.singleSelect ? true : false;
+        return this._client.sendMessage(jid, { poll: args })
+    }
+
+    getMentioned() {
+        return this._msg.message.extendedTextMessage ? this._msg.message.extendedTextMessage.contextInfo.mentionedJid : [];
+    }
 }

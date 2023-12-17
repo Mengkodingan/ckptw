@@ -1,6 +1,7 @@
 import makeWASocket, {
   DisconnectReason,
   getContentType,
+  jidDecode,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import { AuthenticationState } from "@whiskeysockets/baileys/lib/Types";
@@ -14,6 +15,7 @@ import { Collection } from "@discordjs/collection";
 import { ClientOptions, CommandOptions } from "../Common/Types";
 import { Ctx } from "./Ctx";
 import { getContentFromMsg } from "../Common/Functions";
+import { MessageEventList } from "../Handler/MessageEvents";
  
 export class Client {
     name: string;
@@ -50,7 +52,7 @@ export class Client {
     }
 
     async WAVersion(): Promise<[number, number, number]> {
-        let version = [2, 2311, 5];
+        let version = [2, 2353, 56];
         try {
             let { body } = await request("https://web.whatsapp.com/check-update?version=1&platform=web");
             const data = await body.json();
@@ -95,18 +97,22 @@ export class Client {
 
     onMessage() {
         this.core.ev.on("messages.upsert", async (m: any) => {
+            let msgType = getContentType(m.messages[0].message) as string;
             let text = getContentFromMsg(m.messages[0]);
 
             m.content = null;
             if(text?.length) m.content = text;
 
-            m.messageType = getContentType(m.messages[0].message);
+            m.messageType = msgType;
             m = { ...m, ...m.messages[0] }
 
             delete m.messages;
-            
             let self = { ...this, getContentType, m };
 
+            if (MessageEventList[msgType]) {
+                await MessageEventList[msgType](m, this.ev, self, this.core);
+            }
+            
             this.ev?.emit(Events.MessagesUpsert, m, new Ctx({ used: { upsert: m.content }, args: [], self, client: this.core }));
             if (this.readIncommingMsg) this.read(m);
             await require('../Handler/Commands')(self);
@@ -158,6 +164,38 @@ export class Client {
      */
     hears(query: string | Array<string> | RegExp, callback: (ctx: Ctx) => Promise<any>) {
         this.hearsMap.set(this.hearsMap.size, { name: query, code: callback });
+    }
+
+    /**
+     * Set the bot bio/about.
+     * @param content The bio content.
+     */
+    bio(content: string) {
+        this.core.query({
+          tag: "iq",
+          attrs: {
+            to: "@s.whatsapp.net",
+            type: "set",
+            xmlns: "status",
+          },
+          content: [
+            {
+              tag: "status",
+              attrs: {},
+              content,
+            },
+          ],
+        });
+    }
+
+    /**
+     * Fetch bio/about from given Jid or if the param empty will fetch the bot bio/about.
+     * @param [jid] the jid.
+     */
+    async fetchBio(jid?: string) {
+        let decodedJid = jidDecode(jid ? jid : this.core.user.id);
+        let re = await this.core.fetchStatus(decodedJid);
+        return re;
     }
 
     async launch() {
