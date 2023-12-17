@@ -1,7 +1,7 @@
 import { SectionsOptions, SectionsRows } from "../../Common/Types";
 
 /**
- * @deprecated no longer work with in devices.
+ * @deprecated Will not work on most devices.
  */
 export class SectionsBuilder {
     title: string|null;

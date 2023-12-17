@@ -1,5 +1,5 @@
 /**
- * @deprecated no longer work with in devices.
+ * @deprecated Will not work on most devices.
  */
 export class TemplateButtonsBuilder {
     array: Array<any>;
