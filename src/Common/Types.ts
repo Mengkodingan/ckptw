@@ -45,3 +45,10 @@ export interface CtxInterface {
     _sender: { jid: string; pushName: string; };
     _config: { name: string; prefix: string|Array<String>; cmd: Collection<unknown, unknown>; };
 }
+
+export interface CollectorOptions {
+    filter: (args: any, collector: Collection<any, any>) => boolean,
+    time: number,
+    max: number,
+    maxProcessed: number
+}

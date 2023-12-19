@@ -2,5 +2,6 @@
     "$schema": "https://typedoc.org/schema.json",
     "entryPoints": ["./src"],
     "out": "docs",
-    "plugin": ["typedoc-plugin-missing-exports"]
+    "includeVersion": true,
+    "plugin": []
 }

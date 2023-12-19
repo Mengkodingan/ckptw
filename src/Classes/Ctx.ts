@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { getSender } from "../Common/Functions";
 import { CollectorArgs, CtxInterface } from "../Common/Types";
-import MessageCollector from "./Collector/MessageCollector";
+import { MessageCollector } from "./Collector/MessageCollector";
 import { downloadMediaMessage } from "@whiskeysockets/baileys";
 
 export class Ctx implements CtxInterface {
@@ -81,7 +81,7 @@ export class Ctx implements CtxInterface {
     awaitMessages(args: CollectorArgs = {}) {
         return new Promise((resolve, reject) => {
             const col = this.MessageCollector(args);
-            col.once("end", (collected, r) => {
+            col.once("end", (collected: Collection<string, any>, r: any) => {
                 if (args.endReason?.includes(r)) {
                     reject(collected);
                 } else {
