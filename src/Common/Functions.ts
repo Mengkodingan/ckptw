@@ -1,4 +1,4 @@
-import { getContentType, jidDecode, proto } from "@whiskeysockets/baileys";
+import makeWASocket, { getContentType, jidDecode, proto } from "@whiskeysockets/baileys";
 import fs from "fs";
 import path from "path";
 
@@ -17,7 +17,7 @@ export const arrayMove = (
   return arr;
 };
 
-export const getContentFromMsg = (msg: { message: proto.IMessage }) => {
+export const getContentFromMsg = (msg: { message: proto.IMessage }): string | null | undefined => {
   let type = getContentType(msg.message);
   return type === "conversation" && msg.message?.conversation
     ? msg.message.conversation
@@ -40,9 +40,9 @@ export const getContentFromMsg = (msg: { message: proto.IMessage }) => {
     : "";
 };
 
-export const getSender = (msg: any, client: { user: { id: any } }) => {
+export const getSender = (msg: proto.IWebMessageInfo, client: ReturnType<typeof makeWASocket>): string | null | undefined => {
   return msg.key.fromMe
-    ? client.user.id
+    ? client.user?.id
     : msg.participant
     ? msg.participant
     : msg.key.participant
@@ -63,7 +63,7 @@ export const walk = (dir: string, callback: (filepath: string, stats?: fs.StatsB
   });
 }
 
-export const decodeJid = (jid: string) => {
+export const decodeJid = (jid: string): string => {
   if (!jid) return jid;
   if (/:\d+@/gi.test(jid)) {
     let decode = jidDecode(jid);

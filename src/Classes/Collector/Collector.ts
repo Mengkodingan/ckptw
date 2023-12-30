@@ -1,10 +1,17 @@
-import { CollectorOptions } from "../../Common/Types";
-
-const { Collection } = require("@discordjs/collection");
-var EventEmitter = require("events");
+import { Collection } from "@discordjs/collection";
+import { ICollectorOptions, IMessageInfo } from "../../Common/Types";
+import { EventEmitter } from "events";
 
 export class Collector extends EventEmitter {
-  constructor(options: CollectorOptions = {
+  [x: string]: any;
+  isRun: any;
+  filter: (args: any, collector: Collection<any, any>) => boolean;
+  time: number;
+  max: number;
+  maxProcessed: number;
+  collector: Collection<unknown, unknown>;
+  received: any;
+  constructor(options: ICollectorOptions = {
     filter: function (): boolean {
       throw new Error("Function not implemented.");
     },
@@ -29,7 +36,7 @@ export class Collector extends EventEmitter {
     if(options.time) this.isRun = setTimeout(() => this.stop(), this.time);
   }
 
-  async collect(t: any) {
+  async collect(t: IMessageInfo) {
     let args = this._collect(t);
     if(args) {
       if (this.maxProcessed && this.maxProcessed === this.received) {
@@ -50,7 +57,7 @@ export class Collector extends EventEmitter {
     }
   }
 
-  stop(r = "timeout") {
+  stop(r: string = "timeout") {
     if (this.isRun) {
       clearTimeout(this.isRun);
       this.isRun = undefined;

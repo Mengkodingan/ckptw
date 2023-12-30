@@ -8,8 +8,8 @@
     "clean": "rimraf lib",
     "build": "pnpm clean && tsc",
     "example": "pnpm build && pnpm example:build && pnpm example:run",
-    "example:build": "tsc example/app.ts --esModuleInterop --skipLibCheck",
-    "example:run": "node example/app.js",
+    "example:build": "tsc example/a.ts --esModuleInterop --skipLibCheck",
+    "example:run": "node example/a.js",
     "build:docs": "rimraf docs && typedoc --options typedoc.json"
   },
   "repository": {

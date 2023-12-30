@@ -1,13 +1,13 @@
-import { SectionsOptions, SectionsRows } from "../../Common/Types";
+import { ISectionsOptions, ISectionsRows } from "../../Common/Types";
 
 /**
  * @deprecated Will not work on most devices.
  */
 export class SectionsBuilder {
     title: string|null;
-    rows: SectionsRows[];
+    rows: ISectionsRows[];
 
-    constructor(opts?: SectionsOptions) {
+    constructor(opts?: ISectionsOptions) {
         this.title = opts?.title || null;
         this.rows = opts?.rows || [];
     }
@@ -18,7 +18,7 @@ export class SectionsBuilder {
         return this
     }
 
-    setRows(...row: SectionsRows[]) {
+    setRows(...row: ISectionsRows[]) {
         if(!row) throw new Error("[ckptw] button builder need rows");
         this.rows = row;
         return this
