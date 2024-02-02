@@ -4,15 +4,15 @@ import makeWASocket, {
   jidDecode,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
-import { AuthenticationState } from "@whiskeysockets/baileys/lib/Types";
+import { AuthenticationState, ConnectionState } from "@whiskeysockets/baileys/lib/Types";
 
 import { Boom } from "@hapi/boom";
-import pino from "pino";
+import pino, { Logger } from "pino";
 import { request } from "undici";
 import EventEmitter from "events";
 import { Events } from "../Constant/Events";
 import { Collection } from "@discordjs/collection";
-import { ClientOptions, CommandOptions } from "../Common/Types";
+import { IClientOptions, ICommandOptions, IMessageInfo } from "../Common/Types";
 import { Ctx } from "./Ctx";
 import { getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
@@ -24,17 +24,18 @@ export class Client {
     authDir?: string;
     printQRInTerminal?: boolean;
     state?: AuthenticationState;
-    saveCreds?: () => Promise<void>;
-    core?: any;
+    saveCreds: any;
+    core!: ReturnType<typeof makeWASocket>;
     ev: EventEmitter;
-    cmd?: Collection<CommandOptions | number, any>;
+    cmd?: Collection<ICommandOptions | number, any>;
     cooldown?: Collection<unknown, unknown>;
     readyAt?: number;
     hearsMap: Collection<number, any>;
     qrTimeout?: number;
     markOnlineOnConnect?: boolean;
+    logger?: any;
 
-    constructor(opts: ClientOptions) {   
+    constructor(opts: IClientOptions) {   
         this.name = opts.name;
         this.prefix = opts.prefix;
         this.readIncommingMsg = opts.readIncommingMsg ?? false;
@@ -42,6 +43,7 @@ export class Client {
         this.printQRInTerminal = opts.printQRInTerminal ?? true;
         this.qrTimeout = opts.qrTimeout ?? 60000
         this.markOnlineOnConnect = opts.markOnlineOnConnect ?? true;
+        this.logger = opts.logger ?? pino({ level: "fatal" });
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
@@ -65,14 +67,14 @@ export class Client {
     }
 
     onConnectionUpdate() {
-        this.core.ev.on('connection.update', (update: { connection: any; lastDisconnect: any; qr?: string  }) => {
+        this.core?.ev.on('connection.update', (update: Partial<ConnectionState>) => {
             const { connection, lastDisconnect } = update;
             
             if(update.qr) this.ev.emit(Events.QR, update.qr);
 
             if(connection === 'close') {
-                const shouldReconnect = (lastDisconnect.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut
-                console.log('connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect)
+                const shouldReconnect = (lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut
+                console.log('connection closed due to ', lastDisconnect?.error, ', reconnecting ', shouldReconnect)
                 if(shouldReconnect) this.launch();
             } else if(connection === 'open') {
                 this.readyAt = Date.now();
@@ -82,11 +84,11 @@ export class Client {
     }
 
     onCredsUpdate() {
-        this.core.ev.on("creds.update", this.saveCreds);
+        this.core?.ev.on("creds.update", this.saveCreds);
     }
 
-    read(m: any) {
-        this.core.readMessages([
+    read(m: IMessageInfo) {
+        this.core?.readMessages([
             {
               remoteJid: m.key.remoteJid,
               id: m.key.id,
@@ -96,7 +98,7 @@ export class Client {
     }
 
     onMessage() {
-        this.core.ev.on("messages.upsert", async (m: any) => {
+        this.core?.ev.on("messages.upsert", async (m: any) => {
             let msgType = getContentType(m.messages[0].message) as string;
             let text = getContentFromMsg(m.messages[0]);
 
@@ -120,14 +122,14 @@ export class Client {
     }
 
     onGroupParticipantsUpdate() {
-        this.core.ev.on("group-participants.update", async (m: { action: string; }) => {
+        this.core?.ev.on("group-participants.update", async (m: { action: string; }) => {
             if (m.action === "add") return this.ev.emit(Events.UserJoin, m);
             if (m.action === "remove") return this.ev.emit(Events.UserLeave, m);
         });
     }
 
     onGroupsJoin() {
-        this.core.ev.on('groups.upsert', (m: any) => {
+        this.core?.ev.on('groups.upsert', (m: any) => {
             this.ev.emit(Events.GroupsJoin, m)
         });
     }
@@ -150,7 +152,7 @@ export class Client {
      * });
      * ```
      */
-    command(opts: CommandOptions | string, code?: (ctx: Ctx) => Promise<any>) {
+    command(opts: ICommandOptions | string, code?: (ctx: Ctx) => Promise<any>) {
         if(typeof opts !== 'string') return this.cmd?.set(this.cmd.size, opts);
 
         if(!code) code = async() => { return null; };
@@ -171,7 +173,7 @@ export class Client {
      * @param content The bio content.
      */
     bio(content: string) {
-        this.core.query({
+        this.core?.query({
           tag: "iq",
           attrs: {
             to: "@s.whatsapp.net",
@@ -192,9 +194,9 @@ export class Client {
      * Fetch bio/about from given Jid or if the param empty will fetch the bot bio/about.
      * @param [jid] the jid.
      */
-    async fetchBio(jid?: string) {
-        let decodedJid = jidDecode(jid ? jid : this.core.user.id);
-        let re = await this.core.fetchStatus(decodedJid);
+    async fetchBio(jid?: string): Promise<undefined | { setAt: Date, status: undefined | string }> {
+        let decodedJid = jidDecode(jid ? jid : this.core?.user?.id) as unknown as string;
+        let re = await this.core?.fetchStatus(decodedJid);
         return re;
     }
 
@@ -205,7 +207,7 @@ export class Client {
 
         const version = await this.WAVersion();
         this.core = makeWASocket({
-            logger: pino({ level: "fatal" }),
+            logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,
             auth: this.state,
             browser: [this.name, "Chrome", "1.0.0"],

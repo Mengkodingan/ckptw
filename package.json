@@ -1,6 +1,6 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "4.0.0",
+  "version": "4.5.0",
   "description": "An easy way to make a WhatsApp Bot.",
   "main": "lib/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
   "dependencies": {
     "@discordjs/collection": "^1.4.0",
     "@hapi/boom": "^10.0.1",
-    "@whiskeysockets/baileys": "^6.5.0",
+    "@whiskeysockets/baileys": "^6.6.0",
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",
     "undici": "^5.21.0"

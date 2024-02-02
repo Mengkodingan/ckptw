@@ -1,4 +1,4 @@
-import { ButtonBuilder, Client, SectionsBuilder, TemplateButtonsBuilder } from "../lib";
+import { ButtonBuilder, Client, Cooldown, SectionsBuilder, TemplateButtonsBuilder } from "../lib";
 import { Events, MessageType } from "../lib/Constant";
 import fs from "node:fs";
 import util from "util";
@@ -34,9 +34,33 @@ bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker
 bot.hears(['help', 'menu'], async(ctx) => ctx.reply('hears can be use with array too!'));
 bot.hears(/(using\s?)?regex/, async(ctx) => ctx.reply('or using regex!'));
 
-bot.command('abc', async(ctx) => {
+bot.command('simulatetyping', async(ctx) => {
     ctx.simulateTyping();
     ctx.reply("aaa")
+});
+
+bot.command('collector', async(ctx) => {
+  let col = ctx.MessageCollector({ time: 10000 }); // in milliseconds
+  ctx.reply({ text: "say something... Timeout: 10s" });
+
+  col.on("collect", (m) => {
+      console.log("COLLECTED", m); // m is an Collections
+      ctx.sendMessage(ctx.id!, {
+          text: `Collected: ${m.content}\nFrom: ${m.sender}`,
+      });
+  });
+
+  col.on("end", (collector, r) => {
+      console.log("ended", r); // r = reason
+      ctx.sendMessage(ctx.id!, { text: `Collector ended` });
+  });
+})
+
+bot.command('cooldown', async(ctx) => {
+  const cd = new Cooldown(ctx, 8000); // add this
+  if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
+
+  ctx.reply('pong!')
 })
 
 bot.command({
