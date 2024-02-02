@@ -1,4 +1,4 @@
-import { ButtonBuilder, Client, SectionsBuilder, TemplateButtonsBuilder } from "../lib";
+import { ButtonBuilder, Client, Cooldown, SectionsBuilder, TemplateButtonsBuilder } from "../lib";
 import { Events, MessageType } from "../lib/Constant";
 import fs from "node:fs";
 import util from "util";
@@ -54,6 +54,13 @@ bot.command('collector', async(ctx) => {
       console.log("ended", r); // r = reason
       ctx.sendMessage(ctx.id!, { text: `Collector ended` });
   });
+})
+
+bot.command('cooldown', async(ctx) => {
+  const cd = new Cooldown(ctx, 8000); // add this
+  if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
+
+  ctx.reply('pong!')
 })
 
 bot.command({
