@@ -490,6 +490,13 @@ bot.bio("Hi there!");
 /* fetch someone about/bio */
 await bot.fetchBio("1234@s.whatsapp.net");
 
+/* get device */
+ctx.getDevice(id) 
+ctx.getDevice() // get the user device
+
+/* check whether the chat is a group */
+ctx.isGroup()
+
 /* accessing @whiskeysockets/baileys objects */
 bot.core
 ctx._client
