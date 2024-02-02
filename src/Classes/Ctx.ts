@@ -157,4 +157,8 @@ export class Ctx implements ICtx {
     getDevice(id: string | undefined) {
         return getDevice(id? id : this._msg.key.id!);
     }
+
+    isGroup() {
+        return this.id?.endsWith("@g.us");
+    }
 }
