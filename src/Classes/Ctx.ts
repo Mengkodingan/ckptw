@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { getSender } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IMessageInfo } from "../Common/Types";
-import makeWASocket, { AnyMessageContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage } from "@whiskeysockets/baileys";
+import makeWASocket, { AnyMessageContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
 
@@ -152,5 +152,9 @@ export class Ctx implements ICtx {
 
     getMentioned(): string[] | null | undefined {
         return this._msg.message?.extendedTextMessage ? this._msg.message.extendedTextMessage.contextInfo?.mentionedJid : [];
+    }
+
+    getDevice(id: string | undefined) {
+        return getDevice(id? id : this._msg.key.id!);
     }
 }

@@ -8,8 +8,8 @@
     "clean": "rimraf lib",
     "build": "pnpm clean && tsc",
     "example": "pnpm build && pnpm example:build && pnpm example:run",
-    "example:build": "tsc example/a.ts --esModuleInterop --skipLibCheck",
-    "example:run": "node example/a.js",
+    "example:build": "tsc example/app.ts --esModuleInterop --skipLibCheck",
+    "example:run": "node example/app.js",
     "build:docs": "rimraf docs && typedoc --options typedoc.json"
   },
   "repository": {
@@ -42,7 +42,7 @@
   "dependencies": {
     "@discordjs/collection": "^1.4.0",
     "@hapi/boom": "^10.0.1",
-    "@whiskeysockets/baileys": "^6.5.0",
+    "@whiskeysockets/baileys": "^6.6.0",
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",
     "undici": "^5.21.0"

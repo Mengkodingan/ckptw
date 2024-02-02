@@ -50,10 +50,10 @@ export interface ICtx {
 }
 
 export interface ICollectorOptions {
-    filter: (args: any, collector: Collection<any, any>) => boolean,
+    filter?: (args: any, collector: Collection<any, any>) => boolean,
     time: number,
-    max: number,
-    maxProcessed: number,
+    max?: number,
+    maxProcessed?: number,
     endReason?: string[]
 }
 

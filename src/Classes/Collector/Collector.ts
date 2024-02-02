@@ -7,8 +7,8 @@ export class Collector extends EventEmitter {
   isRun: any;
   filter: (args: any, collector: Collection<any, any>) => boolean;
   time: number;
-  max: number;
-  maxProcessed: number;
+  max?: number;
+  maxProcessed?: number;
   collector: Collection<unknown, unknown>;
   received: any;
   constructor(options: ICollectorOptions = {
