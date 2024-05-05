@@ -3,5 +3,6 @@
     "entryPoints": ["./src"],
     "out": "docs",
     "includeVersion": true,
+    "cname": "ckptw.mengkodingan.my.id",
     "plugin": []
 }
