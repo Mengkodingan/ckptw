@@ -1,5 +1,4 @@
-import { Client } from "../lib";
-import { Events } from "../lib/Constant";
+import { Client, Events } from "../lib";
 import util from "util";
 
 const bot = new Client({
@@ -16,7 +15,7 @@ bot.command({
   name: "ping",
   aliases: ["pong"],
   code: async (ctx) => {
-    ctx.sendMessage(ctx.id, { text: "pong!" });
+    ctx.sendMessage(ctx.id!, { text: "pong!" });
   },
 });
 

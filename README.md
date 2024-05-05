@@ -51,8 +51,7 @@ pnpm add @mengkodingan/ckptw
 ## Example
 
 ```ts
-import { Client } from "@mengkodingan/ckptw";
-import { Events, MessageType } from "@mengkodingan/ckptw/lib/Constant";
+import { Client, Events, MessageType } from "@mengkodingan/ckptw";
 
 const bot = new Client({
     name: "something",
@@ -79,8 +78,7 @@ bot.launch();
 > ### Or using the Events
 >
 > ```ts
-> import { Client } from "@mengkodingan/ckptw";
-> import { Events } from "@mengkodingan/ckptw/lib/Constant";
+> import { Client, Events } from "@mengkodingan/ckptw";
 > 
 > const bot = new Client({
 >     name: "something",
@@ -343,7 +341,7 @@ export interface CollectorArgs {
 
 the code below will save the received image to `./saved.jpeg`
 ```ts
-import { MessageType } from "@mengkodingan/ckptw/lib/Constant";
+import { MessageType } from "@mengkodingan/ckptw";
 import fs from "node:fs";
 
 bot.ev.on(Events.MessagesUpsert, async(m, ctx) => {
@@ -358,7 +356,7 @@ bot.ev.on(Events.MessagesUpsert, async(m, ctx) => {
 
 Firstly you must import the Events Constant like this:
 ```ts
-import { Events } from "@mengkodingan/ckptw/lib/Constant";
+import { Events } from "@mengkodingan/ckptw";
 ```
 
 - ### Available Events
@@ -455,7 +453,7 @@ ctx.reply("you can use string as a first parameter too!");
 bot.hears('test', async(ctx) => ctx.reply('test 1 2 3 beep boop...'));
 
 /* will be triggered when someone sends a sticker message */
-import { MessageType } from "@mengkodingan/ckptw/lib/Constant";
+import { MessageType } from "@mengkodingan/ckptw";
 bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker'));
 
 /* add react */
