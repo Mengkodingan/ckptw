@@ -2,7 +2,6 @@ import { Client } from "../lib";
 import { Events } from "../lib/Constant";
 
 const bot = new Client({
-    name: "something",
     prefix: "!",
     readIncommingMsg: true
 });

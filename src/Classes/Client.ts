@@ -20,7 +20,6 @@ import { getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
  
 export class Client {
-    name: string;
     prefix: Array<string> | string | RegExp;
     readIncommingMsg?: boolean;
     authDir?: string;
@@ -40,7 +39,6 @@ export class Client {
     usePairingCode?: boolean;
 
     constructor(opts: IClientOptions) {   
-        this.name = opts.name;
         this.prefix = opts.prefix;
         this.readIncommingMsg = opts.readIncommingMsg ?? false;
         this.authDir = opts.authDir ?? './state';

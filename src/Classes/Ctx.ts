@@ -12,7 +12,7 @@ export class Ctx implements ICtx {
     _client: ReturnType<typeof makeWASocket>;
     _msg: IMessageInfo;
     _sender: { jid: string | null | undefined; pushName: string | null | undefined; };
-    _config: { name: string | RegExp | string[]; prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
+    _config: { prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
     
     constructor(options: ICtxOptions) {
         this._used = options.used as { prefix: Array<string>|string, command: string };
@@ -26,7 +26,6 @@ export class Ctx implements ICtx {
         };
 
         this._config = {
-            name: this._self.name,
             prefix: this._self.prefix,
             cmd: this._self.cmd,
         };

@@ -2,7 +2,6 @@ import { Client, Events } from "../lib";
 import util from "util";
 
 const bot = new Client({
-  name: "something",
   prefix: "!",
   readIncommingMsg: true
 });

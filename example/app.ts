@@ -3,7 +3,6 @@ import fs from "node:fs";
 import util from "util";
 
 const bot = new Client({
-    name: "something",
     prefix: "!",
     readIncommingMsg: true,
 });

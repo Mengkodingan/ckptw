@@ -4,7 +4,6 @@ import makeWASocket, { WAProto } from "@whiskeysockets/baileys"
 import { Client } from "../Classes/Client";
 
 export interface IClientOptions {
-    name: string;
     prefix: Array<string> | string | RegExp;
     readIncommingMsg?: boolean;
     authDir?: string;
@@ -48,7 +47,7 @@ export interface ICtx {
     _client: ReturnType<typeof makeWASocket>;
     _msg: IMessageInfo;
     _sender: { jid: string | null | undefined; pushName: string | null | undefined; };
-    _config: { name: string | RegExp | string[]; prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
+    _config: { prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
 }
 
 export interface ICollectorOptions {
