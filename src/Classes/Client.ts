@@ -1,5 +1,7 @@
 import makeWASocket, {
+    Browsers,
   DisconnectReason,
+  PHONENUMBER_MCC,
   getContentType,
   jidDecode,
   useMultiFileAuthState,
@@ -34,6 +36,8 @@ export class Client {
     qrTimeout?: number;
     markOnlineOnConnect?: boolean;
     logger?: any;
+    phoneNumber?: string;
+    usePairingCode?: boolean;
 
     constructor(opts: IClientOptions) {   
         this.name = opts.name;
@@ -41,6 +45,8 @@ export class Client {
         this.readIncommingMsg = opts.readIncommingMsg ?? false;
         this.authDir = opts.authDir ?? './state';
         this.printQRInTerminal = opts.printQRInTerminal ?? true;
+        this.phoneNumber = opts.phoneNumber;
+        this.usePairingCode = opts.usePairingCode ?? false;
         this.qrTimeout = opts.qrTimeout ?? 60000
         this.markOnlineOnConnect = opts.markOnlineOnConnect ?? true;
         this.logger = opts.logger ?? pino({ level: "fatal" });
@@ -210,11 +216,26 @@ export class Client {
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,
             auth: this.state,
-            browser: [this.name, "Chrome", "1.0.0"],
+            browser: Browsers.ubuntu('CHROME'),
             version,
             qrTimeout: this.qrTimeout,
             markOnlineOnConnect: this.markOnlineOnConnect
         });
+
+        if(this.usePairingCode && !this.core.authState.creds.registered) {
+            if(this.printQRInTerminal) throw new Error('[ckptw] if you are set the usePairingCode to true then you need to set printQRInTerminal to false.');
+            if(!this.phoneNumber) throw new Error("[ckptw] the phoneNumber options are required if you are using usePairingCode");
+
+            this.phoneNumber = this.phoneNumber.replace(/[^0-9]/g, '');
+            if(!this.phoneNumber.length) throw new Error('[ckptw] invalid phoneNumber');
+
+            if(!Object.keys(PHONENUMBER_MCC).some(v => this.phoneNumber!.startsWith(v))) throw new Error('[ckptw] phoneNumber format must be like: 62xxx (starts with the country code)');
+
+            setTimeout(async () => {
+                const code = await this.core.requestPairingCode(this.phoneNumber!);
+                console.log("[ckptw] Pairing Code:", code);
+            }, 3000)
+        }
 
         this.onConnectionUpdate();
         this.onCredsUpdate();

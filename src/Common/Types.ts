@@ -12,6 +12,8 @@ export interface IClientOptions {
     qrTimeout?: number;
     markOnlineOnConnect?: boolean;
     logger?: any;
+    phoneNumber?: string;
+    usePairingCode?: boolean;
 }
 
 export interface ICommandOptions {

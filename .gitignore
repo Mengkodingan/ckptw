@@ -1,7 +1,7 @@
 /dist
 /lib
 /node_modules
-/state
+/state*
 /example/*.js
 /temp
 .npmrc
