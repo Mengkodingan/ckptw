@@ -399,7 +399,7 @@ ctx.reply({ video: fs.readFileSync("./video.mp4"), caption: "video caption", gif
 ## Formatter
 WhatsApp allows you to format text inside your messages. Like bolding your message, etc. This function formats strings into several markdown styles supported by WhatsApp.
 
-> ⚠ Inline code and quote are only supported in IOS and Whatsapp Web. If your user is on another platform it might look different.
+> ⚠ Some new text formatting is only available on Web and Mac desktop.
 
 You can see the Whatsapp FAQ about formatting messages [here](https://faq.whatsapp.com/539178204879377/?cms_platform=web).
 
