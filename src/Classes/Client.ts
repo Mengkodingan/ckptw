@@ -37,6 +37,7 @@ export class Client {
     logger?: any;
     phoneNumber?: string;
     usePairingCode?: boolean;
+    selfReply?: boolean;
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -48,6 +49,7 @@ export class Client {
         this.qrTimeout = opts.qrTimeout ?? 60000
         this.markOnlineOnConnect = opts.markOnlineOnConnect ?? true;
         this.logger = opts.logger ?? pino({ level: "fatal" });
+        this.selfReply = opts.selfReply ?? false;
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();

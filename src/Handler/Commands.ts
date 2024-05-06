@@ -1,12 +1,15 @@
 import { arrayMove } from "../Common/Functions";
 import { Ctx } from "../Classes/Ctx";
 import { ICommandOptions, ICtxSelf } from "../Common/Types";
-import { Collection } from "@discordjs/collection";
 
 export = async (self: ICtxSelf) => {
     let { cmd, prefix, m } = self;
 
-    if (!m || !m.message || m.key.fromMe || (m.key && m.key.remoteJid === "status@broadcast")) return;
+    if (!m || !m.message || (m.key && m.key.remoteJid === "status@broadcast")) return;
+
+    if(!self.selfReply) {
+        if(m.key.fromMe) return;
+    }
 
     const hasHears = Array.from(self.hearsMap.values()).filter((x) => (x.name === m.content) || (x.name === m.messageType) || (new RegExp(x.name).test(m.content as string)) || (Array.isArray(x.name) ? x.name.includes(m.content) : false));
     if (hasHears.length) return hasHears.map((x) => x.code(new Ctx({ used: { hears: m.content }, args: [], self, client: self.core })));

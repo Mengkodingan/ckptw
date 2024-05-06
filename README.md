@@ -105,20 +105,24 @@ bot.launch();
 
 ```ts
 export interface ClientOptions {
-    /* as browser name */ 
-    name: string;
-    /* the bot prefix */
+    /* The bot prefix */
     prefix: Array<string> | string | RegExp;
-    /* should bot mark as read the incomming messages? */
+    /* Should bot mark as read the incomming messages? - Default: false */
     readIncommingMsg?: boolean;
-    /* path to the auth/creds directory */
+    /* Path to the auth/creds directory - Default: ./state */
     authDir?: string;
-    /* print the qr in terminal? */
+    /* Print the qr in terminal? - Default: false */
     printQRInTerminal?: boolean;
-    /* time taken to generate new qr in ms (default is 60000 ms or 1 minute) */
+    /* Time taken to generate new qr in ms - Default: 60000 ms (1 minute) */
     qrTimeout?: number;
-    /* should the client mark as online on connect? default to be true. */
+    /* Should the client mark as online on connect? - Default: true */
     markOnlineOnConnect?: boolean;
+    /* The bot phone number starts with country code (e.g 62xxx), Used for pairing code purposes. */
+    phoneNumber?: string;
+    /* Connect the bot using pairing code method instead of qr method. - Default: false */
+    usePairingCode?: boolean;
+    /* Should a bot reply when the bot number itself uses its bot command? - Default: false */
+    selfReply?: boolean;
 }
 ```
 

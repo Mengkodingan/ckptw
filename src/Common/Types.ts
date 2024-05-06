@@ -13,6 +13,7 @@ export interface IClientOptions {
     logger?: any;
     phoneNumber?: string;
     usePairingCode?: boolean;
+    selfReply?: boolean;
 }
 
 export interface ICommandOptions {
