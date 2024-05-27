@@ -61,6 +61,13 @@ bot.command('cooldown', async(ctx) => {
   ctx.reply('pong!')
 })
 
+bot.command('editmessage', async(ctx) => {
+  let msg = await ctx.reply('this message will be edited in 2 seconds');
+  setTimeout(() => {
+    ctx.editMessage(msg!.key, 'edited!');
+  }, 2000);
+})
+
 bot.command({
     name: "e",
     code: async (ctx) => {

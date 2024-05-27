@@ -133,15 +133,10 @@ export class Ctx implements ICtx {
     }
 
     async editMessage(key: WAProto.IMessageKey, newText: string) {
-        await this._client.relayMessage(this.id as string, {
-            protocolMessage: {
-              key,
-              type: 14,
-              editedMessage: {
-                conversation: newText
-              }
-            }
-        }, {})
+        return await this._client.sendMessage(this.id as string, {
+            text: newText,
+            edit: key,
+        });
     }
 
     async sendPoll(jid: string, args: { name: string, values: Array<string>, singleSelect: boolean, selectableCount?: boolean }): Promise<undefined | WAProto.WebMessageInfo> {
