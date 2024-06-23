@@ -213,6 +213,13 @@ export class Client {
         return re;
     }
 
+    /**
+     * All the groups that the bot joins.
+     */
+    async groups() {
+        return await this.core.groupFetchAllParticipating();
+    }
+
     async launch() {
         const { state, saveCreds } = await useMultiFileAuthState(this.authDir as string);
         this.state = state;
