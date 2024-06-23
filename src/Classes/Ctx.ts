@@ -38,6 +38,10 @@ export class Ctx implements ICtx {
         return this._msg.key.remoteJid;
     }
 
+    get decodedId(): string | null | undefined {
+        if(this._msg.key.remoteJid) return decodeJid(this._msg.key.remoteJid);
+    }
+
     get args(): Array<string> {
         return this._args;
     }
