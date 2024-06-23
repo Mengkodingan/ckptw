@@ -6,7 +6,7 @@ import makeWASocket, {
   jidDecode,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
-import { AuthenticationState, ConnectionState } from "@whiskeysockets/baileys/lib/Types";
+import { AuthenticationState, ConnectionState, WACallEvent } from "@whiskeysockets/baileys/lib/Types";
 
 import { Boom } from "@hapi/boom";
 import pino, { Logger } from "pino";
@@ -140,6 +140,13 @@ export class Client {
         });
     }
 
+    onCall() {
+        this.core?.ev.on('call', (m: WACallEvent[]) => {
+            let withDecodedId = m.map(v => ({ ...v, decodedFrom: decodeJid(v.from), decodedChatId: decodeJid(v.chatId) }));
+            this.ev.emit(Events.Call, withDecodedId);
+        });
+    }
+
     /**
      * Create a new command.
      * @param opts Command options object or command name string. 
@@ -242,5 +249,6 @@ export class Client {
         this.onMessage();
         this.onGroupParticipantsUpdate();
         this.onGroupsJoin();
+        this.onCall();
     }
 }
