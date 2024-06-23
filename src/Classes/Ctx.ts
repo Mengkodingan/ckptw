@@ -11,7 +11,7 @@ export class Ctx implements ICtx {
     _self: ICtxSelf;
     _client: ReturnType<typeof makeWASocket>;
     _msg: IMessageInfo;
-    _sender: { jid: string | null | undefined; pushName: string | null | undefined; };
+    _sender: { jid: string | null | undefined; decodedJid: string | null | undefined, pushName: string | null | undefined; };
     _config: { prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
     
     constructor(options: ICtxOptions) {
@@ -22,8 +22,11 @@ export class Ctx implements ICtx {
         this._msg = this._self.m;
         this._sender = {
             jid: getSender(this._msg, this._client),
+            decodedJid: null,
             pushName: this._msg.pushName,
         };
+
+        if(this._sender.jid) this._sender.decodedJid = decodeJid(this._sender.jid as string);
 
         this._config = {
             prefix: this._self.prefix,
