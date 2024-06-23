@@ -46,7 +46,7 @@ export class Ctx implements ICtx {
         return this._msg;
     }
 
-    get sender(): { jid: string | null | undefined, pushName: string | null | undefined } {
+    get sender(): { jid: string | null | undefined, decodedJid: string | null | undefined, pushName: string | null | undefined } {
         return this._sender;
     }
 
