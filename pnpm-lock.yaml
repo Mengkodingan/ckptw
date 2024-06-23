@@ -12,8 +12,8 @@ dependencies:
     specifier: ^10.0.1
     version: 10.0.1
   '@whiskeysockets/baileys':
-    specifier: ^6.6.0
-    version: 6.6.0(link-preview-js@3.0.5)(qrcode-terminal@0.12.0)
+    specifier: ^6.7.5
+    version: 6.7.5(link-preview-js@3.0.5)(qrcode-terminal@0.12.0)
   pino:
     specifier: ^8.11.0
     version: 8.11.0
@@ -192,8 +192,8 @@ packages:
       codec-parser: 2.4.3
     dev: false
 
-  /@whiskeysockets/baileys@6.6.0(link-preview-js@3.0.5)(qrcode-terminal@0.12.0):
-    resolution: {integrity: sha512-4aIPHztdLZP24Qac7mudZTMR7qIsEDQxlpCBJE4atYHFAa5tlwCGPcUy249q3aaayxYtQAwheVG42L6AkRxAwg==}
+  /@whiskeysockets/baileys@6.7.5(link-preview-js@3.0.5)(qrcode-terminal@0.12.0):
+    resolution: {integrity: sha512-5kDwir6wT1BY0aIdsJXDAHoq7Gy3oYwRXj3qFoS6MOC0udzF4e2D4vTbA/LVLg7a54dtDxXj+iEnrWcaE9jQZA==}
     peerDependencies:
       jimp: ^0.16.1
       link-preview-js: ^3.0.0
@@ -211,6 +211,7 @@ packages:
     dependencies:
       '@adiwajshing/keyed-db': 0.2.4
       '@hapi/boom': 9.1.4
+      async-lock: 1.4.1
       audio-decode: 2.1.5
       axios: 1.4.0
       cache-manager: 4.0.1
@@ -223,7 +224,7 @@ packages:
       pino: 7.11.0
       protobufjs: 7.2.6
       qrcode-terminal: 0.12.0
-      uuid: 9.0.0
+      uuid: 10.0.0
       ws: 8.13.0
     transitivePeerDependencies:
       - bufferutil
@@ -263,6 +264,10 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
     dev: true
+
+  /async-lock@1.4.1:
+    resolution: {integrity: sha512-Az2ZTpuytrtqENulXwO3GGv1Bztugx6TT37NIo7imr/Qo0gsYiGtSdBa2B6fsXhTpVZDNfu1Qn3pk531e3q+nQ==}
+    dev: false
 
   /async@3.2.3:
     resolution: {integrity: sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==}
@@ -1155,8 +1160,8 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: false
 
-  /uuid@9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+  /uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
     hasBin: true
     dev: false
 
