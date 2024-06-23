@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { getSender } from "../Common/Functions";
+import { decodeJid, getSender } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IMessageInfo } from "../Common/Types";
 import makeWASocket, { AnyMessageContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
@@ -154,5 +154,21 @@ export class Ctx implements ICtx {
 
     isGroup() {
         return this.id?.endsWith("@g.us");
+    }
+
+    async block(jid?: string): Promise<void> {
+        if(jid) {
+            await this._client.updateBlockStatus(decodeJid(jid), "block")
+        } else {
+            await this._client.updateBlockStatus(decodeJid(this.id as string), "block")
+        }
+    }
+
+    async unblock(jid?: string): Promise<void> {
+        if(jid) {
+            await this._client.updateBlockStatus(decodeJid(jid), "unblock")
+        } else {
+            await this._client.updateBlockStatus(decodeJid(this.id as string), "unblock")
+        }
     }
 }
