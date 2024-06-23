@@ -16,7 +16,7 @@ import { Events } from "../Constant/Events";
 import { Collection } from "@discordjs/collection";
 import { IClientOptions, ICommandOptions, IMessageInfo } from "../Common/Types";
 import { Ctx } from "./Ctx";
-import { getContentFromMsg } from "../Common/Functions";
+import { decodeJid, getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
  
 export class Client {
@@ -201,7 +201,7 @@ export class Client {
      * @param [jid] the jid.
      */
     async fetchBio(jid?: string): Promise<undefined | { setAt: Date, status: undefined | string }> {
-        let decodedJid = jidDecode(jid ? jid : this.core?.user?.id) as unknown as string;
+        let decodedJid = decodeJid(jid ? jid : this.core?.user?.id as string)
         let re = await this.core?.fetchStatus(decodedJid);
         return re;
     }
