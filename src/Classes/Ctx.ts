@@ -4,6 +4,8 @@ import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, 
 import makeWASocket, { AnyMessageContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
+import { GroupData } from "./Group/GroupData";
+import { Group } from "./Group/Group";
 
 export class Ctx implements ICtx {
     _used: { prefix: string | string[]; command: string; };
@@ -177,5 +179,13 @@ export class Ctx implements ICtx {
         } else {
             await this._client.updateBlockStatus(decodeJid(this.id as string), "unblock")
         }
+    }
+
+    get groups() {
+        return new Group(this);
+    }
+
+    group(jid?: string) {
+        return new GroupData(this, jid ? jid : (this.id as string))
     }
 }
