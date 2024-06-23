@@ -5,6 +5,8 @@ export * from "./Classes/Builder/Sections";
 export * from "./Classes/Cooldown";
 export * from "./Classes/Builder/VCard";
 export * from "./Classes/Builder/TemplateButtons";
+export * from "./Classes/Group/Group";
+export * from "./Classes/Group/GroupData";
 export * from "./Helper/Formatter";
 export * from "./Common/Types";
 export * from "./Classes/Ctx";

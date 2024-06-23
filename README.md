@@ -373,7 +373,7 @@ import { Events } from "@mengkodingan/ckptw";
   - **Poll** - Emitted when someone create a poll message.
   - **PollVote** - Emitted when someone votes for one/more options in a poll.
   - **Reactions** - Emitted when someone reacts to a message.
-
+  - **Call** - Emitted when someone calling, call was accepted or rejected.
 
 ## Sending Message
 
@@ -446,6 +446,43 @@ You can use the function from `ctx` to get the jid array mentioned in the messag
 ctx.getMentioned() // return array 
 ```
 
+## Group Stuff
+```ts
+ctx.groups.create(subject: string, members: string[]);
+ctx.groups.inviteCodeInfo(code: string);
+ctx.groups.acceptInvite(code: string);
+ctx.groups.acceptInviteV4(key: string | proto.IMessageKeinviteMessage: proto.Message.IGroupInviteMessage);
+```
+```ts
+ctx.group(jid?: string); // jid is optional
+
+ctx.group().members();
+ctx.group().inviteCode();
+ctx.group().revokeInviteCode();
+ctx.group().joinApproval(mode: "on" | "off");
+ctx.group().leave();
+ctx.group().membersCanAddMemberMode(mode: "on" | "off");
+ctx.group().metadata();
+ctx.group().toggleEphemeral(expiration: number);
+ctx.group().updateDescription(description: number);
+ctx.group().updateSubject(subject: number);
+ctx.group().membersUpdate(members: string[], actioParticipantAction);
+ctx.group().kick(members: string[]);
+ctx.group().add(members: string[]);
+ctx.group().promote(members: string[]);
+ctx.group().demote(members: string[]);
+ctx.group().pendingMembers();
+ctx.group().pendingMembersUpdate(members: string[], action: 'reject' | 'approve');
+ctx.group().approvePendingMembers(members: string[]);
+ctx.group().rejectPendingMembers(members: string[]);
+ctx.group().updateSetting(setting: 'announcement' | 'not_announcement' | 'locked' | 'unlocked')
+ctx.group().open()
+ctx.group().close()
+ctx.group().lock()
+ctx.group().unlock()
+```
+
+
 ## Misc
 
 ```ts
@@ -469,12 +506,13 @@ bot.readyAt;
 
 /* get the current jid */
 ctx.id // string
+ctx.decodedId // string 
 
 /* get the array of arguments used */
 ctx.args // Array<string>
 
 /* get sender details */
-ctx.sender // { jid: string, pushName: string }
+ctx.sender
 
 /* get the message type */
 ctx.getMessageType()
@@ -491,6 +529,10 @@ bot.bio("Hi there!");
 
 /* fetch someone about/bio */
 await bot.fetchBio("1234@s.whatsapp.net");
+
+/* block and unblock */
+await bot.block("1234@s.whatsapp.net");
+await bot.unblock("1234@s.whatsapp.net");
 
 /* get device */
 ctx.getDevice(id) 

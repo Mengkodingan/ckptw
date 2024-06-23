@@ -8,7 +8,7 @@ export class Group {
         this.ctx = ctx;
     }
 
-    async create(subject: string, members: []): Promise<GroupMetadata> {
+    async create(subject: string, members: string[]): Promise<GroupMetadata> {
         return await this.ctx._client.groupCreate(subject, members);
     }
 
