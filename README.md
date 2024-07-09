@@ -499,7 +499,7 @@ import { MessageType } from "@mengkodingan/ckptw";
 bot.hears(MessageType.stickerMessage, async(ctx) => ctx.reply('wow, cool sticker'));
 
 /* add react */
-ctx.react(jid: string, emoji: string, key?: object);
+ctx.react(jid: string, emoji: string, key?: WAProto.IMessageKey);
 ctx.react(ctx.id, "👀");
 
 /* get the bot ready at timestamp */
