@@ -467,7 +467,7 @@ ctx.group().metadata();
 ctx.group().toggleEphemeral(expiration: number);
 ctx.group().updateDescription(description: number);
 ctx.group().updateSubject(subject: number);
-ctx.group().membersUpdate(members: string[], actioParticipantAction);
+ctx.group().membersUpdate(members: string[], action: ParticipantAction);
 ctx.group().kick(members: string[]);
 ctx.group().add(members: string[]);
 ctx.group().promote(members: string[]);
