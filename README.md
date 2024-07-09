@@ -1,6 +1,6 @@
 # ckptw
 
-An easy way to make a WhatsApp Bot.
+Create powerful WhatsApp bots easily.
 
 - **✨ Effortless**
 - **🧱 Builder**
