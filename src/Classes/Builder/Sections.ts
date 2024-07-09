@@ -19,7 +19,7 @@ export class SectionsBuilder {
     }
 
     setRows(...row: ISectionsRows[]) {
-        if(!row) throw new Error("[ckptw] button builder need rows");
+        if(!row) throw new Error("[ckptw] section builder need rows");
         this.rows = row;
         return this
     }

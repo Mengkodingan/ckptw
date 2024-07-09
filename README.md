@@ -200,10 +200,10 @@ With command handler you dont need all your command is located in one file.
 Cooldown can give a delay on the command. This can be done to prevent users from spamming your bot commands.
 
 ```js
-import { Cooldown } from "@mengkodingan/ckptw"; // import Cooldown class
+import { Cooldown } from "@mengkodingan/ckptw"; // import the Cooldown class
 
 bot.command('ping', async(ctx) => {
-    const cd = new Cooldown(ctx, 8000); // add this
+    const cd = new Cooldown(ctx, 8000); // add this. Cooldown time must be in milliseconds.
     if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
 
     ctx.reply('pong!')
@@ -213,7 +213,7 @@ bot.command('ping', async(ctx) => {
 if you want to trigger some function when the cooldown end, you can use the "end" events in the cooldown:
 
 > ⚠
-> Will always be triggered when the cooldown is over (even though he only runs the command once)
+> Will always be triggered when the cooldown is over (even though the users only runs the command once)
 
 ```ts
 cd.on("end", () => {
@@ -236,7 +236,7 @@ cd.timeleft; // number
 > ⚠ The button and section are now deprecated!
 
 - ### Button
-  make a button message with Button Builder. 
+  Make a button message with Button Builder. 
 
   ```ts
   import { ButtonBuilder } from "@mengkodingan/ckptw";
@@ -258,7 +258,7 @@ cd.timeleft; // number
   import { SectionBuilder } from "@mengkodingan/ckptw";
 
   // you can use more than 1 like buttons
-  const a = new SectionBuilder()
+  const mysection = new SectionBuilder()
       .setTitle("title") // sections title
       .setRows(
         { title: "abc", rowId: 1 },
@@ -268,12 +268,12 @@ cd.timeleft; // number
   ctx.sendMessage(ctx.id, {
     text: "sections",
     buttonText: "button text", // buttonText is for the display text for the button
-    sections: [a], // pass it into sections array
+    sections: [mysection], // pass it into sections array
   });
   ```
 
 - ### Contact
-  send a contact.
+  Send a contact.
 
   ```ts
   import { VCardBuilder } from "@mengkodingan/ckptw";
@@ -288,7 +288,7 @@ cd.timeleft; // number
   ```
 
 - ### Template Buttons
-  send a button with "attachment".
+  Send a button with "attachment".
 
   ```ts
   import { TemplateButtonsBuilder } from "@mengkodingan/ckptw";
