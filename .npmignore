@@ -5,6 +5,7 @@
 /state
 /temp
 .gitignore
+.github
 changes.md
 package-lock.json
 pnpm-lock.json
