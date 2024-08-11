@@ -192,4 +192,8 @@ export class Ctx implements ICtx {
     get quoted() {
         return this._msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
     }
+
+    getContentType(content: WAProto.IMessage | undefined) {
+        return this._self.getContentType(content);
+    }
 }
