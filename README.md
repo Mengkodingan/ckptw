@@ -55,7 +55,6 @@ pnpm add @mengkodingan/ckptw
 import { Client, Events, MessageType } from "@mengkodingan/ckptw";
 
 const bot = new Client({
-    name: "something",
     prefix: "!",
     printQRInTerminal: true,
     readIncommingMsg: true
@@ -82,7 +81,6 @@ bot.launch();
 > import { Client, Events } from "@mengkodingan/ckptw";
 > 
 > const bot = new Client({
->     name: "something",
 >     prefix: "!", // you can also use array or regex too,
 >     printQRInTerminal: true,
 >     readIncommingMsg: true
