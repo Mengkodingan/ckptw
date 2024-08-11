@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { decodeJid, getSender } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IMessageInfo } from "../Common/Types";
-import makeWASocket, { AnyMessageContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
+import makeWASocket, { AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaType, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
 import { GroupData } from "./Group/GroupData";
@@ -195,5 +195,9 @@ export class Ctx implements ICtx {
 
     getContentType(content: WAProto.IMessage | undefined) {
         return this._self.getContentType(content);
+    }
+
+    downloadContentFromMessage(downloadable: DownloadableMessage, type: MediaType, opts?: MediaDownloadOptions) {
+        return this._self.downloadContentFromMessage(downloadable, type, opts);
     }
 }

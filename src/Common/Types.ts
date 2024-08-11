@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { Ctx } from "../Classes/Ctx";
-import makeWASocket, { getContentType, proto, WAProto } from "@whiskeysockets/baileys"
+import makeWASocket, { downloadContentFromMessage, getContentType, proto, WAProto } from "@whiskeysockets/baileys"
 import { Client } from "../Classes/Client";
 
 export interface IClientOptions {
@@ -74,6 +74,7 @@ export interface IMessageCollectorCollect extends IMessageInfo {
 
 export interface ICtxSelf extends Client {
     getContentType: typeof getContentType,
+    downloadContentFromMessage: typeof downloadContentFromMessage,
     m: IMessageInfo
 }
 

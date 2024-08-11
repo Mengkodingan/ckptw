@@ -2,6 +2,7 @@ import makeWASocket, {
     Browsers,
   DisconnectReason,
   PHONENUMBER_MCC,
+  downloadContentFromMessage,
   getContentType,
   jidDecode,
   useMultiFileAuthState,
@@ -115,7 +116,7 @@ export class Client {
             m = { ...m, ...m.messages[0] }
 
             delete m.messages;
-            let self = { ...this, getContentType, m };
+            let self = { ...this, getContentType, downloadContentFromMessage, m };
 
             if (MessageEventList[msgType]) {
                 await MessageEventList[msgType](m, this.ev, self, this.core);
