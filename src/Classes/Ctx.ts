@@ -188,4 +188,8 @@ export class Ctx implements ICtx {
     group(jid?: string) {
         return new GroupData(this, jid ? jid : (this.id as string))
     }
+
+    get quoted() {
+        return this._msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+    }
 }
