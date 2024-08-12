@@ -86,3 +86,14 @@ export interface ICtxOptions {
     self: ICtxSelf;
     client: ReturnType<typeof makeWASocket>;
 }
+
+export interface IInteractiveMessageContent { 
+    body?: string;
+    footer?: string;
+    header?: (proto.Message.InteractiveMessage.IHeader|null);
+    contextInfo?: (proto.IContextInfo|null);
+    shopStorefrontMessage?: (proto.Message.InteractiveMessage.IShopMessage|null);
+    collectionMessage?: (proto.Message.InteractiveMessage.ICollectionMessage|null);
+    nativeFlowMessage?: (proto.Message.InteractiveMessage.INativeFlowMessage|null);
+    carouselMessage?: (proto.Message.InteractiveMessage.ICarouselMessage|null);
+}

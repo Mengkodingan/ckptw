@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { decodeJid, getSender } from "../Common/Functions";
-import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IMessageInfo } from "../Common/Types";
+import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IInteractiveMessageContent, IMessageInfo } from "../Common/Types";
 import makeWASocket, { AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, proto } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
@@ -201,16 +201,7 @@ export class Ctx implements ICtx {
         return this._self.downloadContentFromMessage(downloadable, type, opts);
     }
 
-    sendInteractiveMessage(jid: string, content: { 
-        body?: string;
-        footer?: string;
-        header?: (proto.Message.InteractiveMessage.IHeader|null);
-        contextInfo?: (proto.IContextInfo|null);
-        shopStorefrontMessage?: (proto.Message.InteractiveMessage.IShopMessage|null);
-        collectionMessage?: (proto.Message.InteractiveMessage.ICollectionMessage|null);
-        nativeFlowMessage?: (proto.Message.InteractiveMessage.INativeFlowMessage|null);
-        carouselMessage?: (proto.Message.InteractiveMessage.ICarouselMessage|null);
-    }, options: MessageGenerationOptionsFromContent | {} = {}) {
+    sendInteractiveMessage(jid: string, content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {}) {
         let contentReal: { [key: string]: any } = {};
         Object.keys(content).map((x) => {
             if(x === 'body') {
@@ -237,6 +228,13 @@ export class Ctx implements ICtx {
 
         this._client.relayMessage(jid, msg.message as any, {
             messageId: msg.key.id as any
+        });
+    }
+
+    async replyInteractiveMessage(content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {}) {
+        return this.sendInteractiveMessage(this.id!, content, {
+          quoted: this._msg,
+          ...options,
         });
     }
 }
