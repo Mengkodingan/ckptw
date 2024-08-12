@@ -23,7 +23,7 @@ Create powerful WhatsApp bots easily.
   * [Button](#button)
   * [Sections](#sections)
   * [Contact](#contact)
-  * [Template Buttons](#template-buttons)
+  * [Template Buttons (⚠ DEPRCATED! Use button builder instead.)](#template-buttons-deprcated-use-button-builder-instead)
 - [Collector](#collector)
   * [Message Collector](#message-collector)
   * [Awaited Messages](#awaited-messages)
@@ -231,43 +231,74 @@ cd.timeleft; // number
 
 ## Builder
 
-> ⚠ The button and section are now deprecated!
-
 - ### Button
   Make a button message with Button Builder. 
 
   ```ts
+  export type ButtonType = 'cta_url' | 'cta_call' | 'cta_copy' | 'cta_reminder' | 'cta_cancel_reminder' | 'address_message' | 'send_location' | 'quick_reply';
+  ```
+
+  ```ts
   import { ButtonBuilder } from "@mengkodingan/ckptw";
 
-  // you can use more than 1 builder
-  const btn = new ButtonBuilder()
-      .setId("id1") // button id
-      .setDisplayText("button 1") // button text
-      .setType(1); // type
+  let button = new ButtonBuilder()
+      .setId('!ping')
+      .setDisplayText('command Ping')
+      .setType('quick_reply')
+      .build();
 
-  // pass it into buttons array
-  ctx.sendMessage(ctx.id, { text: "buttons", buttons: [btn] });
+  let button2 = new ButtonBuilder()
+      .setId('id2')
+      .setDisplayText('copy code')
+      .setType('cta_copy')
+      .setCopyCode('hello world')
+      .build();
+
+  let button3 = new ButtonBuilder()
+      .setId('id3')
+      .setDisplayText('@mengkodingan/ckptw')
+      .setType('cta_url')
+      .setMerchantURL('https://github.com/mengkodingan/ckptw')
+      .build();
+
+  // use sendInteractiveMessage if you dont want to quote the message.
+  ctx.replyInteractiveMessage({ 
+    body: 'this is body', 
+    footer: 'this is footer', 
+    nativeFlowMessage: { buttons: [button, button2, button3] } 
+  })
   ```
 
 - ### Sections
   Sections message is like a list.
 
   ```ts
-  import { SectionBuilder } from "@mengkodingan/ckptw";
+  import { SectionsBuilder } from "@mengkodingan/ckptw";
 
-  // you can use more than 1 like buttons
-  const mysection = new SectionBuilder()
-      .setTitle("title") // sections title
-      .setRows(
-        { title: "abc", rowId: 1 },
-        { title: "b", rowId: 2, description: "a" }
-      ); // make a rows
+  let section1 = new SectionsBuilder()
+    .setDisplayText("Click me")
+    .addSection({
+      title: 'Title 1',
+      rows: [
+        { header: "Row Header 1", title: "Row Title 1", description: "Row Description 1", id: "Row Id 1" },
+        { header: "Row Header 2", title: "Row Title 2", description: "Row Description 2", id: "Row Id 2" }
+      ]
+    })
+    .addSection({
+      title: 'This is title 2',
+      rows: [
+        { title: "Ping", id: "!ping" },
+        { title: "Hello world", id: "hello world" },
+      ]
+    })
+    .build();
 
-  ctx.sendMessage(ctx.id, {
-    text: "sections",
-    buttonText: "button text", // buttonText is for the display text for the button
-    sections: [mysection], // pass it into sections array
-  });
+
+  ctx.sendInteractiveMessage(ctx.id!, { 
+    body: 'this is body', 
+    footer: 'this is footer', 
+    nativeFlowMessage: { buttons: [section1] }  // pass it to the buttons property
+  })
   ```
 
 - ### Contact
@@ -285,7 +316,7 @@ cd.timeleft; // number
   ctx.reply({ contacts: { displayName: "John D", contacts: [{ vcard }] }});
   ```
 
-- ### Template Buttons
+- ### Template Buttons (⚠ DEPRCATED! Use button builder instead.)
   Send a button with "attachment".
 
   ```ts
@@ -489,6 +520,10 @@ ctx.group().unlock()
 ctx.reply({ text: "test" });
 ctx.reply("you can use string as a first parameter too!");
 
+/* using interactive message */
+ctx.sendInteractiveMessage(jid: string, content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {});
+ctx.replyInteractiveMessage(content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {});
+
 /* same with bot.command but without prefix */
 bot.hears('test', async(ctx) => ctx.reply('test 1 2 3 beep boop...'));
 
@@ -513,8 +548,17 @@ ctx.args // Array<string>
 /* get sender details */
 ctx.sender
 
+/* get quoted */
+ctx.quoted
+
 /* get the message type */
 ctx.getMessageType()
+
+/* get content type */
+ctx.getContentType(content: WAProto.IMessage | undefined)
+
+/* download content from message */
+ctx.downloadContentFromMessage(downloadable: DownloadableMessage, type: MediaType, opts?: MediaDownloadOptions)
 
 /* read the message */
 ctx.read()
