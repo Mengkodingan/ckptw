@@ -68,6 +68,23 @@ bot.command('editmessage', async(ctx) => {
   }, 2000);
 })
 
+bot.command('mybtn', async(ctx) => {
+  let button = new ButtonBuilder()
+    .setId('!ping')
+    .setDisplayText('command Ping')
+    .setType('quick_reply')
+    .build();
+
+  let button2 = new ButtonBuilder()
+    .setId('id2')
+    .setDisplayText('copy code')
+    .setType('cta_copy')
+    .setCopyCode('ini hasil copy')
+    .build();
+
+  ctx.sendInteractiveMessage(ctx.id!, { body: 'this is body', footer: 'this is footer', nativeFlowMessage: { buttons: [button, button2] } })
+})
+
 bot.command({
     name: "e",
     code: async (ctx) => {

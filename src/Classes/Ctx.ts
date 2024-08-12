@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { decodeJid, getSender } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IMessageInfo } from "../Common/Types";
-import makeWASocket, { AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaType, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, getDevice } from "@whiskeysockets/baileys";
+import makeWASocket, { AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, proto } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
 import { GroupData } from "./Group/GroupData";
@@ -199,5 +199,44 @@ export class Ctx implements ICtx {
 
     downloadContentFromMessage(downloadable: DownloadableMessage, type: MediaType, opts?: MediaDownloadOptions) {
         return this._self.downloadContentFromMessage(downloadable, type, opts);
+    }
+
+    sendInteractiveMessage(jid: string, content: { 
+        body?: string;
+        footer?: string;
+        header?: (proto.Message.InteractiveMessage.IHeader|null);
+        contextInfo?: (proto.IContextInfo|null);
+        shopStorefrontMessage?: (proto.Message.InteractiveMessage.IShopMessage|null);
+        collectionMessage?: (proto.Message.InteractiveMessage.ICollectionMessage|null);
+        nativeFlowMessage?: (proto.Message.InteractiveMessage.INativeFlowMessage|null);
+        carouselMessage?: (proto.Message.InteractiveMessage.ICarouselMessage|null);
+    }, options: MessageGenerationOptionsFromContent | {} = {}) {
+        let contentReal: { [key: string]: any } = {};
+        Object.keys(content).map((x) => {
+            if(x === 'body') {
+                contentReal['body'] = proto.Message.InteractiveMessage.Body.create({ text: content.body });
+            } else if(x === 'footer') {
+                contentReal['footer'] = proto.Message.InteractiveMessage.Footer.create({ text: content.footer });
+            } else {
+                let prop = proto.Message.InteractiveMessage[x.charAt(0).toUpperCase() + x.slice(1) as keyof typeof proto.Message.InteractiveMessage] as any;
+                contentReal[x] = prop.create(content[x as keyof typeof content]);
+            }
+        });
+
+        let msg = generateWAMessageFromContent(jid, {
+            viewOnceMessage: {
+              message: {
+                  "messageContextInfo": {
+                    "deviceListMetadata": {},
+                    "deviceListMetadataVersion": 2
+                  },
+                  interactiveMessage: proto.Message.InteractiveMessage.create(contentReal)
+              }
+            }
+        }, options as any)
+
+        this._client.relayMessage(jid, msg.message as any, {
+            messageId: msg.key.id as any
+        });
     }
 }

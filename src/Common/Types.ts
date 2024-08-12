@@ -3,6 +3,8 @@ import { Ctx } from "../Classes/Ctx";
 import makeWASocket, { downloadContentFromMessage, getContentType, proto, WAProto } from "@whiskeysockets/baileys"
 import { Client } from "../Classes/Client";
 
+export type ButtonType = 'cta_url' | 'cta_call' | 'cta_copy' | 'cta_reminder' | 'cta_cancel_reminder' | 'address_message' | 'send_location' | 'quick_reply';
+
 export interface IClientOptions {
     prefix: Array<string> | string | RegExp;
     readIncommingMsg?: boolean;

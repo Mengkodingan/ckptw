@@ -37,7 +37,12 @@ export const getContentFromMsg = (msg: { message: proto.IMessage }): string | nu
     : type == "templateButtonReplyMessage" &&
       msg.message?.templateButtonReplyMessage?.selectedId
     ? msg.message.templateButtonReplyMessage.selectedId
-    : "";
+    : type === 'interactiveResponseMessage' ? JSON.parse(msg.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson!)?.id :
+      type === 'templateButtonReplyMessage' ? msg.message.templateButtonReplyMessage?.selectedId :
+      type === 'messageContextInfo' ? msg.message.buttonsResponseMessage?.selectedButtonId || 
+      msg.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
+      msg.message.interactiveResponseMessage?.nativeFlowResponseMessage
+      : "";
 };
 
 export const getSender = (msg: proto.IWebMessageInfo, client: ReturnType<typeof makeWASocket>): string | null | undefined => {

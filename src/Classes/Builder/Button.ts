@@ -1,35 +1,55 @@
-/**
- * @deprecated Will not work on most devices.
- */
+import { ButtonType } from "../../Common/Types";
+
 export class ButtonBuilder {
-    buttonId: string|null;
-    buttonText: { displayText: string|null };
-    type: number;
+    id: string | null;
+    displayText: string | null
+    type: ButtonType;
+    merhcant_url: string | null;
+    copy_code: string | null;
 
     constructor(opts?: {
-        buttonId: null,
+        id: null,
         displayText: null,
-        type: 1
+        type: 'quick_reply',
+        merhcant_url: null,
+        copy_code: null;
     }) {
-        this.buttonId = opts?.buttonId || null;
-        this.buttonText = { displayText: opts?.displayText || null };
-        this.type = opts?.type || 1;
+        this.id = opts?.id || null;
+        this.displayText = opts?.displayText || null;
+        this.type = opts?.type || 'quick_reply';
+        this.merhcant_url = opts?.merhcant_url || null; 
+        this.copy_code = opts?.copy_code || null;
     }
 
     setId(id: string) {
-        if(!id) throw new Error('[ckptw] button builder need id')
-        this.buttonId = id;
+        this.id = id;
         return this
     }
 
     setDisplayText(text: string) {
-        if(!text) throw new Error("[ckptw] button builder need display text");
-        this.buttonText.displayText = text;
+        this.displayText = text;
         return this
     }
 
-    setType(type: number = 1) {
+    setType(type: ButtonType = 'quick_reply') {
         this.type = type;
         return this
+    }
+
+    setMerchantURL(url: string) {
+        this.merhcant_url = url;
+        return this
+    }
+
+    setCopyCode(content: string) {
+        this.copy_code = content;
+        return this
+    }
+
+    build() {
+        return {
+            name: this.type,
+            buttonParamsJson: JSON.stringify({ display_text: this.displayText, id: this.id, copy_code: this.copy_code, merhcant_url: this.merhcant_url })
+        }
     }
 }
