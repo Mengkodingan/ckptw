@@ -5,6 +5,7 @@ import makeWASocket, {
   downloadContentFromMessage,
   getContentType,
   jidDecode,
+  proto,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import { AuthenticationState, ConnectionState, WACallEvent } from "@whiskeysockets/baileys/lib/Types";
@@ -116,7 +117,7 @@ export class Client {
             m = { ...m, ...m.messages[0] }
 
             delete m.messages;
-            let self = { ...this, getContentType, downloadContentFromMessage, m };
+            let self = { ...this, getContentType, downloadContentFromMessage, proto, m };
 
             if (MessageEventList[msgType]) {
                 await MessageEventList[msgType](m, this.ev, self, this.core);

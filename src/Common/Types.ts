@@ -78,6 +78,7 @@ export interface IMessageCollectorCollect extends IMessageInfo {
 export interface ICtxSelf extends Client {
     getContentType: typeof getContentType,
     downloadContentFromMessage: typeof downloadContentFromMessage,
+    proto: typeof proto,
     m: IMessageInfo
 }
 
