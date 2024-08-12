@@ -25,14 +25,15 @@ export interface ICommandOptions {
 }
 
 export interface ISectionsOptions {
-    title: string;
-    rows: ISectionsRows[];
+    displayText: string;
+    sections: { title: string; rows: ISectionsRows[] }[];
 }
 
 export interface ISectionsRows {
-    title: string,
-    rowId: number,
-    description?: string
+    title: string;
+    id: string;
+    header?: string;
+    description?: string;
 }
 
 export interface ICollectorArgs {

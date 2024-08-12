@@ -1,26 +1,28 @@
 import { ISectionsOptions, ISectionsRows } from "../../Common/Types";
 
-/**
- * @deprecated Will not work on most devices.
- */
 export class SectionsBuilder {
-    title: string|null;
-    rows: ISectionsRows[];
+    displayText: string | null
+    sections: { title: string; rows: ISectionsRows[] }[]
 
     constructor(opts?: ISectionsOptions) {
-        this.title = opts?.title || null;
-        this.rows = opts?.rows || [];
+        this.displayText = opts?.displayText || null;
+        this.sections = opts?.sections || [];
     }
 
-    setTitle(title: string) {
-        if(!title) throw new Error('[ckptw] section builder need title')
-        this.title = title;
+    setDisplayText(text: string) {
+        this.displayText = text;
         return this
     }
 
-    setRows(...row: ISectionsRows[]) {
-        if(!row) throw new Error("[ckptw] section builder need rows");
-        this.rows = row;
-        return this
+    addSection(content: { title: string; rows: ISectionsRows[] }) {
+        this.sections.push(content);
+        return this;
+    }
+
+    build() {
+        return {
+            name: 'single_select',
+            buttonParamsJson: JSON.stringify({ title: this.displayText, sections: this.sections })
+        }
     }
 }
