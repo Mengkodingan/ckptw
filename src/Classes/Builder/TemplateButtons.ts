@@ -1,5 +1,5 @@
 /**
- * @deprecated Will not work on most devices.
+ * @deprecated Use Button Builder instead!
  */
 export class TemplateButtonsBuilder {
     array: Array<any>;
