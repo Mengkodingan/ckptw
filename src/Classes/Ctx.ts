@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
-import { decodeJid, getSender } from "../Common/Functions";
+import { decodeJid, getSender, makeRealInteractiveMessage } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IInteractiveMessageContent, IMessageInfo } from "../Common/Types";
-import makeWASocket, { AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, proto } from "@whiskeysockets/baileys";
+import makeWASocket, { AnyMediaMessageContent, AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaGenerationOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, prepareWAMessageMedia, proto } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
 import { GroupData } from "./Group/GroupData";
@@ -202,22 +202,7 @@ export class Ctx implements ICtx {
     }
 
     sendInteractiveMessage(jid: string, content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {}) {
-        let contentReal: { [key: string]: any } = {};
-        Object.keys(content).map((x) => {
-            if(x === 'body') {
-                contentReal['body'] = proto.Message.InteractiveMessage.Body.create({ text: content.body });
-            } else if(x === 'footer') {
-                contentReal['footer'] = proto.Message.InteractiveMessage.Footer.create({ text: content.footer });
-            } else if(x === 'contextInfo') {
-                contentReal['contextInfo'] = content['contextInfo'];
-            } else if(x === 'shopStorefrontMessage') {
-                contentReal['shopStorefrontMessage'] = proto.Message.InteractiveMessage.ShopMessage.create(content['shopStorefrontMessage']!);
-            } else {
-                let prop = proto.Message.InteractiveMessage[x.charAt(0).toUpperCase() + x.slice(1) as keyof typeof proto.Message.InteractiveMessage] as any;
-                contentReal[x] = prop.create(content[x as keyof typeof content]);
-            }
-        });
-
+        let contentReal = makeRealInteractiveMessage(content);
         let msg = generateWAMessageFromContent(jid, {
             viewOnceMessage: {
               message: {
@@ -240,5 +225,9 @@ export class Ctx implements ICtx {
           quoted: this._msg,
           ...options,
         });
+    }
+
+    async prepareWAMessageMedia(message: AnyMediaMessageContent, options: MediaGenerationOptions) {
+        return prepareWAMessageMedia(message, options);
     }
 }

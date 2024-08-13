@@ -1,6 +1,7 @@
-import { ButtonBuilder, Client, Cooldown, SectionsBuilder, TemplateButtonsBuilder, Events, MessageType } from "../lib";
+import { ButtonBuilder, Client, Cooldown, SectionsBuilder, TemplateButtonsBuilder, Events, MessageType, CarouselBuilder } from "../lib";
 import fs from "node:fs";
 import util from "util";
+import { prepareWAMessageMedia } from "@whiskeysockets/baileys"
 
 const bot = new Client({
     prefix: "!",
@@ -118,6 +119,47 @@ bot.command('mysections', async(ctx) => {
 
 
   ctx.sendInteractiveMessage(ctx.id!, { body: 'this is body', footer: 'this is footer', nativeFlowMessage: { buttons: [section1] } })
+})
+
+bot.command('mycarousel', async(ctx) => {
+  let button = new ButtonBuilder()
+      .setId('!ping')
+      .setDisplayText('command Ping')
+      .setType('quick_reply')
+      .build();
+
+  let exampleMediaAttachment = await ctx.prepareWAMessageMedia({ image: { url:  "https://github.com/mengkodingan.png" } }, { upload: ctx._client.waUploadToServer })
+  let cards = new CarouselBuilder()
+    .addCard({
+      body: "BODY 1",
+      footer: "FOOTER 1",
+      header: {
+        title: "HEADER TITLE 1",
+        hasMediaAttachment: true,
+        ...exampleMediaAttachment
+      },
+      nativeFlowMessage: { buttons: [button] }
+    })
+    .addCard({
+      body: "BODY 2",
+      footer: "FOOTER 2",
+      header: {
+        title: "HEADER TITLE 2",
+        hasMediaAttachment: true,
+        ...exampleMediaAttachment
+      },
+      nativeFlowMessage: { buttons: [button] }
+    })
+    .build();
+
+
+  ctx.replyInteractiveMessage({ 
+      body: "this is body",
+      footer: "this is footer",
+      carouselMessage: {
+          cards,
+      },
+  });
 })
 
 bot.command({

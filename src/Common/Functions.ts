@@ -1,6 +1,7 @@
 import makeWASocket, { getContentType, jidDecode, proto } from "@whiskeysockets/baileys";
 import fs from "fs";
 import path from "path";
+import { IInteractiveMessageContent } from "./Types";
 
 export const arrayMove = (
   arr: undefined[],
@@ -77,3 +78,23 @@ export const decodeJid = (jid: string): string => {
     );
   } else return jid;
 };
+
+export const makeRealInteractiveMessage = (content: IInteractiveMessageContent): proto.Message.IInteractiveMessage => {
+  let contentReal: { [key: string]: any } = {};
+  Object.keys(content).map((x) => {
+      if(x === 'body') {
+          contentReal['body'] = proto.Message.InteractiveMessage.Body.create({ text: content.body });
+      } else if(x === 'footer') {
+          contentReal['footer'] = proto.Message.InteractiveMessage.Footer.create({ text: content.footer });
+      } else if(x === 'contextInfo') {
+          contentReal['contextInfo'] = content['contextInfo'];
+      } else if(x === 'shopStorefrontMessage') {
+          contentReal['shopStorefrontMessage'] = proto.Message.InteractiveMessage.ShopMessage.create(content['shopStorefrontMessage']!);
+      } else {
+          let prop = proto.Message.InteractiveMessage[x.charAt(0).toUpperCase() + x.slice(1) as keyof typeof proto.Message.InteractiveMessage] as any;
+          contentReal[x] = prop.create(content[x as keyof typeof content]);
+      }
+  });
+
+  return contentReal;
+}

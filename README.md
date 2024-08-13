@@ -22,6 +22,7 @@ Create powerful WhatsApp bots easily.
 - [Builder](#builder)
   * [Button](#button)
   * [Sections](#sections)
+  * [Carousel](#carousel)
   * [Contact](#contact)
   * [Template Buttons (⚠ DEPRCATED! Use button builder instead.)](#template-buttons-deprcated-use-button-builder-instead)
 - [Collector](#collector)
@@ -299,6 +300,54 @@ cd.timeleft; // number
     footer: 'this is footer', 
     nativeFlowMessage: { buttons: [section1] }  // pass it to the buttons property
   })
+  ```
+
+- ### Carousel
+  A carousel message is a type of message that slides like a carousel.
+
+  ```ts
+  import { ButtonBuilder, CarouselBuilder } from "@mengkodingan/ckptw";
+
+  let button = new ButtonBuilder()
+      .setId('!ping')
+      .setDisplayText('command Ping')
+      .setType('quick_reply')
+      .build();
+
+  let exampleMediaAttachment = await ctx.prepareWAMessageMedia({ image: { url:  "https://github.com/mengkodingan.png" } }, { upload: ctx._client.waUploadToServer })
+  let cards = new CarouselBuilder()
+    .addCard({
+      body: "BODY 1",
+      footer: "FOOTER 1",
+      header: {
+        title: "HEADER TITLE 1",
+        /* card headers must have media attachments */
+        hasMediaAttachment: true,
+        ...exampleMediaAttachment
+      },
+      nativeFlowMessage: { buttons: [button] } // needs at least 1 button
+    })
+    .addCard({
+      body: "BODY 2",
+      footer: "FOOTER 2",
+      header: {
+        title: "HEADER TITLE 2",
+        /* card headers must have media attachments */
+        hasMediaAttachment: true,
+        ...exampleMediaAttachment // you can use other media attachments
+      },
+      nativeFlowMessage: { buttons: [button] } // needs at least 1 button
+    })
+    .build();
+
+
+  ctx.replyInteractiveMessage({ 
+      body: "this is body",
+      footer: "this is footer",
+      carouselMessage: {
+          cards,
+      },
+  });
   ```
 
 - ### Contact
