@@ -87,7 +87,8 @@ bot.command('mybtn', async(ctx) => {
       .setId('id3')
       .setDisplayText('@mengkodingan/ckptw')
       .setType('cta_url')
-      .setMerchantURL('https://github.com/mengkodingan/ckptw')
+      .setURL('https://github.com/mengkodingan/ckptw')
+      .setMerchantURL('https://github.com/mengkodingan')
       .build();
 
   // use sendInteractiveMessage if you dont want to quote the message.
