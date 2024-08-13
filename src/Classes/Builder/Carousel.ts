@@ -8,7 +8,7 @@ export class CarouselBuilder {
     constructor(opts?: {
         cards: []
     }) {
-        this.cards = [];
+        this.cards = opts?.cards || [];
     }
 
     addCard(content: IInteractiveMessageContent) {
