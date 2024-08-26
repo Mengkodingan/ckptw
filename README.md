@@ -123,6 +123,8 @@ export interface ClientOptions {
     usePairingCode?: boolean;
     /* Should a bot reply when the bot number itself uses its bot command? - Default: false */
     selfReply?: boolean;
+    /* Optional specify a custom Whatsapp Web Version */
+    WAVersion?: [number, number, number];
 }
 ```
 

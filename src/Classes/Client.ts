@@ -40,6 +40,7 @@ export class Client {
     phoneNumber?: string;
     usePairingCode?: boolean;
     selfReply?: boolean;
+    WAVersion?: [number, number, number];
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -52,6 +53,7 @@ export class Client {
         this.markOnlineOnConnect = opts.markOnlineOnConnect ?? true;
         this.logger = opts.logger ?? pino({ level: "fatal" });
         this.selfReply = opts.selfReply ?? false;
+        this.WAVersion = opts.WAVersion;
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
@@ -61,7 +63,7 @@ export class Client {
         if(typeof this.prefix === "string") this.prefix = this.prefix.split('');
     }
 
-    async WAVersion(): Promise<[number, number, number]> {
+    async getWAVersion(): Promise<[number, number, number]> {
         let version = [2, 2413, 51];
         try {
             let { body } = await request("https://web.whatsapp.com/check-update?version=1&platform=web");
@@ -227,7 +229,7 @@ export class Client {
         this.state = state;
         this.saveCreds = saveCreds;
 
-        const version = await this.WAVersion();
+        const version = this.WAVersion ? this.WAVersion : await this.getWAVersion();
         this.core = makeWASocket({
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,

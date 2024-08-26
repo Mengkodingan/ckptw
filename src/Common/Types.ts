@@ -16,6 +16,7 @@ export interface IClientOptions {
     phoneNumber?: string;
     usePairingCode?: boolean;
     selfReply?: boolean;
+    WAVersion?: [number, number, number];
 }
 
 export interface ICommandOptions {
