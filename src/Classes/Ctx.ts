@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { decodeJid, getSender, makeRealInteractiveMessage } from "../Common/Functions";
 import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IInteractiveMessageContent, IMessageInfo } from "../Common/Types";
-import makeWASocket, { AnyMediaMessageContent, AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaGenerationOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, prepareWAMessageMedia, proto } from "@whiskeysockets/baileys";
+import makeWASocket, { AnyMediaMessageContent, AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaGenerationOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, prepareWAMessageMedia, proto, toBuffer } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
 import { GroupData } from "./Group/GroupData";
@@ -48,8 +48,14 @@ export class Ctx implements ICtx {
         return this._args;
     }
 
-    get msg(): IMessageInfo {
-        return this._msg;
+    get msg() {
+        return {
+            ...this._msg,
+            media: {
+                toBuffer: () => this.getMediaMessage(this._msg, 'buffer'),
+                toStream: () => this.getMediaMessage(this._msg, 'stream')
+            }
+        };
     }
 
     get sender(): { jid: string | null | undefined, decodedJid: string | null | undefined, pushName: string | null | undefined } {
@@ -130,9 +136,13 @@ export class Ctx implements ICtx {
         return this._msg.messageType
     }
 
-    async getMediaMessage(msg: IMessageInfo, type: 'buffer' | 'stream'): Promise<Buffer | import('stream').Transform> {
-        let buffer = await downloadMediaMessage(msg, type, {}, { logger: this._self.logger as any, reuploadRequest: this._client.updateMediaMessage });
-        return buffer;
+    async getMediaMessage(msg: IMessageInfo, type: 'buffer' | 'stream'): Promise<Buffer | import('stream').Transform | null> {
+        try {
+            let buffer = await downloadMediaMessage(msg, type, {}, { logger: this._self.logger as any, reuploadRequest: this._client.updateMediaMessage });
+            return buffer;
+        } catch {
+            return null;
+        }
     }
 
     read(): void {
