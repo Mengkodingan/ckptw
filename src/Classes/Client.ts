@@ -41,6 +41,7 @@ export class Client {
     usePairingCode?: boolean;
     selfReply?: boolean;
     WAVersion?: [number, number, number];
+    autoMention?: boolean;
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -54,6 +55,7 @@ export class Client {
         this.logger = opts.logger ?? pino({ level: "fatal" });
         this.selfReply = opts.selfReply ?? false;
         this.WAVersion = opts.WAVersion;
+        this.autoMention = opts.autoMention ?? false;
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();

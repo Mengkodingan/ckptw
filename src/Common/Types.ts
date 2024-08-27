@@ -17,6 +17,7 @@ export interface IClientOptions {
     usePairingCode?: boolean;
     selfReply?: boolean;
     WAVersion?: [number, number, number];
+    autoMention?: boolean;
 }
 
 export interface ICommandOptions {

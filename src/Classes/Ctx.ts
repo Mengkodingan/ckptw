@@ -57,19 +57,36 @@ export class Ctx implements ICtx {
     }
 
     async sendMessage(jid: string, content: AnyMessageContent, options: MiscMessageGenerationOptions = {}): Promise<undefined | WAProto.WebMessageInfo> {
+        if(this._self.autoMention) {
+            let matchMention = (content as any).text.match(/(@[^](?![a-zA-Z]).\d*[$]*)/gm);
+            if (matchMention) {
+                for (let i = 0; i < matchMention.length; i++) {
+                    if (matchMention[i].match(/^@\d/gm)) {
+                        const num = matchMention[i].slice(1);
+                        if((content as any).mentions) {
+                            (content as any).mentions.push(`${num}@s.whatsapp.net`);
+                        } else {
+                            (content as any).mentions = [];
+                            (content as any).mentions.push(`${num}@s.whatsapp.net`);
+                        }
+                    }
+                }
+            }
+        }
+
         return this._client.sendMessage(jid, content, options);
     }
 
     async reply(content: AnyMessageContent | string, options: MiscMessageGenerationOptions = {}): Promise<undefined | WAProto.WebMessageInfo> {
         if(typeof content === 'string') content = { text: content }
-        return this._client.sendMessage(this.id as string, content, {
+        return this.sendMessage(this.id as string, content, {
           quoted: this._msg,
           ...options,
         });
     }
     
     async replyWithJid(jid: string, content: AnyMessageContent, options: MiscMessageGenerationOptions = {}): Promise<undefined | WAProto.WebMessageInfo> {
-        return this._client.sendMessage(jid, content, { quoted: this._msg, ...options });
+        return this.sendMessage(jid, content, { quoted: this._msg, ...options });
     }
     
     async react(jid: string, emoji: string, key?: WAProto.IMessageKey): Promise<undefined | WAProto.WebMessageInfo> {
@@ -142,7 +159,7 @@ export class Ctx implements ICtx {
     }
 
     async editMessage(key: WAProto.IMessageKey, newText: string) {
-        return await this._client.sendMessage(this.id as string, {
+        return await this.sendMessage(this.id as string, {
             text: newText,
             edit: key,
         });
@@ -203,6 +220,24 @@ export class Ctx implements ICtx {
 
     sendInteractiveMessage(jid: string, content: IInteractiveMessageContent, options: MessageGenerationOptionsFromContent | {} = {}) {
         let contentReal = makeRealInteractiveMessage(content);
+
+        if(this._self.autoMention) {
+            let matchMention = content.body?.match(/(@[^](?![a-zA-Z]).\d*[$]*)/gm);
+            if (matchMention) {
+                for (let i = 0; i < matchMention.length; i++) {
+                    if (matchMention[i].match(/^@\d/gm)) {
+                        const num = matchMention[i].slice(1);
+                        if(contentReal.contextInfo?.mentionedJid) {
+                            contentReal.contextInfo?.mentionedJid.push(`${num}@s.whatsapp.net`);
+                        } else {
+                            contentReal.contextInfo = { ...contentReal.contextInfo, mentionedJid: [] };
+                            contentReal.contextInfo?.mentionedJid?.push(`${num}@s.whatsapp.net`);
+                        }
+                    }
+                }
+            }
+        }
+
         let msg = generateWAMessageFromContent(jid, {
             viewOnceMessage: {
               message: {
