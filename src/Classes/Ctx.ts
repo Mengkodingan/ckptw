@@ -217,7 +217,36 @@ export class Ctx implements ICtx {
     }
 
     get quoted() {
-        return this._msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        let quotedMessage = this._msg.message?.extendedTextMessage?.contextInfo?.quotedMessage as WAProto.IMessage | undefined;
+        return {
+            ...quotedMessage,
+            media: {
+                toBuffer: async() => {
+                    try {
+                        let type = this.getContentType(quotedMessage) as keyof typeof quotedMessage;
+                        let stream = await this.downloadContentFromMessage(quotedMessage?.[type] as any, (type as string).slice(0, -7) as any);
+                        let buffer = Buffer.from([]);
+
+                        for await (const chunk of stream) {
+                            buffer = Buffer.concat([buffer, chunk]);
+                        }
+
+                        return buffer;
+                    } catch {
+                        return null;
+                    }
+                },
+                toStream: async() => {
+                    try {
+                        let type = this.getContentType(quotedMessage) as keyof typeof quotedMessage;
+                        let stream = await this.downloadContentFromMessage(quotedMessage?.[type] as any, (type as string).slice(0, -7) as any);
+                        return stream;
+                    } catch {
+                        return null;
+                    }
+                }
+            }
+        };
     }
 
     getContentType(content: WAProto.IMessage | undefined) {
