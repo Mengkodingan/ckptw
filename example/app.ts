@@ -6,6 +6,7 @@ import { prepareWAMessageMedia } from "@whiskeysockets/baileys"
 const bot = new Client({
     prefix: "!",
     readIncommingMsg: true,
+    WAVersion: [2, 3000, 1015901307]
 });
 
 bot.ev.once(Events.ClientReady, (m) => {
