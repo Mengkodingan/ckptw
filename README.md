@@ -37,6 +37,7 @@ Create powerful WhatsApp bots easily.
 - [Deleting Message](#deleting-message)
 - [Poll Message](#poll-message)
 - [Get Mentions](#get-mentions)
+- [Auto Mention](#auto-mention)
 - [Group Stuff](#group-stuff)
 - [Misc](#misc)
 
@@ -125,6 +126,8 @@ export interface ClientOptions {
     selfReply?: boolean;
     /* Optional specify a custom Whatsapp Web Version */
     WAVersion?: [number, number, number];
+    /* You can mention someone without having to enter each Whatsapp Jid into the `mentions` array. - Default: false */
+    autoMention?: boolean;
 }
 ```
 
@@ -432,10 +435,20 @@ import fs from "node:fs";
 
 bot.ev.on(Events.MessagesUpsert, async(m, ctx) => {
     if(ctx.getMessageType() === MessageType.imageMessage) {
-        const buffer = await ctx.getMediaMessage(ctx.msg, 'buffer')
+        const buffer = await ctx.msg.media.toBuffer();
         fs.writeFileSync('./saved.jpeg', buffer);
     }
-})
+});
+```
+
+```ts
+// get current message media buffer or stream
+ctx.msg.media.toBuffer() 
+ctx.msg.media.toStream() 
+
+// get the quoted message media buffer or stream
+ctx.quoted.media.toBuffer()
+ctx.quoted.media.toStream()
 ```
 
 ## Events
@@ -528,6 +541,31 @@ You can use the function from `ctx` to get the jid array mentioned in the messag
 ctx.getMentioned() // return array 
 ```
 
+## Auto Mention
+You can mention someone **without** having to enter each Whatsapp Jid into the `mentions` array.
+
+- First, you need to enable the `autoMention` option in your client.
+  ```ts
+  const bot = new Client({
+    // ...
+    autoMention: true // enable this
+  });
+  ```
+- You can directly type `@` followed by the user number to be mentioned. For example like this:
+  ```ts
+  ctx.reply("Hello @62812345678");
+  ```
+
+If you are still confused about what this is, perhaps you can check out the code comparison for mentioning someone below:
+
+```ts
+// autoMention: true
+ctx.reply("Hello @62812345678");
+
+// autoMention: false
+ctx.reply({ text: "Hello @62812345678", mentions: ['62812345678@s.whatsapp.net'] });
+```
+  
 ## Group Stuff
 ```ts
 ctx.groups.create(subject: string, members: string[]);
@@ -563,7 +601,6 @@ ctx.group().close()
 ctx.group().lock()
 ctx.group().unlock()
 ```
-
 
 ## Misc
 
