@@ -1,12 +1,11 @@
 import { ButtonBuilder, Client, Cooldown, SectionsBuilder, TemplateButtonsBuilder, Events, MessageType, CarouselBuilder } from "../lib";
 import fs from "node:fs";
 import util from "util";
-import { prepareWAMessageMedia } from "@whiskeysockets/baileys"
 
 const bot = new Client({
     prefix: "!",
     readIncommingMsg: true,
-    WAVersion: [2, 3000, 1015901307]
+    WAVersion: [2, 3000, 1017531287],
 });
 
 bot.ev.once(Events.ClientReady, (m) => {

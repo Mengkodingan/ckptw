@@ -1,17 +1,15 @@
 import makeWASocket, {
     Browsers,
   DisconnectReason,
-  PHONENUMBER_MCC,
   downloadContentFromMessage,
   getContentType,
-  jidDecode,
   proto,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
 import { AuthenticationState, ConnectionState, WACallEvent } from "@whiskeysockets/baileys/lib/Types";
 
 import { Boom } from "@hapi/boom";
-import pino, { Logger } from "pino";
+import pino from "pino";
 import { request } from "undici";
 import EventEmitter from "events";
 import { Events } from "../Constant/Events";
@@ -20,6 +18,7 @@ import { IClientOptions, ICommandOptions, IMessageInfo } from "../Common/Types";
 import { Ctx } from "./Ctx";
 import { decodeJid, getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
+import { PHONENUMBER_MCC } from "../Constant/PHONENUMBER_MCC";
  
 export class Client {
     prefix: Array<string> | string | RegExp;
@@ -249,7 +248,7 @@ export class Client {
             this.phoneNumber = this.phoneNumber.replace(/[^0-9]/g, '');
             if(!this.phoneNumber.length) throw new Error('[ckptw] invalid phoneNumber');
 
-            if(!Object.keys(PHONENUMBER_MCC).some(v => this.phoneNumber!.startsWith(v))) throw new Error('[ckptw] phoneNumber format must be like: 62xxx (starts with the country code)');
+            if(!PHONENUMBER_MCC.some(v => this.phoneNumber!.startsWith(v))) throw new Error('[ckptw] phoneNumber format must be like: 62xxx (starts with the country code)');
 
             setTimeout(async () => {
                 const code = await this.core.requestPairingCode(this.phoneNumber!);
