@@ -173,6 +173,7 @@ With command handler you dont need all your command is located in one file.
   /* ... */
   const cmd = new CommandHandler(bot, path.resolve() + '/CommandsPath');
   cmd.load();
+  //cmd.load(false); // hide log console
 
   /* ...bot.launch() */
   ```
