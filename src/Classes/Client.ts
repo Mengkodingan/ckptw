@@ -41,6 +41,7 @@ export class Client {
     selfReply?: boolean;
     WAVersion?: [number, number, number];
     autoMention?: boolean;
+    fallbackWAVersion: [number, number, number];
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -55,6 +56,7 @@ export class Client {
         this.selfReply = opts.selfReply ?? false;
         this.WAVersion = opts.WAVersion;
         this.autoMention = opts.autoMention ?? false;
+        this.fallbackWAVersion = [2, 3000, 1017531287];
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
@@ -62,19 +64,6 @@ export class Client {
         this.hearsMap = new Collection();
 
         if(typeof this.prefix === "string") this.prefix = this.prefix.split('');
-    }
-
-    async getWAVersion(): Promise<[number, number, number]> {
-        let version = [2, 2413, 51];
-        try {
-            let { body } = await request("https://web.whatsapp.com/check-update?version=1&platform=web");
-            const data = await body.json();
-            version = data.currentVersion.split(".").map(Number);
-        } catch {
-            version = version;
-        }
-
-        return <[number, number, number]>version;
     }
 
     onConnectionUpdate() {
@@ -230,7 +219,7 @@ export class Client {
         this.state = state;
         this.saveCreds = saveCreds;
 
-        const version = this.WAVersion ? this.WAVersion : await this.getWAVersion();
+        const version = this.WAVersion ? this.WAVersion : this.fallbackWAVersion;
         this.core = makeWASocket({
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,

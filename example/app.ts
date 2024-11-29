@@ -4,8 +4,7 @@ import util from "util";
 
 const bot = new Client({
     prefix: "!",
-    readIncommingMsg: true,
-    WAVersion: [2, 3000, 1017531287],
+    readIncommingMsg: true
 });
 
 bot.ev.once(Events.ClientReady, (m) => {
