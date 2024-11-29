@@ -30,15 +30,15 @@ export class CommandHandler {
         this._path = path;
     }
 
-    load() {
+    load(isShowLog: boolean = true) {
         walk(this._path, (x: string): any => {
           let cmdObj = require(x);
           if(!cmdObj.type || cmdObj.type === 'command') {
             this._bot.cmd.set(cmdObj.name, cmdObj);
-            console.log(`[ckptw CommandHanlder] Loaded - ${cmdObj.name}`);
+            if (isShowLog) console.log(`[ckptw CommandHanlder] Loaded - ${cmdObj.name}`);
           } else if(cmdObj.type === 'hears') {
             this._bot.hearsMap.set(cmdObj.name, cmdObj);
-            console.log(`[ckptw CommandHanlder] Loaded Hears - ${cmdObj.name}`);
+            if (isShowLog) console.log(`[ckptw CommandHanlder] Loaded Hears - ${cmdObj.name}`);
           }
         });
     }
