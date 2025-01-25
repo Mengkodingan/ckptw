@@ -5,8 +5,7 @@ const bot = new Client({
     printQRInTerminal: false,
     readIncommingMsg: true,
     usePairingCode: true,
-    phoneNumber: '6285931594034', // phone number, e.g 62xxxxx
-    WAVersion: [2, 3000, 1017531287],
+    phoneNumber: '6281234456', // phone number, e.g 62xxxxx
 });
 
 bot.ev.once(Events.ClientReady, (m) => {
