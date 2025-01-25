@@ -42,6 +42,7 @@
   "dependencies": {
     "@discordjs/collection": "^1.4.0",
     "@hapi/boom": "^10.0.1",
+    "@mengkodingan/consolefy": "^1.0.1",
     "@whiskeysockets/baileys": "^6.7.9",
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",

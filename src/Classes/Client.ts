@@ -19,6 +19,7 @@ import { Ctx } from "./Ctx";
 import { decodeJid, getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
 import { PHONENUMBER_MCC } from "../Constant/PHONENUMBER_MCC";
+import { Consolefy } from "@mengkodingan/consolefy";
  
 export class Client {
     prefix: Array<string> | string | RegExp;
@@ -43,6 +44,7 @@ export class Client {
     autoMention?: boolean;
     fallbackWAVersion: [number, number, number];
     authAdapter?: Promise<any>;
+    consolefy?: Consolefy;
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -65,6 +67,8 @@ export class Client {
         this.cooldown = new Collection();
         this.hearsMap = new Collection();
 
+        this.consolefy = new Consolefy();
+
         if(typeof this.prefix === "string") this.prefix = this.prefix.split('');
     }
 
@@ -76,7 +80,7 @@ export class Client {
 
             if(connection === 'close') {
                 const shouldReconnect = (lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut
-                console.log('connection closed due to ', lastDisconnect?.error, ', reconnecting ', shouldReconnect)
+                this.consolefy?.error('connection closed due to ', lastDisconnect?.error, ', reconnecting ', shouldReconnect)
                 if(shouldReconnect) this.launch();
             } else if(connection === 'open') {
                 this.readyAt = Date.now();
@@ -233,17 +237,41 @@ export class Client {
         });
 
         if(this.usePairingCode && !this.core.authState.creds.registered) {
-            if(this.printQRInTerminal) throw new Error('[ckptw] if you are set the usePairingCode to true then you need to set printQRInTerminal to false.');
-            if(!this.phoneNumber) throw new Error("[ckptw] the phoneNumber options are required if you are using usePairingCode");
+            this.consolefy?.setTag("pairing-code");
+            if(this.printQRInTerminal) {
+                this.consolefy?.error("If you are set the usePairingCode to true then you need to set printQRInTerminal to false.");
+                this.consolefy?.resetTag();
+
+                return;
+            }
+
+            if(!this.phoneNumber) {
+                this.consolefy?.error("The phoneNumber options are required if you are using usePairingCode.");
+                this.consolefy?.resetTag();
+
+                return;
+            }
 
             this.phoneNumber = this.phoneNumber.replace(/[^0-9]/g, '');
-            if(!this.phoneNumber.length) throw new Error('[ckptw] invalid phoneNumber');
+            if(!this.phoneNumber.length) {
+                this.consolefy?.error("Invalid phoneNumber.");
+                this.consolefy?.resetTag();
 
-            if(!PHONENUMBER_MCC.some(v => this.phoneNumber!.startsWith(v))) throw new Error('[ckptw] phoneNumber format must be like: 62xxx (starts with the country code)');
+                return;
+            }
+
+            if(!PHONENUMBER_MCC.some(v => this.phoneNumber!.startsWith(v))) {
+                this.consolefy?.error("phoneNumber format must be like: 62xxx (starts with the country code).");
+                this.consolefy?.resetTag();
+
+                return;
+            }
 
             setTimeout(async () => {
                 const code = await this.core.requestPairingCode(this.phoneNumber!);
-                console.log("[ckptw] Pairing Code:", code);
+                this.consolefy?.info(`Pairing Code: ${code}`);
+                this.consolefy?.resetTag();
+
             }, 3000)
         }
 
