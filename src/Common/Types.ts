@@ -18,6 +18,7 @@ export interface IClientOptions {
     selfReply?: boolean;
     WAVersion?: [number, number, number];
     autoMention?: boolean;
+    authAdapter?: Promise<any>;
 }
 
 export interface ICommandOptions {

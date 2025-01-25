@@ -42,6 +42,7 @@ export class Client {
     WAVersion?: [number, number, number];
     autoMention?: boolean;
     fallbackWAVersion: [number, number, number];
+    authAdapter?: Promise<any>;
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -57,6 +58,7 @@ export class Client {
         this.WAVersion = opts.WAVersion;
         this.autoMention = opts.autoMention ?? false;
         this.fallbackWAVersion = [2, 3000, 1017531287];
+        this.authAdapter = opts.authAdapter ?? useMultiFileAuthState(this.authDir as string);
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
@@ -215,7 +217,7 @@ export class Client {
     }
 
     async launch() {
-        const { state, saveCreds } = await useMultiFileAuthState(this.authDir as string);
+        const { state, saveCreds } = await this.authAdapter;
         this.state = state;
         this.saveCreds = saveCreds;
 
@@ -223,7 +225,7 @@ export class Client {
         this.core = makeWASocket({
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,
-            auth: this.state,
+            auth: this.state!,
             browser: Browsers.ubuntu('CHROME'),
             version,
             qrTimeout: this.qrTimeout,

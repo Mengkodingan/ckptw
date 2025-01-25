@@ -33,11 +33,12 @@ Create powerful WhatsApp bots easily.
   * [Available Events](#available-events)
 - [Sending Message](#sending-message)
 - [Formatter](#formatter)
-- [Editing Message](#editig-message)
+- [Editing Message](#editing-message)
 - [Deleting Message](#deleting-message)
 - [Poll Message](#poll-message)
 - [Get Mentions](#get-mentions)
 - [Auto Mention](#auto-mention)
+- [Custom Auth Adapter](#custom-auth-adapter)
 - [Group Stuff](#group-stuff)
 - [Misc](#misc)
 
@@ -128,6 +129,8 @@ export interface ClientOptions {
     WAVersion?: [number, number, number];
     /* You can mention someone without having to enter each Whatsapp Jid into the `mentions` array. - Default: false */
     autoMention?: boolean;
+    /* You can use custom adapters to store your bot's session auth state. The default will be stored locally with baileys default multi auth state. */
+    authAdapter?: Promise<any>;
 }
 ```
 
@@ -565,6 +568,28 @@ ctx.reply("Hello @62812345678");
 
 // autoMention: false
 ctx.reply({ text: "Hello @62812345678", mentions: ['62812345678@s.whatsapp.net'] });
+```
+
+## Custom Auth Adapter
+
+You can use a variety of adapters, but here is an example of using the mysql adapter from [mysql-baileys](https://www.npmjs.com/package/mysql-baileys) library. This is optional, basically the auth session will be stored locally using the built-in `useMultiFileAuthState` adapter from `@whiskeysockets/baileys`.
+
+```ts
+// ...
+import { useMySQLAuthState } from 'mysql-baileys'; // For more examples of using mysql-baileys, go to npmjs.com/mysql-baileys.
+
+const bot = new Client({
+    prefix: "!",
+    readIncommingMsg: true,
+    // directly assigned to authAdapter.
+    authAdapter: useMySQLAuthState({
+      session: "session", 
+      password: '',
+      database: 'baileys',
+    })
+});
+
+// ...
 ```
   
 ## Group Stuff
