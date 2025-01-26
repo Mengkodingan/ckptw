@@ -246,6 +246,8 @@ cd.timeleft; // number
 
 ## Builder
 
+> **⚠ Warning:** Some builders like Button, Sections, or Carousel might not work as expected due to WhatsApp's policies and restrictions. Please ensure your usage complies with WhatsApp's terms of service.
+
 ### Button
   Make a button message with Button Builder. 
 
