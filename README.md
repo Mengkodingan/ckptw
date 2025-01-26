@@ -4,43 +4,46 @@ Create powerful WhatsApp bots easily.
 
 - **✨ Effortless**
 - **🧱 Builder**
-- **🛒 Built in Collector**
-- **⏰ Built in Cooldown**
-- **🔑 Built in Command handler**
+- **🛒 Built-in Collector**
+- **⏰ Built-in Cooldown**
+- **🔑 Built-in Command Handler**
+- **💽 Custom Auth Adapter**
 - **🎉 And more!**
 
 ## Table Of Contents
 - [Installation](#installation)
-- [Example](#example)
-  * [Or using the Events](#or-using-the-events)
+- [Example Usage](#example-usage)
+   * [Using Events](#using-events)
 - [Client Configuration](#client-configuration)
 - [Command Options](#command-options)
 - [Command Handler](#command-handler)
-  * [in your main file](#in-your-main-file)
-  * [in your command file](#in-your-command-file)
+   * [Main File Setup](#main-file-setup)
+   * [Command File Structure](#command-file-structure)
 - [Command Cooldown](#command-cooldown)
 - [Builder](#builder)
-  * [Button](#button)
-  * [Sections](#sections)
-  * [Carousel](#carousel)
-  * [Contact](#contact)
-  * [Template Buttons (⚠ DEPRCATED! Use button builder instead.)](#template-buttons-deprcated-use-button-builder-instead)
+   * [Button](#button)
+   * [Sections](#sections)
+   * [Carousel](#carousel)
+   * [Contact](#contact)
+   * [Template Buttons (⚠ DEPRCATED! Use button builder instead.)](#template-buttons-deprcated-use-button-builder-instead)
 - [Collector](#collector)
-  * [Message Collector](#message-collector)
-  * [Awaited Messages](#awaited-messages)
+   * [Message Collector](#message-collector)
+   * [Awaited Messages](#awaited-messages)
 - [Downloading Media](#downloading-media)
+   * [Accessing Media Buffers or Streams](#accessing-media-buffers-or-streams)
 - [Events](#events)
-  * [Available Events](#available-events)
+   * [Available Events](#available-events)
 - [Sending Message](#sending-message)
 - [Formatter](#formatter)
 - [Editing Message](#editing-message)
 - [Deleting Message](#deleting-message)
 - [Poll Message](#poll-message)
-- [Get Mentions](#get-mentions)
-- [Auto Mention](#auto-mention)
+- [Mentions](#mentions)
+   * [Get Mentions](#get-mentions)
+   * [Auto Mention](#auto-mention)
 - [Custom Auth Adapter](#custom-auth-adapter)
 - [Group Stuff](#group-stuff)
-- [Misc](#misc)
+- [Miscellaneous](#miscellaneous)
 
 ## Installation
 
@@ -52,7 +55,7 @@ yarn add @mengkodingan/ckptw
 pnpm add @mengkodingan/ckptw
 ```
 
-## Example
+## Example Usage
 
 ```ts
 import { Client, Events, MessageType } from "@mengkodingan/ckptw";
@@ -78,30 +81,30 @@ bot.hears(/(using\s?)?regex/, async(ctx) => ctx.reply('or using regex!'));
 bot.launch();
 ```
 
-> ### Or using the Events
->
-> ```ts
-> import { Client, Events } from "@mengkodingan/ckptw";
-> 
-> const bot = new Client({
->     prefix: "!", // you can also use array or regex too,
->     printQRInTerminal: true,
->     readIncommingMsg: true
-> });
-> 
-> bot.ev.once(Events.ClientReady, (m) => {
->     console.log(`ready at ${m.user.id}`);
-> });
-> 
-> bot.ev.on(Events.MessagesUpsert, (m, ctx) => {
->     if(m.key.fromMe) return;
->     if(m.content === "hello") {
->         ctx.reply("hi 👋");
->     }
-> })
-> 
-> bot.launch();
-> ```
+### Using Events
+
+```ts
+import { Client, Events } from "@mengkodingan/ckptw";
+
+const bot = new Client({
+    prefix: "!", // you can also use array or regex too,
+    printQRInTerminal: true,
+    readIncommingMsg: true
+});
+
+bot.ev.once(Events.ClientReady, (m) => {
+    console.log(`ready at ${m.user.id}`);
+});
+
+bot.ev.on(Events.MessagesUpsert, (m, ctx) => {
+    if(m.key.fromMe) return;
+    if(m.content === "hello") {
+        ctx.reply("hi 👋");
+    }
+})
+
+bot.launch();
+```
 
 ## Client Configuration
 
@@ -135,8 +138,11 @@ export interface ClientOptions {
 ```
 
 ## Command Options
+
+Define commands with the following structure:
+
 ```ts
-bot.command(opts: CommandOptions | string, code?: (ctx: Ctx) => Promise<any>)
+bot.command(opts: CommandOptions | string, code?: (ctx: Ctx) => Promise<any>);
 ```
 
 ```ts
@@ -145,7 +151,7 @@ bot.command('ping', async(ctx) => ctx.reply('pong!'))
 ```
 
 ```ts
-// or you can use the old one!
+// alternatively you can use the old one!
 export interface CommandOptions {
     /* command name */
     name: string;
@@ -154,21 +160,19 @@ export interface CommandOptions {
     /* command code */
     code: (ctx: Ctx) => Promise<any>;
 }
-```
 
-```ts
-// e.g
+// example
 bot.command({
   name: 'ping',
   code: async(ctx) => ctx.reply('pong!');
-})
+});
 ```
 
 ## Command Handler
 
 With command handler you dont need all your command is located in one file.
 
-- ### in your main file
+### Main File Setup
   ```ts
   import { CommandHandler } from "@mengkodingan/ckptw";
   import path from "path";
@@ -181,27 +185,29 @@ With command handler you dont need all your command is located in one file.
   /* ...bot.launch() */
   ```
 
-- ### in your command file
-  ```ts
-  module.exports = {
-      name: "ping",
-      code: async (ctx) => {
-        ctx.reply("pong!");
-      },
-  };
-  ```
+### Command File Structure
 
-  You can add a `type` property to define the handler type... For now there are only `command` and `hears` types.
+```ts
+// command example
+module.exports = {
+    name: "ping",
+    code: async (ctx) => {
+        ctx.reply("pong!");
+    },
+};
+
+// Hears type example
+module.exports = {
+    name: "hears example",
+    type: "hears",
+    code: async (ctx) => {
+        ctx.reply("Hello world!");
+    },
+};
+```
+
+You can add a `type` property to define the handler type... For now there are only `command` and `hears` types.
   
-  ```ts
-  module.exports = {
-      name: "hears with command handler",
-      type: "hears", // add this
-      code: async (ctx) => {
-        ctx.reply("hello world!");
-      },
-  };
-  ```
 
 ## Command Cooldown
 
@@ -212,26 +218,25 @@ import { Cooldown } from "@mengkodingan/ckptw"; // import the Cooldown class
 
 bot.command('ping', async(ctx) => {
     const cd = new Cooldown(ctx, 8000); // add this. Cooldown time must be in milliseconds.
-    if(cd.onCooldown) return ctx.reply(`slow down... wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
+    if(cd.onCooldown) return ctx.reply(`Slow down! wait ${cd.timeleft}ms`); // if user has cooldown stop the code by return something.
 
     ctx.reply('pong!')
 })
 ```
 
-if you want to trigger some function when the cooldown end, you can use the "end" events in the cooldown:
+If you want to trigger some function when the cooldown end, you can use the `end` events in the cooldown:
 
-> ⚠
-> Will always be triggered when the cooldown is over (even though the users only runs the command once)
 
 ```ts
+// ⚠ Will always be triggered when the cooldown is over (even though the users only runs the command once)
 cd.on("end", () => {
   ctx.reply({ text: "cd timeout" });
 })
 ```
 
-Cooldown getter:
-
 ```ts
+// Cooldown props
+
 /* check if sender is on cooldown */
 cd.onCooldown; // boolean
 
@@ -241,7 +246,7 @@ cd.timeleft; // number
 
 ## Builder
 
-- ### Button
+### Button
   Make a button message with Button Builder. 
 
   ```ts
@@ -280,7 +285,7 @@ cd.timeleft; // number
   })
   ```
 
-- ### Sections
+### Sections
   Sections message is like a list.
 
   ```ts
@@ -312,7 +317,7 @@ cd.timeleft; // number
   })
   ```
 
-- ### Carousel
+### Carousel
   A carousel message is a type of message that slides like a carousel.
 
   ```ts
@@ -360,7 +365,7 @@ cd.timeleft; // number
   });
   ```
 
-- ### Contact
+### Contact
   Send a contact.
 
   ```ts
@@ -375,7 +380,7 @@ cd.timeleft; // number
   ctx.reply({ contacts: { displayName: "John D", contacts: [{ vcard }] }});
   ```
 
-- ### Template Buttons (⚠ DEPRCATED! Use button builder instead.)
+### Template Buttons (⚠ DEPRCATED! Use button builder instead.)
   Send a button with "attachment".
 
   ```ts
@@ -389,9 +394,10 @@ cd.timeleft; // number
 
     ctx.sendMessage(ctx.id, { text: "template buttons", templateButtons });
   ```
+
 ## Collector
 
-There are several options that can be used in the collector:
+You can configure the collector using the following options:
 ```ts
 export interface CollectorArgs {
     /* collector timeout in milliseconds */
@@ -407,7 +413,7 @@ export interface CollectorArgs {
 }
 ```
 
-- ### Message Collector
+### Message Collector
   ```ts
   let col = ctx.MessageCollector({ time: 10000 }); // in milliseconds
   ctx.reply({ text: "say something... Timeout: 10s" });
@@ -425,14 +431,15 @@ export interface CollectorArgs {
   });
   ```
 
-- ### Awaited Messages
+### Awaited Messages
   ```ts
   ctx.awaitMessages({ time: 10000 }).then((m) => ctx.reply(`got ${m.length} array length`)).catch(() => ctx.reply('end'))
   ```
 
 ## Downloading Media
 
-the code below will save the received image to `./saved.jpeg`
+The example below demonstrates saving a received image to `./saved.jpeg`.
+
 ```ts
 import { MessageType } from "@mengkodingan/ckptw";
 import fs from "node:fs";
@@ -445,34 +452,37 @@ bot.ev.on(Events.MessagesUpsert, async(m, ctx) => {
 });
 ```
 
-```ts
-// get current message media buffer or stream
-ctx.msg.media.toBuffer() 
-ctx.msg.media.toStream() 
+### Accessing Media Buffers or Streams
 
-// get the quoted message media buffer or stream
-ctx.quoted.media.toBuffer()
-ctx.quoted.media.toStream()
+```ts
+// Get current message media
+ctx.msg.media.toBuffer();
+ctx.msg.media.toStream();
+
+// Get quoted message media
+ctx.quoted.media.toBuffer();
+ctx.quoted.media.toStream();
 ```
 
 ## Events
 
-Firstly you must import the Events Constant like this:
+To utilize events, import the `Events` constant:
+
 ```ts
 import { Events } from "@mengkodingan/ckptw";
 ```
 
-- ### Available Events
-  - **ClientReady** - Emitted when the bot client is ready.
-  - **MessagesUpsert** - Received an messages.
-  - **QR** - The bot QR is ready to scan. Return the QR Codes.
-  - **GroupsJoin** - Emitted when bot joining groups.
-  - **UserJoin** - Emitted when someone joins a group where bots are also in that group.
-  - **UserLeave** - Same with **UserJoin** but this is when the user leaves the group.
-  - **Poll** - Emitted when someone create a poll message.
-  - **PollVote** - Emitted when someone votes for one/more options in a poll.
-  - **Reactions** - Emitted when someone reacts to a message.
-  - **Call** - Emitted when someone calling, call was accepted or rejected.
+### Available Events
+- **ClientReady** - Triggered when the bot is ready.
+- **MessagesUpsert** - Fired when a message is received.
+- **QR** - QR code is ready to scan.
+- **GroupsJoin** - Triggered when the bot joins a group.
+- **UserJoin** - Triggered when someone joins a group the bot is in.
+- **UserLeave** - Triggered when someone leaves a group.
+- **Poll** - Triggered when a poll message is created.
+- **PollVote** - Triggered when someone votes in a poll.
+- **Reactions** - Triggered when a message receives a reaction.
+- **Call** - Triggered when someone calls, or a call is accepted/rejected.
 
 ## Sending Message
 
@@ -484,27 +494,23 @@ ctx.sendMessage(ctx.id, { text: "hello" });
 ctx.reply("hello");
 ctx.reply({ text: "hello" });
 
-/* sending an image */
+/* send an image */
 ctx.sendMessage(ctx.id, { image: { url: 'https://example.com/image.jpeg' }, caption: "image caption" });
 ctx.reply({ image: { url: 'https://example.com/image.jpeg' }, caption: "image caption" });
 
-/* sending an audio */
+/* send an audio file */
 ctx.reply({ audio: { url: './audio.mp3' }, mimetype: 'audio/mp4', ptt: false }); // if "ptt" is true, the audio will be send as voicenote
 
-/* sending an sticker */
+/* send an sticker */
 ctx.reply({ sticker: { url: './tmp/generatedsticker.webp' }});
 
-/* sending an video */
+/* send an video */
 import fs from "node:fs";
 ctx.reply({ video: fs.readFileSync("./video.mp4"), caption: "video caption", gifPlayback: false });
 ```
 
 ## Formatter
-WhatsApp allows you to format text inside your messages. Like bolding your message, etc. This function formats strings into several markdown styles supported by WhatsApp.
-
-> ⚠ Some new text formatting is only available on Web and Mac desktop.
-
-You can see the Whatsapp FAQ about formatting messages [here](https://faq.whatsapp.com/539178204879377/?cms_platform=web).
+WhatsApp supports formatting in messages, such as bold or italic text. Use the following functions to format strings:
 
 ```ts
 import { bold, inlineCode, italic, monospace, quote, strikethrough } from "@mengkodingan/ckptw";
@@ -519,6 +525,8 @@ const inlineCodeString = inlineCode(str);
 const monospaceString = monospace(str);
 ```
 
+For more details, visit the [WhatsApp FAQ on formatting]((https://faq.whatsapp.com/539178204879377/?cms_platform=web).).
+
 ## Editing Message
 ```ts
 let res = await ctx.reply("old text");
@@ -532,20 +540,22 @@ ctx.deleteMessage(res.key);
 ```
 
 ## Poll Message
-> `singleSelect` means you can only select one of the multiple options in the poll. Default to be false
+> `singleSelect` means you can only select one of the multiple options in the poll. Default to be false.
 
 ```ts
 ctx.sendPoll(ctx.id, { name: "ini polling", values: ["abc", "def"], singleSelect: true })
 ```
 
-## Get Mentions
-You can use the function from `ctx` to get the jid array mentioned in the message. For example, a message containing `hello @jstn @person` where `@jstn` & `@person` is a mention, then you can get an array containing the jid of the two mentioned users.
+## Mentions
+
+### Get Mentions
+Retrieve an array of mentioned users' JIDs. For example, a message containing `hello @jstn @person` where `@jstn` & `@person` is a mention, then you can get an array containing the jid of the two mentioned users.
 
 ```ts
-ctx.getMentioned() // return array 
+ctx.getMentioned() // Returns an array of JIDs
 ```
 
-## Auto Mention
+### Auto Mention
 You can mention someone **without** having to enter each Whatsapp Jid into the `mentions` array.
 
 - First, you need to enable the `autoMention` option in your client.
@@ -566,7 +576,7 @@ If you are still confused about what this is, perhaps you can check out the code
 // autoMention: true
 ctx.reply("Hello @62812345678");
 
-// autoMention: false
+// autoMention: false, you must manually specify the mentions
 ctx.reply({ text: "Hello @62812345678", mentions: ['62812345678@s.whatsapp.net'] });
 ```
 
@@ -628,7 +638,7 @@ ctx.group().lock()
 ctx.group().unlock()
 ```
 
-## Misc
+## Miscellaneous
 
 ```ts
 /* replying message */

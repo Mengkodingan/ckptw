@@ -49,9 +49,17 @@
     "undici": "^5.21.0"
   },
   "peerDependencies": {
+    "sharp": "^0.33.5",
+    "jimp": "^1.6.0",
     "link-preview-js": "^3.0.5"
   },
   "peerDependenciesMeta": {
+    "jimp": {
+      "optional": true
+    },
+    "sharp": {
+      "optional": true
+    },
     "link-preview-js": {
       "optional": true
     }
