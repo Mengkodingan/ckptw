@@ -25,7 +25,7 @@ Create powerful WhatsApp bots easily.
    * [Sections](#sections)
    * [Carousel](#carousel)
    * [Contact](#contact)
-   * [Template Buttons (⚠ DEPRCATED! Use button builder instead.)](#template-buttons-deprcated-use-button-builder-instead)
+   * [Template Button](#template-buttons)
 - [Collector](#collector)
    * [Message Collector](#message-collector)
    * [Awaited Messages](#awaited-messages)
@@ -380,7 +380,7 @@ cd.timeleft; // number
   ctx.reply({ contacts: { displayName: "John D", contacts: [{ vcard }] }});
   ```
 
-### Template Buttons (⚠ DEPRCATED! Use button builder instead.)
+### Template Buttons
   Send a button with "attachment".
 
   ```ts
