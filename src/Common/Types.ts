@@ -74,7 +74,9 @@ export interface IMessageInfo extends WAProto.IWebMessageInfo {
 
 export interface IMessageCollectorCollect extends IMessageInfo {
     jid: string | null | undefined,
+    decodedJid: string | null | undefined,
     sender: string | null | undefined,
+    decodedSender: string | null | undefined,
     content: string | null | undefined
 }
 

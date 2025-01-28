@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { getContentFromMsg, getSender } from "../../Common/Functions";
+import { decodeJid, getContentFromMsg, getSender } from "../../Common/Functions";
 import { ICollectorOptions, IMessageCollectorCollect, IMessageInfo } from "../../Common/Types";
 import { Events } from "../../Constant/Events";
 import { Collector } from "./Collector";
@@ -29,10 +29,14 @@ export class MessageCollector extends Collector {
         let content = getContentFromMsg(msg as any);
         if(!msg.key.fromMe && this.jid === msg.key.remoteJid && content?.length) {
             this.received++;
+
+            let sender = getSender(msg, this.clientReq.self.core);
             return {
               ...msg,
               jid: msg.key.remoteJid,
-              sender: getSender(msg, this.clientReq.self.core),
+              decodedJid: msg.key.remoteJid ? decodeJid(msg.key.remoteJid) : null,
+              sender,
+              decodedSender: sender ? decodeJid(sender) : null,
               content,
             };
         } else {

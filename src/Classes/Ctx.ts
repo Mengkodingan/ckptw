@@ -304,4 +304,8 @@ export class Ctx implements ICtx {
     async prepareWAMessageMedia(message: AnyMediaMessageContent, options: MediaGenerationOptions) {
         return prepareWAMessageMedia(message, options);
     }
+
+    decodeJid(jid: string) {
+        return decodeJid(jid)
+    }
 }
