@@ -64,7 +64,7 @@ export class Ctx implements ICtx {
 
     async sendMessage(jid: string, content: AnyMessageContent, options: MiscMessageGenerationOptions = {}): Promise<undefined | WAProto.WebMessageInfo> {
         if(this._self.autoMention) {
-            let matchMention = (content as any).text.match(/(@[^](?![a-zA-Z]).\d*[$]*)/gm);
+            let matchMention = (content as any).text?.match(/(@[^](?![a-zA-Z]).\d*[$]*)/gm);
             if (matchMention) {
                 for (let i = 0; i < matchMention.length; i++) {
                     if (matchMention[i].match(/^@\d/gm)) {
