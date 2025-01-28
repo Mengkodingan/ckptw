@@ -57,7 +57,7 @@ export class Collector extends EventEmitter {
     }
   }
 
-  stop(r: string = "timeout") {
+  stop(r: any = "timeout") {
     if (this.isRun) {
       clearTimeout(this.isRun);
       this.isRun = undefined;
