@@ -220,6 +220,10 @@ export class Client {
         return await this.core.groupFetchAllParticipating();
     }
 
+    decodeJid(jid: string) {
+        return decodeJid(jid)
+    }
+
     async launch() {
         const { state, saveCreds } = await this.authAdapter;
         this.state = state;
