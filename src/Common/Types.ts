@@ -48,7 +48,7 @@ export interface ICollectorArgs {
 }
 
 export interface ICtx {
-    _used: { prefix: Array<string>|string, command: string };
+    _used: { prefix?: Array<string>|string, command?: string; upsert?: any; hears?: any; poll?: any; pollVote?: any; reactions?: any; };
     _args: Array<String>;
     _self: ICtxSelf;
     _client: ReturnType<typeof makeWASocket>;
@@ -88,7 +88,7 @@ export interface ICtxSelf extends Client {
 }
 
 export interface ICtxOptions {
-    used: any;
+    used: { prefix?: Array<string>|string, command?: string; upsert?: any; hears?: any; poll?: any; pollVote?: any; reactions?: any; };
     args: string[];
     self: ICtxSelf;
     client: ReturnType<typeof makeWASocket>;

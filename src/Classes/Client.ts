@@ -20,6 +20,7 @@ import { decodeJid, getContentFromMsg } from "../Common/Functions";
 import { MessageEventList } from "../Handler/MessageEvents";
 import { PHONENUMBER_MCC } from "../Constant/PHONENUMBER_MCC";
 import { Consolefy } from "@mengkodingan/consolefy";
+import ExtractEventsContent from "../Handler/ExtractEventsContent";
  
 export class Client {
     prefix: Array<string> | string | RegExp;
@@ -32,6 +33,7 @@ export class Client {
     ev: EventEmitter;
     cmd?: Collection<ICommandOptions | number, any>;
     cooldown?: Collection<unknown, unknown>;
+    middlewares?: Collection<number, (ctx: Ctx, next: () => Promise<void>) => Promise<void>>;
     readyAt?: number;
     hearsMap: Collection<number, any>;
     qrTimeout?: number;
@@ -66,6 +68,7 @@ export class Client {
         this.cmd = new Collection();
         this.cooldown = new Collection();
         this.hearsMap = new Collection();
+        this.middlewares = new Collection();
 
         this.consolefy = new Consolefy();
 
@@ -103,6 +106,25 @@ export class Client {
         ]);
     }
 
+    use(fn: (ctx: Ctx, next: () => Promise<void>) => Promise<void>) {
+        this.middlewares?.set(this.middlewares.size, fn);
+    }
+
+    async runMiddlewares(ctx: Ctx, index = 0): Promise<boolean> {
+        const middlewareFn = this.middlewares?.get(index);
+        if (!middlewareFn) return true;
+        
+        let nextCalled = false;
+        let chainCompleted = false;
+        
+        await middlewareFn(ctx, async () => {
+            nextCalled = true;
+            chainCompleted = await this.runMiddlewares(ctx, index + 1);
+        });
+        
+        return nextCalled && chainCompleted;
+    }
+
     onMessage() {
         this.core?.ev.on("messages.upsert", async (m: any) => {
             let msgType = getContentType(m.messages[0].message) as string;
@@ -116,12 +138,17 @@ export class Client {
 
             delete m.messages;
             let self = { ...this, getContentType, downloadContentFromMessage, proto, m };
-
+            let used = ExtractEventsContent(m, msgType);
+            let ctx = new Ctx({ used, args: [], self, client: this.core });
+            
+            const allMiddlewareCompleted = await this.runMiddlewares(ctx);
+            if (!allMiddlewareCompleted) return;
+            
             if (MessageEventList[msgType]) {
                 await MessageEventList[msgType](m, this.ev, self, this.core);
             }
-            
-            this.ev?.emit(Events.MessagesUpsert, m, new Ctx({ used: { upsert: m.content }, args: [], self, client: this.core }));
+
+            this.ev?.emit(Events.MessagesUpsert, m, ctx);
             if (this.readIncommingMsg) this.read(m);
             await require('../Handler/Commands')(self);
         });

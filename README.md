@@ -4,9 +4,8 @@ Create powerful WhatsApp bots easily.
 
 - **✨ Effortless**
 - **🧱 Builder**
-- **🛒 Built-in Collector**
-- **⏰ Built-in Cooldown**
-- **🔑 Built-in Command Handler**
+- **🛒 Built-in Collector, Cooldown, Command Handle**
+- **🚀 Middleware System**
 - **💽 Custom Auth Adapter**
 - **🎉 And more!**
 
@@ -19,13 +18,15 @@ Create powerful WhatsApp bots easily.
 - [Command Handler](#command-handler)
    * [Main File Setup](#main-file-setup)
    * [Command File Structure](#command-file-structure)
+- [Middleware](#middleware)
+   * [Key Notes](#key-notes)
 - [Command Cooldown](#command-cooldown)
 - [Builder](#builder)
    * [Button](#button)
    * [Sections](#sections)
    * [Carousel](#carousel)
    * [Contact](#contact)
-   * [Template Button](#template-buttons)
+   * [Template Buttons](#template-buttons)
 - [Collector](#collector)
    * [Message Collector](#message-collector)
    * [Awaited Messages](#awaited-messages)
@@ -208,6 +209,34 @@ module.exports = {
 
 You can add a `type` property to define the handler type... For now there are only `command` and `hears` types.
   
+## Middleware
+
+Middleware allows you to intercept and process messages before they reach further processing. Control message flow using `next()` to continue processing or return to terminate. 
+
+```ts
+bot.use(async (ctx, next) => {
+  // Pre-process logic here
+  console.log(`received: ${JSON.stringify(ctx.used)}`);
+
+  await next();
+});
+```
+
+### Key Notes
+
+-  **Execution Order**: Middlewares run sequentially based on registration order.
+    ```ts
+    bot.use(middleware1); // Jalankan pertama
+    bot.use(middleware2); // Jalankan kedua
+    ```
+-  **Flow Control**: Omit `next()` to prevent command execution.
+    ```ts
+    bot.use(async (ctx, next) => {
+      if(condition) return; // Block
+      await next();
+    });
+    ```
+
 
 ## Command Cooldown
 
@@ -713,5 +742,5 @@ ctx.isGroup()
 
 /* accessing @whiskeysockets/baileys objects */
 bot.core
-ctx._client
+ctx.core
 ```

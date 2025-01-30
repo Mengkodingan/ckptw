@@ -8,7 +8,7 @@ import { GroupData } from "./Group/GroupData";
 import { Group } from "./Group/Group";
 
 export class Ctx implements ICtx {
-    _used: { prefix: string | string[]; command: string; };
+    _used: { prefix?: Array<string>|string, command?: string; upsert?: any; hears?: any; poll?: any; pollVote?: any; reactions?: any; };
     _args: string[];
     _self: ICtxSelf;
     _client: ReturnType<typeof makeWASocket>;
@@ -17,7 +17,7 @@ export class Ctx implements ICtx {
     _config: { prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
     
     constructor(options: ICtxOptions) {
-        this._used = options.used as { prefix: Array<string>|string, command: string };
+        this._used = options.used;
         this._args = options.args;
         this._self = options.self as ICtxSelf;
         this._client = options.client;
@@ -38,6 +38,18 @@ export class Ctx implements ICtx {
 
     get id(): string | null | undefined {
         return this._msg.key.remoteJid;
+    }
+
+    get used() {
+        return this._used;
+    }
+
+    get bot() {
+        return this._self;
+    }
+
+    get core(): ReturnType<typeof makeWASocket> {
+        return this._client;
     }
 
     get decodedId(): string | null | undefined {

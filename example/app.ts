@@ -23,6 +23,14 @@ bot.ev.on(Events.Reactions, (m) => {
   console.log(`REACT`, m);
 });
 
+bot.use(async (ctx, next) => {
+  bot.consolefy?.setTag('from middleware');
+  bot.consolefy?.info(`received: ${JSON.stringify(ctx.used)} | message: ${JSON.stringify(ctx.msg)}`)
+  bot.consolefy?.resetTag();
+
+  await next();
+});
+
 bot.command('ping', async(ctx) => ctx.reply({ text: 'pong!' }));
 bot.command('hi', async(ctx) => ctx.reply('hello! you can use string as a first parameter in reply function too!'));
 
