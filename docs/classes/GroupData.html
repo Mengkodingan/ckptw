@@ -20,7 +20,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">GroupData</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L4">src/Classes/Group/GroupData.ts:4</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L5">src/Classes/Group/GroupData.ts:5</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -41,7 +41,12 @@
 <a href="GroupData.html#approvePendingMembers" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>approve<wbr/>Pending<wbr/>Members</span></a>
 <a href="GroupData.html#close" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>close</span></a>
 <a href="GroupData.html#demote" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>demote</span></a>
+<a href="GroupData.html#description" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>description</span></a>
+<a href="GroupData.html#getMetadata" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Metadata</span></a>
 <a href="GroupData.html#inviteCode" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>invite<wbr/>Code</span></a>
+<a href="GroupData.html#isAdmin" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Admin</span></a>
+<a href="GroupData.html#isBotAdmin" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Bot<wbr/>Admin</span></a>
+<a href="GroupData.html#isSenderAdmin" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Sender<wbr/>Admin</span></a>
 <a href="GroupData.html#joinApproval" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>join<wbr/>Approval</span></a>
 <a href="GroupData.html#kick" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>kick</span></a>
 <a href="GroupData.html#leave" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>leave</span></a>
@@ -50,7 +55,9 @@
 <a href="GroupData.html#membersCanAddMemberMode" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>members<wbr/>Can<wbr/>Add<wbr/>Member<wbr/>Mode</span></a>
 <a href="GroupData.html#membersUpdate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>members<wbr/>Update</span></a>
 <a href="GroupData.html#metadata" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>metadata</span></a>
+<a href="GroupData.html#name" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>name</span></a>
 <a href="GroupData.html#open" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>open</span></a>
+<a href="GroupData.html#owner" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>owner</span></a>
 <a href="GroupData.html#pendingMembers" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>pending<wbr/>Members</span></a>
 <a href="GroupData.html#pendingMembersUpdate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>pending<wbr/>Members<wbr/>Update</span></a>
 <a href="GroupData.html#promote" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>promote</span></a>
@@ -73,24 +80,24 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">ctx</span>: <a href="../interfaces/ICtx.html" class="tsd-signature-type tsd-kind-interface">ICtx</a></h5></li>
+<h5><span class="tsd-kind-parameter">ctx</span>: <a href="Ctx.html" class="tsd-signature-type tsd-kind-class">Ctx</a></h5></li>
 <li>
 <h5><span class="tsd-kind-parameter">jid</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="GroupData.html" class="tsd-signature-type tsd-kind-class">GroupData</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L8">src/Classes/Group/GroupData.ts:8</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L9">src/Classes/Group/GroupData.ts:9</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member"><a id="ctx" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ctx</span><a href="#ctx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">ctx</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/ICtx.html" class="tsd-signature-type tsd-kind-interface">ICtx</a></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">ctx</span><span class="tsd-signature-symbol">:</span> <a href="Ctx.html" class="tsd-signature-type tsd-kind-class">Ctx</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L5">src/Classes/Group/GroupData.ts:5</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L6">src/Classes/Group/GroupData.ts:6</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="jid" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>jid</span><a href="#jid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L6">src/Classes/Group/GroupData.ts:6</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L7">src/Classes/Group/GroupData.ts:7</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="add" class="tsd-anchor"></a>
@@ -105,7 +112,7 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">content</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">BinaryNode</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L66">src/Classes/Group/GroupData.ts:66</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L98">src/Classes/Group/GroupData.ts:98</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="approvePendingMembers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>approve<wbr/>Pending<wbr/>Members</span><a href="#approvePendingMembers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -118,7 +125,7 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L86">src/Classes/Group/GroupData.ts:86</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L118">src/Classes/Group/GroupData.ts:118</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="close" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>close</span><a href="#close" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -126,7 +133,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L102">src/Classes/Group/GroupData.ts:102</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L134">src/Classes/Group/GroupData.ts:134</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="demote" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>demote</span><a href="#demote" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -139,7 +146,28 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">content</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">BinaryNode</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L74">src/Classes/Group/GroupData.ts:74</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L106">src/Classes/Group/GroupData.ts:106</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="description" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>description</span><a href="#description" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="description.description-1"><span class="tsd-kind-call-signature">description</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#description.description-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L52">src/Classes/Group/GroupData.ts:52</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="getMetadata" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Metadata</span><a href="#getMetadata" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="getMetadata.getMetadata-1"><span class="tsd-kind-call-signature">get<wbr/>Metadata</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#getMetadata.getMetadata-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type ">GroupMetadata</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L43">src/Classes/Group/GroupData.ts:43</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="inviteCode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>invite<wbr/>Code</span><a href="#inviteCode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -147,7 +175,36 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L18">src/Classes/Group/GroupData.ts:18</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L19">src/Classes/Group/GroupData.ts:19</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="isAdmin" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Admin</span><a href="#isAdmin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="isAdmin.isAdmin-1"><span class="tsd-kind-call-signature">is<wbr/>Admin</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">jid</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><a href="#isAdmin.isAdmin-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">jid</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L60">src/Classes/Group/GroupData.ts:60</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="isBotAdmin" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Bot<wbr/>Admin</span><a href="#isBotAdmin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="isBotAdmin.isBotAdmin-1"><span class="tsd-kind-call-signature">is<wbr/>Bot<wbr/>Admin</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><a href="#isBotAdmin.isBotAdmin-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L70">src/Classes/Group/GroupData.ts:70</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="isSenderAdmin" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Sender<wbr/>Admin</span><a href="#isSenderAdmin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="isSenderAdmin.isSenderAdmin-1"><span class="tsd-kind-call-signature">is<wbr/>Sender<wbr/>Admin</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><a href="#isSenderAdmin.isSenderAdmin-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L66">src/Classes/Group/GroupData.ts:66</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="joinApproval" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>join<wbr/>Approval</span><a href="#joinApproval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -160,7 +217,7 @@
 <h5><span class="tsd-kind-parameter">mode</span>: <span class="tsd-signature-type">&quot;on&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;off&quot;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L26">src/Classes/Group/GroupData.ts:26</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L27">src/Classes/Group/GroupData.ts:27</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="kick" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>kick</span><a href="#kick" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -173,7 +230,7 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">content</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">BinaryNode</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L62">src/Classes/Group/GroupData.ts:62</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L94">src/Classes/Group/GroupData.ts:94</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="leave" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>leave</span><a href="#leave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -181,7 +238,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L30">src/Classes/Group/GroupData.ts:30</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L31">src/Classes/Group/GroupData.ts:31</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="lock" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>lock</span><a href="#lock" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -189,7 +246,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L106">src/Classes/Group/GroupData.ts:106</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L138">src/Classes/Group/GroupData.ts:138</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="members" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>members</span><a href="#members" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -197,7 +254,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L13">src/Classes/Group/GroupData.ts:13</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L14">src/Classes/Group/GroupData.ts:14</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="membersCanAddMemberMode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>members<wbr/>Can<wbr/>Add<wbr/>Member<wbr/>Mode</span><a href="#membersCanAddMemberMode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -210,7 +267,7 @@
 <h5><span class="tsd-kind-parameter">mode</span>: <span class="tsd-signature-type">&quot;on&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;off&quot;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L34">src/Classes/Group/GroupData.ts:34</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L35">src/Classes/Group/GroupData.ts:35</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="membersUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>members<wbr/>Update</span><a href="#membersUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -225,7 +282,7 @@
 <h5><span class="tsd-kind-parameter">action</span>: <span class="tsd-signature-type ">ParticipantAction</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">content</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">BinaryNode</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L54">src/Classes/Group/GroupData.ts:54</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L86">src/Classes/Group/GroupData.ts:86</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="metadata" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>metadata</span><a href="#metadata" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -233,7 +290,15 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">GroupMetadata</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L38">src/Classes/Group/GroupData.ts:38</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L39">src/Classes/Group/GroupData.ts:39</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="name" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="name.name-1"><span class="tsd-kind-call-signature">name</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#name.name-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L48">src/Classes/Group/GroupData.ts:48</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="open" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>open</span><a href="#open" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -241,7 +306,15 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L98">src/Classes/Group/GroupData.ts:98</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L130">src/Classes/Group/GroupData.ts:130</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="owner" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>owner</span><a href="#owner" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="owner.owner-1"><span class="tsd-kind-call-signature">owner</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#owner.owner-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">GroupParticipant</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L56">src/Classes/Group/GroupData.ts:56</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="pendingMembers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>pending<wbr/>Members</span><a href="#pendingMembers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -249,7 +322,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span>[<span class="tsd-kind-index-signature">key</span>: <span class="tsd-signature-type">string</span>]<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L78">src/Classes/Group/GroupData.ts:78</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L110">src/Classes/Group/GroupData.ts:110</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="pendingMembersUpdate" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>pending<wbr/>Members<wbr/>Update</span><a href="#pendingMembersUpdate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -264,7 +337,7 @@
 <h5><span class="tsd-kind-parameter">action</span>: <span class="tsd-signature-type">&quot;reject&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;approve&quot;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L82">src/Classes/Group/GroupData.ts:82</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L114">src/Classes/Group/GroupData.ts:114</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="promote" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>promote</span><a href="#promote" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -277,7 +350,7 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">content</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">BinaryNode</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L70">src/Classes/Group/GroupData.ts:70</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L102">src/Classes/Group/GroupData.ts:102</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="rejectPendingMembers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>reject<wbr/>Pending<wbr/>Members</span><a href="#rejectPendingMembers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -290,7 +363,7 @@
 <h5><span class="tsd-kind-parameter">members</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">jid</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">status</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L90">src/Classes/Group/GroupData.ts:90</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L122">src/Classes/Group/GroupData.ts:122</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revokeInviteCode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revoke<wbr/>Invite<wbr/>Code</span><a href="#revokeInviteCode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -298,7 +371,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L22">src/Classes/Group/GroupData.ts:22</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L23">src/Classes/Group/GroupData.ts:23</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="toggleEphemeral" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>toggle<wbr/>Ephemeral</span><a href="#toggleEphemeral" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -311,7 +384,7 @@
 <h5><span class="tsd-kind-parameter">expiration</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L42">src/Classes/Group/GroupData.ts:42</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L74">src/Classes/Group/GroupData.ts:74</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="unlock" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>unlock</span><a href="#unlock" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -319,7 +392,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L110">src/Classes/Group/GroupData.ts:110</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L142">src/Classes/Group/GroupData.ts:142</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="updateDescription" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Description</span><a href="#updateDescription" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -332,7 +405,7 @@
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">description</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L46">src/Classes/Group/GroupData.ts:46</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L78">src/Classes/Group/GroupData.ts:78</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="updateSetting" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Setting</span><a href="#updateSetting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -345,7 +418,7 @@
 <h5><span class="tsd-kind-parameter">setting</span>: <span class="tsd-signature-type">&quot;announcement&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;not_announcement&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;locked&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;unlocked&quot;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L94">src/Classes/Group/GroupData.ts:94</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L126">src/Classes/Group/GroupData.ts:126</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="updateSubject" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Subject</span><a href="#updateSubject" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -358,7 +431,7 @@
 <h5><span class="tsd-kind-parameter">subject</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/14ad434/src/Classes/Group/GroupData.ts#L50">src/Classes/Group/GroupData.ts:50</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/Mengkodingan/ckptw/blob/a428bf7/src/Classes/Group/GroupData.ts#L82">src/Classes/Group/GroupData.ts:82</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -385,7 +458,12 @@
 <li><a href="#approvePendingMembers" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>approve<wbr/>Pending<wbr/>Members</span></a></li>
 <li><a href="#close" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>close</span></a></li>
 <li><a href="#demote" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>demote</span></a></li>
+<li><a href="#description" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>description</span></a></li>
+<li><a href="#getMetadata" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Metadata</span></a></li>
 <li><a href="#inviteCode" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>invite<wbr/>Code</span></a></li>
+<li><a href="#isAdmin" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Admin</span></a></li>
+<li><a href="#isBotAdmin" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Bot<wbr/>Admin</span></a></li>
+<li><a href="#isSenderAdmin" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>is<wbr/>Sender<wbr/>Admin</span></a></li>
 <li><a href="#joinApproval" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>join<wbr/>Approval</span></a></li>
 <li><a href="#kick" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>kick</span></a></li>
 <li><a href="#leave" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>leave</span></a></li>
@@ -394,7 +472,9 @@
 <li><a href="#membersCanAddMemberMode" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>members<wbr/>Can<wbr/>Add<wbr/>Member<wbr/>Mode</span></a></li>
 <li><a href="#membersUpdate" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>members<wbr/>Update</span></a></li>
 <li><a href="#metadata" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>metadata</span></a></li>
+<li><a href="#name" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>name</span></a></li>
 <li><a href="#open" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>open</span></a></li>
+<li><a href="#owner" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>owner</span></a></li>
 <li><a href="#pendingMembers" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>pending<wbr/>Members</span></a></li>
 <li><a href="#pendingMembersUpdate" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>pending<wbr/>Members<wbr/>Update</span></a></li>
 <li><a href="#promote" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>promote</span></a></li>
@@ -429,6 +509,7 @@
 <li><a href="../interfaces/ICtxOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>ICtx<wbr/>Options</span></a></li>
 <li><a href="../interfaces/ICtxSelf.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>ICtx<wbr/>Self</span></a></li>
 <li><a href="../interfaces/IInteractiveMessageContent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>IInteractive<wbr/>Message<wbr/>Content</span></a></li>
+<li><a href="../interfaces/IMe.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>IMe</span></a></li>
 <li><a href="../interfaces/IMessageCollectorCollect.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>IMessage<wbr/>Collector<wbr/>Collect</span></a></li>
 <li><a href="../interfaces/IMessageInfo.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>IMessage<wbr/>Info</span></a></li>
 <li><a href="../interfaces/ISectionsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>ISections<wbr/>Options</span></a></li>
