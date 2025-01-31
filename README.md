@@ -226,8 +226,8 @@ bot.use(async (ctx, next) => {
 
 -  **Execution Order**: Middlewares run sequentially based on registration order.
     ```ts
-    bot.use(middleware1); // Jalankan pertama
-    bot.use(middleware2); // Jalankan kedua
+    bot.use(middleware1); // First run
+    bot.use(middleware2); // Second run
     ```
 -  **Flow Control**: Omit `next()` to prevent command execution.
     ```ts
