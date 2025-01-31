@@ -1,11 +1,12 @@
 import { BinaryNode, GroupMetadata, GroupParticipant, ParticipantAction } from "@whiskeysockets/baileys";
-import { ICtx } from "../../Common/Types";
+import { Ctx } from "../Ctx";
+import { decodeJid } from "../../Common/Functions";
 
 export class GroupData {
-    ctx: ICtx;
+    ctx: Ctx;
     jid: string;
 
-    constructor(ctx: ICtx, jid: string) {
+    constructor(ctx: Ctx, jid: string) {
         this.ctx = ctx;
         this.jid = jid;
     }
@@ -37,6 +38,37 @@ export class GroupData {
 
     async metadata(): Promise<GroupMetadata> {
         return await this.ctx._client.groupMetadata(this.jid)
+    }
+
+    async getMetadata(key: keyof GroupMetadata) {
+        let metadata = await this.metadata();
+        return metadata[key];
+    }
+
+    async name() {
+        return await this.getMetadata('subject');
+    }
+
+    async description() {
+        return await this.getMetadata('desc');
+    }
+
+    async owner() {
+        return await this.getMetadata('owner');
+    }
+
+    async isAdmin(jid: string) {
+        let members = await this.members();
+        let check = members.filter((x) => decodeJid(x.id) === decodeJid(jid) && (x.admin === 'admin' || x.admin === 'superadmin'));
+        return check.length > 0;
+    }
+
+    async isSenderAdmin() {
+        return await this.isAdmin(this.ctx.sender.decodedJid!);
+    }
+
+    async isBotAdmin() {
+        return await this.isAdmin(this.ctx.me.decodedId);
     }
 
     async toggleEphemeral(expiration: number): Promise<void> {

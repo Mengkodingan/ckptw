@@ -650,6 +650,13 @@ ctx.group().joinApproval(mode: "on" | "off");
 ctx.group().leave();
 ctx.group().membersCanAddMemberMode(mode: "on" | "off");
 ctx.group().metadata();
+ctx.group().getMetadata(key: keyof GroupMetadata);
+ctx.group().name();
+ctx.group().description();
+ctx.group().owner();
+ctx.group().isAdmin(jid: string);
+ctx.group().isSenderAdmin();
+ctx.group().isBotAdmin();
 ctx.group().toggleEphemeral(expiration: number);
 ctx.group().updateDescription(description: number);
 ctx.group().updateSubject(subject: number);
@@ -706,6 +713,9 @@ ctx.sender
 
 /* get quoted */
 ctx.quoted
+
+/* get bot user */
+ctx.me
 
 /* get the message type */
 ctx.getMessageType()

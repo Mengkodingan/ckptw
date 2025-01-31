@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { decodeJid, getSender, makeRealInteractiveMessage } from "../Common/Functions";
-import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IInteractiveMessageContent, IMessageInfo } from "../Common/Types";
+import { ICollectorArgs, ICollectorOptions, ICommandOptions, ICtx, ICtxOptions, ICtxSelf, IInteractiveMessageContent, IMe, IMessageInfo } from "../Common/Types";
 import makeWASocket, { AnyMediaMessageContent, AnyMessageContent, DownloadableMessage, MediaDownloadOptions, MediaGenerationOptions, MediaType, MessageGenerationOptionsFromContent, MiscMessageGenerationOptions, PollMessageOptions, downloadMediaMessage, generateWAMessageFromContent, getDevice, prepareWAMessageMedia, proto, toBuffer } from "@whiskeysockets/baileys";
 import { WAProto } from "@whiskeysockets/baileys"
 import { MessageCollector } from "./Collector/MessageCollector";
@@ -46,6 +46,14 @@ export class Ctx implements ICtx {
 
     get bot() {
         return this._self;
+    }
+
+    get me() {
+        let user = this.core.user as IMe;
+        user['decodedId'] = decodeJid(user?.id!);
+        user['readyAt'] = this.bot.readyAt;
+        
+        return user;
     }
 
     get core(): ReturnType<typeof makeWASocket> {

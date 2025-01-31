@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { Ctx } from "../Classes/Ctx";
-import makeWASocket, { downloadContentFromMessage, getContentType, proto, WAProto } from "@whiskeysockets/baileys"
+import makeWASocket, { Contact, downloadContentFromMessage, getContentType, proto, WAProto } from "@whiskeysockets/baileys"
 import { Client } from "../Classes/Client";
 
 export type ButtonType = 'cta_url' | 'cta_call' | 'cta_copy' | 'cta_reminder' | 'cta_cancel_reminder' | 'address_message' | 'send_location' | 'quick_reply';
@@ -53,7 +53,7 @@ export interface ICtx {
     _self: ICtxSelf;
     _client: ReturnType<typeof makeWASocket>;
     _msg: IMessageInfo;
-    _sender: { jid: string | null | undefined; pushName: string | null | undefined; };
+    _sender: { jid: string | null | undefined; decodedJid: string | null | undefined; pushName: string | null | undefined; };
     _config: { prefix: string | RegExp | string[]; cmd: Collection<number | ICommandOptions, any> | undefined; };
 }
 
@@ -103,4 +103,9 @@ export interface IInteractiveMessageContent {
     collectionMessage?: (proto.Message.InteractiveMessage.ICollectionMessage|null);
     nativeFlowMessage?: (proto.Message.InteractiveMessage.INativeFlowMessage|null);
     carouselMessage?: (proto.Message.InteractiveMessage.ICarouselMessage|null);
+}
+
+export interface IMe extends Contact {
+    decodedId: string;
+    readyAt?: number;
 }
