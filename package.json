@@ -1,6 +1,6 @@
 {
   "name": "@mengkodingan/ckptw",
-  "version": "4.4.7",
+  "version": "4.4.8",
   "description": "Create powerful WhatsApp bots easily",
   "main": "lib/index.js",
   "scripts": {
