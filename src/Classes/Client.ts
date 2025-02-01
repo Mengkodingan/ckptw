@@ -106,7 +106,7 @@ export class Client {
         ]);
     }
 
-    use(fn: (ctx: Ctx, next: () => Promise<void>) => Promise<void>) {
+    use(fn: (ctx: Ctx, next: () => Promise<void>) => any) {
         this.middlewares?.set(this.middlewares.size, fn);
     }
 
