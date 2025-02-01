@@ -33,7 +33,7 @@ export class Client {
     ev: EventEmitter;
     cmd?: Collection<ICommandOptions | number, any>;
     cooldown?: Collection<unknown, unknown>;
-    middlewares?: Collection<number, (ctx: Ctx, next: () => Promise<void>) => Promise<void>>;
+    middlewares?: Collection<number, (ctx: Ctx, next: () => Promise<void>) => any>;
     readyAt?: number;
     hearsMap: Collection<number, any>;
     qrTimeout?: number;
@@ -141,16 +141,13 @@ export class Client {
             let used = ExtractEventsContent(m, msgType);
             let ctx = new Ctx({ used, args: [], self, client: this.core });
             
-            const allMiddlewareCompleted = await this.runMiddlewares(ctx);
-            if (!allMiddlewareCompleted) return;
-            
             if (MessageEventList[msgType]) {
                 await MessageEventList[msgType](m, this.ev, self, this.core);
             }
 
             this.ev?.emit(Events.MessagesUpsert, m, ctx);
             if (this.readIncommingMsg) this.read(m);
-            await require('../Handler/Commands')(self);
+            await require('../Handler/Commands')(self, this.runMiddlewares.bind(this));
         });
     }
 

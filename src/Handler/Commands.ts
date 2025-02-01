@@ -2,7 +2,7 @@ import { arrayMove } from "../Common/Functions";
 import { Ctx } from "../Classes/Ctx";
 import { ICommandOptions, ICtxSelf } from "../Common/Types";
 
-export = async (self: ICtxSelf) => {
+export = async (self: ICtxSelf, runMiddlewares: (ctx: Ctx, index?: number) => Promise<boolean>) => {
     let { cmd, prefix, m } = self;
 
     if (!m || !m.message || (m.key && m.key.remoteJid === "status@broadcast")) return;
@@ -47,5 +47,12 @@ export = async (self: ICtxSelf) => {
                 : c.aliases === command.toLowerCase())
     ) as Array<ICommandOptions>;
 
-    if (commandDetail.length) commandDetail.map((x) => x.code(new Ctx({ used: { prefix: selectedPrefix, command }, args, self, client: self.core })));
+    if (commandDetail.length) {
+        let ctx = new Ctx({ used: { prefix: selectedPrefix, command }, args, self, client: self.core });
+        
+        const allMiddlewareCompleted = await runMiddlewares(ctx);
+        if (!allMiddlewareCompleted) return;
+    
+        commandDetail.map((x) => x.code(ctx));
+    }
 };

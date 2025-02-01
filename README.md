@@ -211,7 +211,7 @@ You can add a `type` property to define the handler type... For now there are on
   
 ## Middleware
 
-Middleware allows you to intercept and process messages before they reach further processing. Control message flow using `next()` to continue processing or return to terminate. 
+Middleware allows you to intercept and process messages before they reach further processing. Control message flow using `next()` to continue processing or return to terminate. Middleware is only run before executing an existing command. Not all messages go to the middleware.
 
 ```ts
 bot.use(async (ctx, next) => {
