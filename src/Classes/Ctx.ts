@@ -237,9 +237,12 @@ export class Ctx implements ICtx {
     }
 
     get quoted() {
-        let quotedMessage = this._msg.message?.extendedTextMessage?.contextInfo?.quotedMessage as WAProto.IMessage | undefined;
+        let msgContext = this._msg.message?.extendedTextMessage?.contextInfo;
+        let quotedMessage = msgContext?.quotedMessage as WAProto.IMessage | undefined;
         return {
             ...quotedMessage,
+            senderJid: msgContext?.participant,
+            decodedSenderJid: decodeJid(msgContext?.participant as string),
             media: {
                 toBuffer: async() => {
                     try {
