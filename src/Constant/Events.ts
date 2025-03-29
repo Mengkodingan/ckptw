@@ -1,5 +1,6 @@
 export const Events = {
     "ClientReady": "ClientReady",
+    "ConnectionUpdate": "ConnectionUpdate",
     "MessagesUpsert": "MessagesUpsert",
     "QR": "QR",
     "GroupsJoin": "GroupsJoin",

@@ -77,6 +77,7 @@ export class Client {
 
     onConnectionUpdate() {
         this.core?.ev.on('connection.update', (update: Partial<ConnectionState>) => {
+            this.ev.emit(Events.ConnectionUpdate, update);
             const { connection, lastDisconnect } = update;
             
             if(update.qr) this.ev.emit(Events.QR, update.qr);
