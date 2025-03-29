@@ -61,7 +61,7 @@ export class Client {
         this.selfReply = opts.selfReply ?? false;
         this.WAVersion = opts.WAVersion;
         this.autoMention = opts.autoMention ?? false;
-        this.fallbackWAVersion = [2, 3000, 1017531287];
+        this.fallbackWAVersion = [2, 3000, 1021387508];
         this.authAdapter = opts.authAdapter ?? useMultiFileAuthState(this.authDir as string);
 
         this.ev = new EventEmitter();
@@ -232,7 +232,7 @@ export class Client {
      * Fetch bio/about from given Jid or if the param empty will fetch the bot bio/about.
      * @param [jid] the jid.
      */
-    async fetchBio(jid?: string): Promise<undefined | { setAt: Date, status: undefined | string }> {
+    async fetchBio(jid?: string) {
         let decodedJid = decodeJid(jid ? jid : this.core?.user?.id as string)
         let re = await this.core?.fetchStatus(decodedJid);
         return re;

@@ -33,6 +33,7 @@
   "author": "JstnLT <jastinlinggar@gmail.com> (jstnlt.my.id) and friends.",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.13.14",
     "link-preview-js": "^3.0.5",
     "rimraf": "^5.0.1",
     "typedoc": "^0.24.8",
@@ -43,15 +44,15 @@
     "@discordjs/collection": "^1.4.0",
     "@hapi/boom": "^10.0.1",
     "@mengkodingan/consolefy": "^1.0.1",
-    "@whiskeysockets/baileys": "^6.7.9",
+    "@whiskeysockets/baileys": "^6.7.16",
     "pino": "^8.11.0",
     "qrcode-terminal": "^0.12.0",
     "undici": "^5.21.0"
   },
   "peerDependencies": {
-    "sharp": "^0.32.6",
     "jimp": "^0.16.1",
-    "link-preview-js": "^3.0.0"
+    "link-preview-js": "^3.0.0",
+    "sharp": "^0.32.6"
   },
   "peerDependenciesMeta": {
     "jimp": {
@@ -63,5 +64,12 @@
     "link-preview-js": {
       "optional": true
     }
+  },
+  "packageManager": "pnpm@10.6.5",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "protobufjs",
+      "sharp"
+    ]
   }
 }

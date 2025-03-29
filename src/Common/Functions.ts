@@ -18,34 +18,40 @@ export const arrayMove = (
   return arr;
 };
 
-export const getContentFromMsg = (msg: { message: proto.IMessage }): string | null | undefined => {
-  let type = getContentType(msg.message);
-  return type === "conversation" && msg.message?.conversation
-    ? msg.message.conversation
-    : type == "imageMessage" && msg.message?.imageMessage?.caption
-    ? msg.message.imageMessage.caption
-    : type == "documentMessage" && msg.message?.documentMessage?.caption
-    ? msg.message.documentMessage.caption
-    : type == "videoMessage" && msg.message?.videoMessage?.caption
-    ? msg.message.videoMessage.caption
-    : type == "extendedTextMessage" && msg.message?.extendedTextMessage?.text
-    ? msg.message.extendedTextMessage.text
-    : type == "listResponseMessage"
-    ? msg.message?.listResponseMessage?.singleSelectReply?.selectedRowId
-    : type == "buttonsResponseMessage" &&
-      msg.message?.buttonsResponseMessage?.selectedButtonId
-    ? msg.message.buttonsResponseMessage.selectedButtonId
-    : type == "templateButtonReplyMessage" &&
-      msg.message?.templateButtonReplyMessage?.selectedId
-    ? msg.message.templateButtonReplyMessage.selectedId
-    : type === 'interactiveResponseMessage' ? JSON.parse(msg.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson!)?.id :
-      type === 'templateButtonReplyMessage' ? msg.message.templateButtonReplyMessage?.selectedId :
-      type === 'messageContextInfo' ? msg.message.buttonsResponseMessage?.selectedButtonId || 
-      msg.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
-      msg.message.interactiveResponseMessage?.nativeFlowResponseMessage
-      : "";
+export const getContentFromMsg = (msg: { message: proto.IMessage }) => {
+  const type = getContentType(msg.message);
+  
+  switch (type) {
+    case "conversation":
+      return msg.message?.conversation;
+    case "imageMessage":
+      return msg.message?.imageMessage?.caption;
+    case "documentMessage":
+      return msg.message?.documentMessage?.caption;
+    case "videoMessage":
+      return msg.message?.videoMessage?.caption;
+    case "extendedTextMessage":
+      return msg.message?.extendedTextMessage?.text;
+    case "listResponseMessage":
+      return msg.message?.listResponseMessage?.singleSelectReply?.selectedRowId;
+    case "buttonsResponseMessage":
+      return msg.message?.buttonsResponseMessage?.selectedButtonId;
+    case "templateButtonReplyMessage":
+      return msg.message?.templateButtonReplyMessage?.selectedId;
+    case "interactiveResponseMessage":
+      return JSON.parse(
+        msg.message?.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson!
+      )?.id;
+    case "messageContextInfo":
+      return (
+        msg.message?.buttonsResponseMessage?.selectedButtonId ||
+        msg.message?.listResponseMessage?.singleSelectReply?.selectedRowId ||
+        msg.message?.interactiveResponseMessage?.nativeFlowResponseMessage
+      );
+    default:
+      return "";
+  }
 };
-
 export const getSender = (msg: proto.IWebMessageInfo, client: ReturnType<typeof makeWASocket>): string | null | undefined => {
   return msg.key.fromMe
     ? client.user?.id
