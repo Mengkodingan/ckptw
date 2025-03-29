@@ -3,15 +3,15 @@ import fs from "fs";
 import path from "path";
 import { IInteractiveMessageContent } from "./Types";
 
-export const arrayMove = (
-  arr: undefined[],
+export const arrayMove = <T>(
+  arr: T[],
   old_index: number,
   new_index: number
-) => {
+): T[] => {
   if (new_index >= arr.length) {
-    var k = new_index - arr.length + 1;
+    let k = new_index - arr.length + 1;
     while (k--) {
-      arr.push(undefined);
+      arr.push(undefined as unknown as T);
     }
   }
   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
