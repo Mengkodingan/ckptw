@@ -10,7 +10,6 @@ import { AuthenticationState, ConnectionState, WACallEvent } from "@whiskeysocke
 
 import { Boom } from "@hapi/boom";
 import pino from "pino";
-import { request } from "undici";
 import EventEmitter from "events";
 import { Events } from "../Constant/Events";
 import { Collection } from "@discordjs/collection";
