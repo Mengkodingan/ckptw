@@ -6,7 +6,7 @@ import makeWASocket, {
   proto,
   useMultiFileAuthState,
 } from "@whiskeysockets/baileys";
-import { AuthenticationState, ConnectionState, WACallEvent } from "@whiskeysockets/baileys/lib/Types";
+import { AuthenticationState, ConnectionState, WABrowserDescription, WACallEvent } from "@whiskeysockets/baileys/lib/Types";
 
 import { Boom } from "@hapi/boom";
 import pino from "pino";
@@ -46,6 +46,7 @@ export class Client {
     fallbackWAVersion: [number, number, number];
     authAdapter?: Promise<any>;
     consolefy?: Consolefy;
+    browser?: WABrowserDescription;
 
     constructor(opts: IClientOptions) {   
         this.prefix = opts.prefix;
@@ -62,6 +63,7 @@ export class Client {
         this.autoMention = opts.autoMention ?? false;
         this.fallbackWAVersion = [2, 3000, 1021387508];
         this.authAdapter = opts.authAdapter ?? useMultiFileAuthState(this.authDir as string);
+        this.browser = opts.browser ?? Browsers.ubuntu('CHROME');
 
         this.ev = new EventEmitter();
         this.cmd = new Collection();
@@ -258,7 +260,7 @@ export class Client {
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,
             auth: this.state!,
-            browser: Browsers.ubuntu('CHROME'),
+            browser: this.browser,
             version,
             qrTimeout: this.qrTimeout,
             markOnlineOnConnect: this.markOnlineOnConnect

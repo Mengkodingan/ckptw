@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import { Ctx } from "../Classes/Ctx";
-import makeWASocket, { Contact, downloadContentFromMessage, getContentType, proto, WAProto } from "@whiskeysockets/baileys"
+import makeWASocket, { Contact, downloadContentFromMessage, getContentType, proto, WABrowserDescription, WAProto } from "@whiskeysockets/baileys"
 import { Client } from "../Classes/Client";
 
 export type ButtonType = 'cta_url' | 'cta_call' | 'cta_copy' | 'cta_reminder' | 'cta_cancel_reminder' | 'address_message' | 'send_location' | 'quick_reply';
@@ -19,6 +19,7 @@ export interface IClientOptions {
     WAVersion?: [number, number, number];
     autoMention?: boolean;
     authAdapter?: Promise<any>;
+    browser?: WABrowserDescription;
 }
 
 export interface ICommandOptions {

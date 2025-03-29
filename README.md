@@ -135,6 +135,8 @@ export interface ClientOptions {
     autoMention?: boolean;
     /* You can use custom adapters to store your bot's session auth state. The default will be stored locally with baileys default multi auth state. */
     authAdapter?: Promise<any>;
+    /* Browser configuration for the WhatsApp Web client. Default to be Chrome in Ubuntu. You should only set a valid/logical browser config, otherwise the pair will fail. */
+    browser?: WABrowserDescription;
 }
 ```
 
