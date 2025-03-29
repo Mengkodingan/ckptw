@@ -1,4 +1,4 @@
-export { Browsers } from "@whiskeysockets/baileys";
+export { Browsers, fetchLatestWaWebVersion } from "@whiskeysockets/baileys";
 
 export * from "./Classes/Client";
 export * from "./Classes/CommandHandler";
