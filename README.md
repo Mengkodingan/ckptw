@@ -516,6 +516,7 @@ import { Events } from "@mengkodingan/ckptw";
 - **PollVote** - Triggered when someone votes in a poll.
 - **Reactions** - Triggered when a message receives a reaction.
 - **Call** - Triggered when someone calls, or a call is accepted/rejected.
+- **ConnectionUpdate** - Triggered when there is a change in the bot's connection status.
 
 ## Sending Message
 
