@@ -20,6 +20,7 @@ import { MessageEventList } from "../Handler/MessageEvents";
 import { PHONENUMBER_MCC } from "../Constant/PHONENUMBER_MCC";
 import consolefy from "@mengkodingan/consolefy";
 import ExtractEventsContent from "../Handler/ExtractEventsContent";
+import { WA_VERSION_ENDPOINT, WA_VERSION_TIMEOUT_MS } from "../Constant/WAVersion";
  
 export class Client {
     prefix: Array<string> | string | RegExp;
@@ -61,7 +62,7 @@ export class Client {
         this.selfReply = opts.selfReply ?? false;
         this.WAVersion = opts.WAVersion;
         this.autoMention = opts.autoMention ?? false;
-        this.fallbackWAVersion = [2, 3000, 1025144028];
+        this.fallbackWAVersion = [2, 3000, 1047151772];
         this.authAdapter = opts.authAdapter ?? useMultiFileAuthState(this.authDir as string);
         this.browser = opts.browser ?? Browsers.ubuntu('CHROME');
 
@@ -250,12 +251,55 @@ export class Client {
         return decodeJid(jid)
     }
 
+    /**
+     * Ambil versi WhatsApp Web yang sedang berlaku.
+     *
+     * `fallbackWAVersion` dulu satu-satunya sumber, jadi namanya menipu: tidak
+     * ada yang pernah mengambil versi terbaru, dan angkanya dipatok sejak
+     * Juli 2025. Begitu WhatsApp menaikkan versi minimum kliennya, setiap bot
+     * yang memakai ckptw ditolak serentak dengan `code=405 Connection Failure`
+     * saat menyambung -- gejala yang tidak menyebut versi sama sekali.
+     *
+     * Sekarang angkanya diambil saat launch, dan patokan itu benar-benar jadi
+     * cadangan: dipakai hanya kalau pengambilan gagal, supaya jaringan yang
+     * bermasalah tidak membuat bot gagal start.
+     */
+    private async resolveWAVersion(): Promise<[number, number, number]> {
+        try {
+            const res = await fetch(WA_VERSION_ENDPOINT, {
+                signal: AbortSignal.timeout(WA_VERSION_TIMEOUT_MS),
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            const body = await res.json() as { version?: unknown };
+            const v = body?.version;
+
+            // Divalidasi bentuknya, bukan cuma dipercaya: jawaban yang cacat
+            // lebih baik jatuh ke patokan daripada diteruskan ke makeWASocket
+            // dan gagal jauh dari sini.
+            if (
+                Array.isArray(v) && v.length === 3 &&
+                v.every((n) => typeof n === "number" && Number.isFinite(n))
+            ) {
+                return v as [number, number, number];
+            }
+            throw new Error("bentuk versi tidak dikenali");
+        } catch (err) {
+            this.consolefy?.setTag("wa-version");
+            this.consolefy?.warn(
+                `Gagal mengambil versi WA terbaru (${(err as Error).message}), memakai patokan ${this.fallbackWAVersion.join(".")}.`
+            );
+            this.consolefy?.resetTag();
+            return this.fallbackWAVersion;
+        }
+    }
+
     async launch() {
         const { state, saveCreds } = await this.authAdapter;
         this.state = state;
         this.saveCreds = saveCreds;
 
-        const version = this.WAVersion ? this.WAVersion : this.fallbackWAVersion;
+        const version = this.WAVersion ?? await this.resolveWAVersion();
         this.core = makeWASocket({
             logger: this.logger as any,
             printQRInTerminal: this.printQRInTerminal,
